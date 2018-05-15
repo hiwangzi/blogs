@@ -35,18 +35,18 @@
 <link rel="canonical" href="https://hiwangzi.com/2018/05/08/difference-between-if-a-b-0-and-if-a-b/"/>
 
 
-<meta name="description" content="问题 赞同最多的回答 补充   问题在阅读 Java 的 ArrayList 源代码时，我注意到在 if 语句中的一些比较语句。 在 Java 7 之中，grow(int) 方法使用了如下代码： 12if (newCapacity - minCapacity &amp;lt; 0)    newCapacity = minCapacity; 在 Java 6 中，没有 grow 方法。但方法 ensu">
+<meta name="description" content="问题 赞同最多的回答    原文地址：java - Difference between if (a - b &amp;lt; 0) and if (a &amp;lt; b) - Stack Overflow  问题在阅读 Java 的 ArrayList 源代码时，我注意到在 if 语句中的一些比较语句。 在 Java 7 之中，grow(int) 方法使用了如下代码： 12if (newCapacity">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="「译」if(a-b&amp;lt;0) 与 if(a&amp;lt;b) 的区别">
 <meta property="og:url" content="https://hiwangzi.com/2018/05/08/difference-between-if-a-b-0-and-if-a-b/index.html">
 <meta property="og:site_name" content="WANG!">
-<meta property="og:description" content="问题 赞同最多的回答 补充   问题在阅读 Java 的 ArrayList 源代码时，我注意到在 if 语句中的一些比较语句。 在 Java 7 之中，grow(int) 方法使用了如下代码： 12if (newCapacity - minCapacity &amp;lt; 0)    newCapacity = minCapacity; 在 Java 6 中，没有 grow 方法。但方法 ensu">
+<meta property="og:description" content="问题 赞同最多的回答    原文地址：java - Difference between if (a - b &amp;lt; 0) and if (a &amp;lt; b) - Stack Overflow  问题在阅读 Java 的 ArrayList 源代码时，我注意到在 if 语句中的一些比较语句。 在 Java 7 之中，grow(int) 方法使用了如下代码： 12if (newCapacity">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-05-08T13:43:14.563Z">
+<meta property="og:updated_time" content="2018-05-14T06:44:30.629Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="「译」if(a-b&amp;lt;0) 与 if(a&amp;lt;b) 的区别">
-<meta name="twitter:description" content="问题 赞同最多的回答 补充   问题在阅读 Java 的 ArrayList 源代码时，我注意到在 if 语句中的一些比较语句。 在 Java 7 之中，grow(int) 方法使用了如下代码： 12if (newCapacity - minCapacity &amp;lt; 0)    newCapacity = minCapacity; 在 Java 6 中，没有 grow 方法。但方法 ensu">
+<meta name="twitter:description" content="问题 赞同最多的回答    原文地址：java - Difference between if (a - b &amp;lt; 0) and if (a &amp;lt; b) - Stack Overflow  问题在阅读 Java 的 ArrayList 源代码时，我注意到在 if 语句中的一些比较语句。 在 Java 7 之中，grow(int) 方法使用了如下代码： 12if (newCapacity">
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
@@ -136,9 +136,11 @@
 <ul>
 <li><a href="#问题">问题</a></li>
 <li><a href="#赞同最多的回答">赞同最多的回答</a></li>
-<li><a href="#补充">补充</a></li>
 </ul>
 <!-- /TOC -->
+<blockquote>
+<p>原文地址：<a href="https://stackoverflow.com/questions/33147339/difference-between-if-a-b-0-and-if-a-b" target="_blank" rel="noopener">java - Difference between if (a - b &lt; 0) and if (a &lt; b) - Stack Overflow</a></p>
+</blockquote>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>在阅读 Java 的 <code>ArrayList</code> 源代码时，我注意到在 <code>if</code> 语句中的一些比较语句。</p>
 <p>在 Java 7 之中，<a href="http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/7-b147/java/util/ArrayList.java#ArrayList.grow%28int%29" target="_blank" rel="noopener"><code>grow(int)</code></a> 方法使用了如下代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>)</span><br><span class="line">    newCapacity = minCapacity;</span><br></pre></td></tr></table></figure>
@@ -160,9 +162,6 @@
 <p>因此第一个 <code>if</code> 块中的代码将不会被执行。但假设代码条件写作 <code>if (newCapacity &lt; minCapacity)</code>，结果将会是 <code>true</code>（因为 <code>newCapacity</code> 是负值），这将导致 <code>newCapacity</code> 被强行指定为 <code>minCapacity</code> 而没有考虑 <code>minCapacity</code>。</p>
 <p>这个溢出问题将会被下一个 <code>if</code> 语句所处理。当 <code>newCapacity</code> 溢出后，此 <code>if</code> 的结果为 <code>true</code>：<code>MAX_ARRAY_SIZE</code> 为 <code>Integer.MAX_VALUE - 8</code>，所以 <code>Integer.MIN_VALUE - (Integer.MAX_VALUE - 8) &gt; 0</code> 为 <code>true</code>。因此 <code>newCapacity</code> 可以被正确的处理：<code>hugeCapacity</code> 方法将返回 <code>MAX_ARRAY_SIZE</code> 或 <code>Integer.MAX_VALUE</code>。</p>
 <p>注意：这就是对应 Java 代码中注释 <code>// overflow-conscious</code> 的含义。</p>
-<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><ul>
-<li><a href="https://stackoverflow.com/questions/33147339/difference-between-if-a-b-0-and-if-a-b" target="_blank" rel="noopener">原问答链接</a></li>
-</ul>
 
             </div>
           
@@ -180,6 +179,12 @@
         
         
   <nav class="post-nav">
+    
+      <a class="prev" href="/2018/05/14/json-in-urls/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">「译」在 URLs 中使用 JSON</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
     
     
       <a class="next" href="/2018/03/25/arch-install-with-bcm/">

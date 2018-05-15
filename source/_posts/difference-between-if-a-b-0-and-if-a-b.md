@@ -1,6 +1,6 @@
 ---
 title: 「译」if(a-b&lt;0) 与 if(a&lt;b) 的区别
-date: 2018-05-08 16:40:47
+date: 2018-05-08 00:00:00
 tags:
 - Java
 ---
@@ -9,9 +9,10 @@ tags:
 
 - [问题](#问题)
 - [赞同最多的回答](#赞同最多的回答)
-- [补充](#补充)
 
 <!-- /TOC -->
+
+> 原文地址：[java - Difference between if (a - b < 0) and if (a < b) - Stack Overflow](https://stackoverflow.com/questions/33147339/difference-between-if-a-b-0-and-if-a-b)
 
 ## 问题
 
@@ -79,7 +80,3 @@ if (newCapacity - MAX_ARRAY_SIZE > 0)
 这个溢出问题将会被下一个 `if` 语句所处理。当 `newCapacity` 溢出后，此 `if` 的结果为 `true`：`MAX_ARRAY_SIZE` 为 `Integer.MAX_VALUE - 8`，所以 `Integer.MIN_VALUE - (Integer.MAX_VALUE - 8) > 0` 为 `true`。因此 `newCapacity` 可以被正确的处理：`hugeCapacity` 方法将返回 `MAX_ARRAY_SIZE` 或 `Integer.MAX_VALUE`。
 
 注意：这就是对应 Java 代码中注释 `// overflow-conscious` 的含义。
-
-## 补充
-
-* [原问答链接](https://stackoverflow.com/questions/33147339/difference-between-if-a-b-0-and-if-a-b)
