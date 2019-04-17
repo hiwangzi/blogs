@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java on WANG!</title>
-    <link>https://zill057.github.io/blogs/tags/java/</link>
+    <link>https://hiwangzi.com/tags/java/</link>
     <description>Recent content in Java on WANG!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 08 Jul 2018 11:29:16 +0800</lastBuildDate>
     
-	<atom:link href="https://zill057.github.io/blogs/tags/java/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://hiwangzi.com/tags/java/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>java.util.List的remove(int)与remove(Object)</title>
-      <link>https://zill057.github.io/blogs/posts/java-util-list-remove-int-remove-object/</link>
+      <link>https://hiwangzi.com/posts/java-util-list-remove-int-remove-object/</link>
       <pubDate>Sun, 08 Jul 2018 11:29:16 +0800</pubDate>
       
-      <guid>https://zill057.github.io/blogs/posts/java-util-list-remove-int-remove-object/</guid>
+      <guid>https://hiwangzi.com/posts/java-util-list-remove-int-remove-object/</guid>
       <description>最近看到 V2EX 上一个帖子《关于 Java foreach 循环删除多个元素的有趣问题（不是抛异常哦）》，我根据代码预测的执行结果与实际楼主贴出的并不相同。看了评论，才发现自己忽略了一点，觉得有点意思，因此记录一下。</description>
     </item>
     
     <item>
       <title>「译」if(a - b &lt; 0) 与 if(a &lt; b) 的区别</title>
-      <link>https://zill057.github.io/blogs/posts/difference-between-if-a-b-0-and-if-a-b/</link>
+      <link>https://hiwangzi.com/posts/difference-between-if-a-b-0-and-if-a-b/</link>
       <pubDate>Tue, 08 May 2018 00:00:00 +0800</pubDate>
       
-      <guid>https://zill057.github.io/blogs/posts/difference-between-if-a-b-0-and-if-a-b/</guid>
+      <guid>https://hiwangzi.com/posts/difference-between-if-a-b-0-and-if-a-b/</guid>
       <description>一个针对此问题 Stack Overflow 上的回答。</description>
     </item>
     

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Unknown on WANG!</title>
-    <link>https://zill057.github.io/blogs/tags/unknown/</link>
+    <link>https://hiwangzi.com/tags/unknown/</link>
     <description>Recent content in Unknown on WANG!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 23 Dec 2017 00:00:00 +0800</lastBuildDate>
     
-	<atom:link href="https://zill057.github.io/blogs/tags/unknown/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://hiwangzi.com/tags/unknown/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>About</title>
-      <link>https://zill057.github.io/blogs/about/</link>
+      <link>https://hiwangzi.com/about/</link>
       <pubDate>Sat, 23 Dec 2017 00:00:00 +0800</pubDate>
       
-      <guid>https://zill057.github.io/blogs/about/</guid>
+      <guid>https://hiwangzi.com/about/</guid>
       <description>关于我与此站点。</description>
     </item>
     
