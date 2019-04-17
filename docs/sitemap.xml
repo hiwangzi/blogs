@@ -3,13 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://hiwangzi.com/tags/java/</loc>
+    <loc>https://hiwangzi.com/2018/</loc>
     <lastmod>2018-07-08T11:29:16+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://hiwangzi.com/posts/</loc>
+    <loc>https://hiwangzi.com/tags/java/</loc>
     <lastmod>2018-07-08T11:29:16+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -27,7 +27,7 @@
   </url>
   
   <url>
-    <loc>https://hiwangzi.com/posts/java-util-list-remove-int-remove-object/</loc>
+    <loc>https://hiwangzi.com/2018/07/08/java-util-list-remove-int-remove-object/</loc>
     <lastmod>2018-07-08T11:29:16+08:00</lastmod>
   </url>
   
@@ -38,12 +38,12 @@
   </url>
   
   <url>
-    <loc>https://hiwangzi.com/posts/json-in-urls/</loc>
+    <loc>https://hiwangzi.com/2018/05/14/json-in-urls/</loc>
     <lastmod>2018-05-14T00:00:00+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://hiwangzi.com/posts/difference-between-if-a-b-0-and-if-a-b/</loc>
+    <loc>https://hiwangzi.com/2018/05/08/difference-between-if-a-b-0-and-if-a-b/</loc>
     <lastmod>2018-05-08T00:00:00+08:00</lastmod>
   </url>
   
@@ -54,7 +54,7 @@
   </url>
   
   <url>
-    <loc>https://hiwangzi.com/posts/arch-install-with-bcm/</loc>
+    <loc>https://hiwangzi.com/2018/03/25/arch-install-with-bcm/</loc>
     <lastmod>2018-03-25T00:00:00+08:00</lastmod>
   </url>
   
