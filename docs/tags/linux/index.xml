@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on WANG!</title>
+    <link>https://zill057.github.io/blogs/tags/linux/</link>
+    <description>Recent content in Linux on WANG!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 25 Mar 2018 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://zill057.github.io/blogs/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>安装 Arch 中遇到的 Broadcom b43(BCM43228) 网卡问题</title>
+      <link>https://zill057.github.io/blogs/posts/arch-install-with-bcm/</link>
+      <pubDate>Sun, 25 Mar 2018 00:00:00 +0800</pubDate>
+      
+      <guid>https://zill057.github.io/blogs/posts/arch-install-with-bcm/</guid>
+      <description>之前按照《以官方 Wiki 的方式安装 ArchLinux》，并结合官方文档，成功的在 VirtualBox 环境下安装好了 Arch。虚拟机限于内存、显卡等因素，体验不够好，因此今天准备在旧笔记本实机安装。在第一步联网过程中，就遇到了阻碍，特此记录。</description>
+    </item>
+    
+  </channel>
+</rss>

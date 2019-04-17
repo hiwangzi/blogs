@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>
+				「译」在 URLs 中使用 JSON &middot; WANG!
+		</title>
+
+		
+  		<link rel="stylesheet" href="/blogs/css/style.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+		
+		<link rel="icon" type="image/png" sizes="32x32" href="/blogs/images/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/blogs/images/favicon-16x16.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/blogs/images/apple-touch-icon.png">
+
+		
+		<link href="" rel="alternate" type="application/rss+xml" title="WANG!" />
+	</head>
+
+    <body>
+        		<nav class="nav">
+			<div class="nav-container">
+				<a href="/blogs/">
+					<h2 class="nav-title">WANG!</h2>
+				</a>
+				<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/rainbow.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<ul>
+    <li><a href="/blogs/tags">Tags</a></li>
+    <li><a href="/blogs/about">About</a></li>
+    <li><a href="/blogs/index.xml">RSS</a></li>
+</ul>
+			</div>
+		</nav>
+
+        
+
+<main>
+	<div class="post">
+		<div class="post-info">
+    <span>Written by</span>
+        
+        <br>
+        <span>on&nbsp;</span><time datetime="2018-05-14 00:00:00 &#43;0800 CST">May 14, 2018</time>
+</div>
+		<h1 class="post-title">「译」在 URLs 中使用 JSON</h1>
+<div class="post-line"></div>
+
+		
+
+		
+
+<blockquote>
+<p>原文地址：<a href="https://blogs.dropbox.com/developers/2015/03/json-in-urls/">JSON in URLs | Dropbox Developer Blog</a></p>
+</blockquote>
+
+<p>基于 HTTP 的 API 经常将参数编码为 URL 路径或查询参数。例如，调用丢丢盒（Dropbox）API 搜索文件名时的路径可能如下所示：</p>
+
+<pre><code>/1/search/auto/My+Documents?query=draft+2013
+</code></pre>
+
+<p>虽然对于简单的例子而言，使用 URL 编码似乎已经足够完美，但使用 JSON 可能也有一些优点。</p>
+
+<h2 id="混乱的-url-路径">混乱的 URL 路径</h2>
+
+<p>在上面的例子中，因为第一个 <code>+</code> 就在 URL 之中，所以其就是字面意义上的加号。而第二个 <code>+</code> 表示一个空格，因为它位于 URL 查询部分。这两者很容易混淆，因为他们的编码规则在大多数情况下是相同的，而且就像 <code>urlencode</code> 一样，有时一些库提供的函数的名字又非常模棱两可。我们 SDK 的一个早期版本就因此有过一个 bug。</p>
+
+<p>另一个常见的错误就是误认为在路径部分 <code>/</code> 同其他普通字符一样。</p>
+
+<ul>
+<li><code>/hello-world</code> 等价于 <code>/hello%2Dworld</code></li>
+<li><code>/hello/world</code> <strong>不</strong>等价于 <code>/hello%2Fworld</code></li>
+</ul>
+
+<p>符号 <code>/</code> 是保留的分界符。将其改为使用 <code>%</code> 编码的形式会改变 URL 的含义。大多数 URL 编码库并没有非常清晰地对两者作出区分。虽然大多数情况下这不重要，<a href="https://sakurity.com/blog/2015/03/15/authy_bypass.html">但某些情况却非常关键</a>。</p>
+
+<h2 id="url-查询参数表现力不足">URL 查询参数表现力不足</h2>
+
+<p>假设 API 参数需要一组值时，该怎么处理呢？一些 API 可能使用逗号或重复的名字来处理。</p>
+
+<pre><code>/docs/salary.csv?columns=1,2
+/docs/salary.csv?column=1&amp;column=2
+</code></pre>
+
+<p>对于嵌套的字段，一些 API 可能如下处理：</p>
+
+<pre><code>/emails?from[name]=Don&amp;from[date]=1998-03-24&amp;to[name]=Norm
+</code></pre>
+
+<p>这些变通都是合理的，但他们仍然只是变通之举。并没有普遍的标准。但 JSON 可以一致、简单的处理嵌套。</p>
+
+<h2 id="使用-url-编码是否很糟糕呢">使用 URL 编码是否很糟糕呢？</h2>
+
+<p>不，它只是为不同的情况设计的：人类交互使用。</p>
+
+<p>JSON 将一切字符串用引号包裹。这让许多事情变得更简单以及更健壮，但对于人们来说，读与写可能略显乏味单调。</p>
+
+<p>相较于 JSON，URL 参数可以更快的开始使用。在通常情况下，这非常不错。但缺点就是更容易造成混乱，因此任何处理 URL 参数的代码都会变得很复杂。</p>
+
+<p>这里要做一些合理的权衡。 我不会在我的浏览器地址栏使用 JSON，但对于基于 HTTP 的 API 来说，使用 JSON 来处理可能是一个更好的选择。</p>
+
+<h2 id="所以问题在哪儿呢">所以问题在哪儿呢？</h2>
+
+<p>当思考到这的时候，我们可以说对比于 URL 编码，使用 JSON 在某些方面更佳。对于结构化的数据，HTTP API 响应已经基本上都在使用 JSON 了。最近一次我处理 URL 编码的响应体是在 2007 年时使用 OAuth 1。目前 OAuth 2 已经使用 JSON 了。</p>
+
+<p>API 请求体分裂成了 JSON 和 URL 编码两种形式。URL 编码的一个好处是<a href="https://stripe.com/docs/api/curl#create_charge">你可以很好的使用 <code>curl</code> 命令行工具做示例</a>。但很多 API，包括丢丢盒新一些的 API，已经开始在请求体中使用 JSON。</p>
+
+<p>所以为什么不在 URL 中同样使用 JSON 呢？就像下面这样：</p>
+
+<ul>
+<li>URL encoded: <code>/log?a=b&amp;c=4</code></li>
+<li>JSON in URL: <code>/log?%7B%22a%22:%22b%22,%22c%22:4%7D</code></li>
+</ul>
+
+<p>第一点，JSON 形式更长了。这可能会导致你的 URL 超出<a href="https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers/417184#417184">长度限制</a>。</p>
+
+<p>同时，它看起来很丑，但这可以通过抽象来解决。例如，除非在 packet 层面上出现了错误，否则你也无需去处理原始网络 packet。同样的道理，除非你的 URL 出现错误，否则你无需去接触丑陋版本的 URL。一旦它通过了检测，你在错误消息或日志输出中看到的就只是解码过的字符串了。</p>
+
+<p>创建一个整理抽象层需要花费额外的工作，尤其过去从未使用过类似方式。虽然在 URL 中使用 JSON 前期会有一些烦恼，但它带来的好处值得让人一试。</p>
+
+
+		<div>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "zill" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+	</div>
+
+	<div class="pagination">
+		<a href="/blogs/posts/difference-between-if-a-b-0-and-if-a-b/" class="left arrow">&#8592;</a>
+		<a href="/blogs/posts/java-util-list-remove-int-remove-object/" class="right arrow">&#8594;</a>
+
+		<a href="#" class="top">Top</a>
+	</div>
+</main>
+
+
+        		<footer>
+			<span>
+			&copy; <time datetime="2019-04-17 17:10:21.240773 &#43;0800 CST m=&#43;0.052572484">2019</time> zill057. Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			</span>
+		</footer>
+
+    </body>
+</html>

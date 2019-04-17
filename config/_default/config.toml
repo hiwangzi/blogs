@@ -1,0 +1,9 @@
+languageCode = "en-us"
+title = "WANG!"
+theme = "tale"
+publishDir = "docs"
+disqusShortname = "zill"
+[Author]
+  name = "zill057"
+[taxonomies]
+  tag = "tags"
