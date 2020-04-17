@@ -39,6 +39,7 @@ tags: ["Linux"]
 * 安装后怎么启动 ❓ [更多参考](http://linuxwireless.sipsolutions.net/en/users/Drivers/b43/) 卸载之前的驱动，然后再加载新安装的驱动。
 
   * 卸载旧驱动（如果你知道你正在使用的驱动名称的话，只需执行对应的命令即可）
+
     ```bash
     modprobe -r b43 bcma
     modprobe -r brcmsmac bcma
@@ -46,6 +47,7 @@ tags: ["Linux"]
     ```
 
   * 加载新驱动（只需执行对应的驱动命令即可）
+
     ```bash
     modprobe b43
     modprobe brcmsmac
@@ -61,22 +63,26 @@ tags: ["Linux"]
 * 通过 `ip link set <设备名> up` 启动接口服务。
 * 可以通过 `iw dev <设备名> scan | less` 扫描附近网络。
 * 联网（方式 1）无加密网络
-  ```bash
-  iw dev <设备名> connect <网络 SSID>
-  ```
+
+    ```bash
+    iw dev <设备名> connect <网络 SSID>
+    ```
 * 联网（方式 2）WEP 加密
-  ```bash
-  iw dev <设备名> connect <网络 SSID> key 0:<WEP密钥>
-  ```
+
+    ```bash
+    iw dev <设备名> connect <网络 SSID> key 0:<WEP密钥>
+    ```
+
 * 联网（方式 3）WPA/WPA2 加密（现在最常见）
   * `vim /etc/wpasupplicant/wpa_supplicant.conf` 编辑文件（其实放在别的位置也行），增加如下内容（注意包含引号）：
-    ```
-    network={
-        ssid="<网络 SSID>"
-        psk="<密码>"
-        priority=1
-    }
-    ```
+      ```
+      network={
+          ssid="<网络 SSID>"
+          psk="<密码>"
+          priority=1
+      }
+      ```
+    
   * `wpa_supplicant -i <设备名> -c /etc/wpa_supplicant/wpa_supplicant.conf &` 后台启动网络连接
 
 * 获取 IP：`dhcpcd <设备名>` 自动获取 IP 地址
