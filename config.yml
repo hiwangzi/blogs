@@ -10,6 +10,7 @@ params:
   env: production
   description: "Hi, there."
   author: Zi WANG
+  comments: true
   ShowReadingTime: true
   defaultTheme: auto
   ShowShareButtons: true
