@@ -1,0 +1,80 @@
+baseURL: "https://hiwangzi.com/"
+title: WANG!
+paginate: 8
+theme: hugo-PaperMod
+enableInlineShortcodes: true
+
+disqusShortname: zill
+
+params:
+  env: production
+  description: "Hi, there."
+  author: Zi WANG
+  ShowReadingTime: true
+  defaultTheme: auto
+  ShowShareButtons: true
+  assets:
+    favicon: '/images/favicon.ico'
+
+  profileMode:
+    enabled: false
+    title: WANG!
+    imageUrl: "/images/apple-touch-icon.png"
+    imageTitle: zill057
+    buttons:
+      - name: Archives
+        url: archives
+      - name: Tags
+        url: tags
+
+  homeInfoParams:
+    Title: "Hi, there ✨"
+    Content: "[地球欢迎你](/about)"
+
+  socialIcons:
+    - name: twitter
+      url: "https://twitter.com/zill057"
+    - name: stackoverflow
+      url: "https://serverfault.com/users/488539/zill057"
+    - name: github
+      url: "https://github.com/zill057"
+    - name: rss
+      url: "/index.xml"    
+
+menu:
+  main:
+    - name: Archives
+      url: /archives/
+      weight: 5
+    - name: Tags
+      url: /tags/
+      weight: 10
+
+taxonomies:
+  category: categories
+  tag: tags
+  series: series
+
+privacy:
+  vimeo:
+    disabled: false
+    simple: true
+
+  twitter:
+    disabled: false
+    enableDNT: true
+    simple: true
+
+  instagram:
+    disabled: false
+    simple: true
+
+  youtube:
+    disabled: false
+    privacyEnhanced: true
+
+services:
+  instagram:
+    disableInlineCSS: true
+  twitter:
+    disableInlineCSS: true
