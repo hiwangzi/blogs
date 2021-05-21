@@ -4,7 +4,11 @@ paginate: 8
 theme: hugo-PaperMod
 enableInlineShortcodes: true
 
-disqusShortname: zill
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
 
 params:
   env: production
@@ -14,68 +18,41 @@ params:
   ShowReadingTime: true
   defaultTheme: auto
   ShowShareButtons: true
+  ShowReadingTime: false
   assets:
     favicon: '/images/favicon.ico'
 
-  profileMode:
-    enabled: false
-    title: WANG!
-    imageUrl: "/images/apple-touch-icon.png"
-    imageTitle: zill057
-    buttons:
-      - name: Archives
-        url: archives
-      - name: Tags
-        url: tags
-
   homeInfoParams:
     Title: "Hi, there ✨"
-    Content: "[地球欢迎你](/about)"
+    Content: "[欢迎你 地球人](/about)"
 
   socialIcons:
-    - name: twitter
-      url: "https://twitter.com/zill057"
-    - name: stackoverflow
-      url: "https://serverfault.com/users/488539/zill057"
     - name: github
       url: "https://github.com/zill057"
+    - name: stackoverflow
+      url: "https://stackexchange.com/users/14383694/zill057?tab=activity"
+    - name: twitter
+      url: "https://twitter.com/zill057"
     - name: rss
-      url: "/index.xml"    
+      url: "/index.xml"
+  
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
 
 menu:
   main:
     - name: Archives
-      url: /archives/
+      url: /archives
       weight: 5
     - name: Tags
-      url: /tags/
+      url: /tags
       weight: 10
-
-taxonomies:
-  category: categories
-  tag: tags
-  series: series
-
-privacy:
-  vimeo:
-    disabled: false
-    simple: true
-
-  twitter:
-    disabled: false
-    enableDNT: true
-    simple: true
-
-  instagram:
-    disabled: false
-    simple: true
-
-  youtube:
-    disabled: false
-    privacyEnhanced: true
-
-services:
-  instagram:
-    disableInlineCSS: true
-  twitter:
-    disableInlineCSS: true
+    - name: Search
+      url: /search
+      weight: 15

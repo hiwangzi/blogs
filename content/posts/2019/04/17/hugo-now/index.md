@@ -16,7 +16,7 @@ tags: ["Life"]
   * [覆盖了部分页面配置](https://github.com/zill057/blogs/tree/15cf97bf639312217d719493915c0f05d46d0797/layouts)，目的是自定义菜单栏、加载 Disqus 评论插件。
   * [覆盖了 favicon 静态资源](https://github.com/zill057/blogs/tree/15cf97bf639312217d719493915c0f05d46d0797/static)，实现自定义站点 icon 图标。
 * 通过修改配置文件，将生成结果放置到 `docs` 目录下。这样可以通过配置 GitHub 项目的 Pages 获取方式，来实现页面的渲染。
-    ![GitHub Pages配置方式](../resources/github-pages-config.png)
+    ![GitHub Pages配置方式](./resources/github-pages-config.png)
 * 通过 Hugo 的 [taxonomies 机制](https://gohugo.io/content-management/taxonomies/)，实现标签。
 
 ### 感受

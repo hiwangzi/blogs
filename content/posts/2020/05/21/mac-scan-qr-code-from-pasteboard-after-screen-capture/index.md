@@ -26,9 +26,9 @@ pngpaste - | zbarimg -q PNG:- | awk -F 'QR-Code:' '{print $2}'
 
 ### 演示
 
-![操作演示](../resources/demo.gif)
+![操作演示](./resources/demo.gif)
 
 * 我使用的截图软件 [Xnip](https://apps.apple.com/us/app/xnip-screenshot-annotation/id1221250572)
 * 此处我为上述命令定义了别名 `dqr`
 * 演示中的二维码（你也可以试一试
-  ![本站二维码](../resources/qrcode-hiwangzi.com.png)
+  ![本站二维码](./resources/qrcode-hiwangzi.com.png)
