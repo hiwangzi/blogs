@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>ORM on WANG!</title><link>https://hiwangzi.com/tags/orm/</link><description>Recent content in ORM on WANG!</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Fri, 26 May 2017 22:25:00 +0800</lastBuildDate><atom:link href="https://hiwangzi.com/tags/orm/index.xml" rel="self" type="application/rss+xml"/><item><title>数据库表间多对多关系（附带额外字段）的实体类（POJO 或 POCO）表示</title><link>https://hiwangzi.com/posts/2017/05/26/po-in-many-to-many-relationship/</link><pubDate>Fri, 26 May 2017 22:25:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/05/26/po-in-many-to-many-relationship/</guid><description>介绍 在之前的 Entity Framework 快速上手介绍 之中，两个实体之间只是简单的一对一关系，而在实际的应用场景中，还会出现多对多关系，同时还有可能会出现多对多关系还附带有其他字段的情况。
+下面以几个例子，对表间多对多关系的类表示加以更加详细地描述。虽然两个场景举例是使用的 C# 及 Entity Framework(Model First) 框架自动生成数据库、实体类。但这种设计方法，并不只是在使用 ORM 框架时需要，事实上，它是 POCO 及简单 Java 类（POJO）的设计原则之一。
+场景实例 场景一 在考虑多对多关系还附带有字段的情况之前，让我们先看一下，多对多关系但不附带额外字段的情况下，实体类代码的表示。
+此处使用 Entity Framework(Model First)，快速将 model diagram 转为数据库中的表及实体类。
+假设的场景是学生选课，一名学生可以选多门课，一门课也可以被多个学生选择。E-R 图如下所示： 对应自动生成的数据库如下：
+StudentSet CourseSet CourseRegistrationSet 其中 Course_Id 与 Students_Id（注：此处词尾(s)负数的原因参见上面 E-R 图中右边的 Properties 中 End1 Navigation Property 的设置）分别以另外两张数据表的 Id 主键作为外键。 同时 Course_Id 与 Students_Id 两者联合做 CourseRegistrationSet 表的主键。 对应自动生成实体类的代码如下：
+Student.cs namespace Model { using System; using System.</description></item><item><title>Entity Framework 新手入门友好实例</title><link>https://hiwangzi.com/posts/2017/03/24/entity-framework-newbie-sample/</link><pubDate>Fri, 24 Mar 2017 22:35:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/03/24/entity-framework-newbie-sample/</guid><description>起因 因为实习的原因，程序之中用到了较多的数据库操作逻辑。如果每一处数据库操作都手写的话，工作量较大且后期不易于维护，所以希望能通过 ORM 框架来解决这两个问题。
+在昨天之前，对于 ORM 这个词汇，我也仅仅只是在上个学期的 Java EE 课上看企业老师“神速”地使用 Hibernate 做了建立数据库、插入数据的演示。
+这两天花了很多时间了解 Entity Framework，终于在今晚成功地实现了“查插删改”，中间经过了很多的波折。例如：查找的很多资料提供的代码都是不完整的，同时他们的讲解也不够“新人（菜鸟）友好型”。所以我决定把一个简单的实例的具体步骤写出来，帮助像我这样的菜鸟快速将 EF(Entity Framework) 应用起来。
+如果博文有不当之处，欢迎指出，谢谢~
+简介 首先是两个概念
+对象关系映射（英语：Object Relational Mapping，简称 ORM，或 O/RM，或 O/R mapping），是一种程序设计技术，用于实现面向对象编程语言里不同类型系统的数据之间的转换。简单来说，就是可以把一条数据库记录转换为程序中的一个对象，或者反向转换，当然实际上 ORM 可以做更多的事情。）
+Entity Framework (又称ADO.NET Entity Framework) 是微软以 ADO.NET 为基础所发展出来的对象关系对应 (O/R Mapping) 解决方案。
+使用 Entity Framework 在实际数据库相关代码开发中可以采取三种方式：
+DB First：先开发数据库，然后借助 Visual Studio 将数据库中的表结构（或视图）转换为程序中实体模型类。 Code First：直接在程序中定义实体模型类，然后借助 Visual Studio 将其转换为数据库中的表。 Model First：借助 Visual Studio 中的可视化设计工具，设计好数据模型（可以理解为E-R图），然后转换为数据库中的表。 本实例采用第三种方式，即 Model First。</description></item></channel></rss>
