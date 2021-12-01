@@ -27,12 +27,12 @@ params:
     Content: "[欢迎你 地球人](/about)"
 
   socialIcons:
-    - name: github
-      url: "https://github.com/zill057"
-    - name: stackoverflow
-      url: "https://stackexchange.com/users/14383694/zill057?tab=activity"
     - name: twitter
       url: "https://twitter.com/zill057"
+    - name: goodreads
+      url: "https://www.goodreads.com/zill057"
+    - name: github
+      url: "https://github.com/zill057"
     - name: rss
       url: "/index.xml"
   
