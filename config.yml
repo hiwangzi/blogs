@@ -28,11 +28,11 @@ params:
 
   socialIcons:
     - name: twitter
-      url: "https://twitter.com/zill057"
+      url: "https://twitter.com/hiwangzi"
     - name: goodreads
-      url: "https://www.goodreads.com/zill057"
+      url: "https://www.goodreads.com/hiwangzi"
     - name: github
-      url: "https://github.com/zill057"
+      url: "https://github.com/hiwangzi"
     - name: rss
       url: "/index.xml"
   
