@@ -9,6 +9,42 @@ tags: ["Java", "Java 核心笔记"]
 ## 继承
 
 * Java 中只允许单继承。
+    ![多重继承 vs 多层继承](./resources/1.png)
+* 继承的UML类图表示，[关于UML](/posts/2017/10/14/core-java-04-06/)
+    ![继承的UML类图表示](./resources/2.png)
+* 在使用继承的时候应该注意的是：子类不能直接访问父类中的私有成员，但是子类可以调用父类中的非私有方法。（详见下文[访问控制](#访问控制)）
+* 使用`super()`方法调用父类构造函数
+    ```java
+    class A {
+        A(String str) {
+            System.out.println(str);
+        }
+    }
+    class B extends A {
+        B() {
+            // 1. 因为A类缺少默认构造方法，所以必须显示调用父类A的构造函数，
+            //    否则无法编译通过。
+            // 2. 另外，使用super，显示调用父类构造函数时，必须在方法体首行。
+            super("default"); 
+
+            System.out.println("Hello");
+            System.out.println("World");
+        }
+        B(String str) {
+            // 此处调用本类的无参构造函数，已经传递调用了父类A的构造函数。
+            this();
+        }
+    }
+    public class SuperTest {
+        public static void main(String [] args) {
+            B b = new B("Hi");
+        }
+        // 输出结果如下：
+        // default
+        // Hello
+        // World
+    }
+    ```
 * 一个对象变量可以指示多种实际类型的现象被称为多态（polymorphism）。
 * 子类不能覆盖父类中 `final` 修饰的方法（`final` 类中所有方法自动地成为 `final` 方法，并且 `final` 类不能被继承）。
 * 在父类转子类的类型转换前，可以先借助 `instanceof` 操作符，查看是否能够转换成功。
@@ -24,7 +60,7 @@ tags: ["Java", "Java 核心笔记"]
 * 如果是 `private` 方法、`static` 方法、`final` 方法或者构造器，编译器可以准确知道应该调用哪个方法，此种调用方式称为**静态绑定**（static binding）。
 
 ## 抽象类
-* 包含一个或多个抽象方法的类本身必须被声明为抽象的。
+* 包含一个或多个抽象方法的类本身必须被声明为抽象的（abstract）。
     * 除了抽象方法，抽象类还可以包含具体数据和具体方法。
     * 扩展抽象类有两种选择：
       * 一是部分实现抽象方法，此时子类仍需标记为抽象类；
@@ -52,7 +88,7 @@ tags: ["Java", "Java 核心笔记"]
 
 * equals 方法示例
 ```java
-// 代码来自《Java核心技术 卷I》P167
+// 代码来自《Java核心技术 卷I 第十版》P167
 // 父类
 public class Employee{
     ...
@@ -64,7 +100,8 @@ public class Employee{
         if(otherObject == null) return false;
 
         // if the classes don't match, they can't be equal
-        // 笔者注：子类通过super.equals方法调用到此处时，getClass()的结果是子类
+        // 笔者注：子类Manager通过super.equals方法调用到此处时，
+        //        getClass()的结果是子类，这是动态绑定的体现
         if(getClass() != otherObject.getClass())
             return false;
 
@@ -79,8 +116,8 @@ public class Employee{
     }
 }
 // 子类
-// 先调用超类的equals，如果返回false，对象则不可能相等
-// 如果父类中的域都相等，再比较子类的实例域
+// 1. 先调用父类的equals，如果返回false，对象则不可能相等
+// 2. 如果父类中的域都相等，再比较子类中新增的实例域
 public class Manager extends Employee{
     ...
     public boolean equals(Object otherObject){
@@ -99,11 +136,78 @@ public class Manager extends Employee{
     * 一致性：如果 x 与 y 引用的对象没有发生变化，则 x.eqauls(y) 也不应变化
     * 对于任意的非空引用 x，x.equals(null) 应当返回 false
 
-* 在上面的例子中，如果发现类型不一致，就返回 false。但同时也有许多程序员喜欢采用以下代码进行检测 ```if(!(otherObject instanceof Employee)) return false;``` 但这样没有解决 otherObject 是子类的情况(父类对象.eqaules(子类对象))下的比较问题。
+* 在上面的例子中，`if(getClass() != otherObject.getClass()) return false;` 如果发现类型不一致，就返回 false。
+    * 但有一些程序员喜欢采用以下代码进行检测 `if(!(otherObject instanceof Employee)) return false;` 但这样存在问题，父类对象与子类对象比较时，不满足对称性，如下示例代码：
+        ```java
+        import java.util.Objects;
 
-* 关于 getClass 与 instanceof 两种检测方法：
-    * 如果子类能够拥有自己的相等概念，则对称性需求将强制采用 getClass 进行检测。
-    * 如果由超类决定相等的概念，那么就可以使用 instanceof 进行检测，这样可以在不同子类的对象之间进行相等的比较。
+        public class SuperTest {
+            public static void main(String[] args) {
+                Parent parent = new Parent("Hi");
+                Child child = new Child("Hi");
+                System.out.println(parent.equals(child));
+                System.out.println(child.equals(parent));
+            }
+        }
+
+        class Parent {
+            private final String strParent;
+
+            Parent(String str) {
+                this.strParent = str;
+            }
+
+            @Override
+            public boolean equals(Object otherObject) {
+                if (this == otherObject) return true;
+                if (otherObject == null) return false;
+
+                // ⬇️ 最终输出会得到 true、java.lang.ClassCastException，不满足对称性
+                if (!(otherObject instanceof Parent)) return false;
+
+                // ⬇️ 使用该种判断，最终输出会得到 false、false
+                // if (getClass() != otherObject.getClass()) return false;
+                Parent other = (Parent) otherObject;
+                return Objects.equals(strParent, other.strParent);
+            }
+        }
+
+        class Child extends Parent {
+
+            private final String strChild;
+
+            Child(String str) {
+                super(str);
+                this.strChild = str;
+            }
+
+            @Override
+            public boolean equals(Object otherObject) {
+                if (!super.equals(otherObject)) return false;
+                Child other = (Child) otherObject;
+                return Objects.equals(strChild, other.strChild);
+            }
+        }
+        ```
+
+* 关于 `getClass` 与 `instanceof` 两种检测方法：
+    * 如果子类能够拥有自己的相等概念，则对称性需求将强制采用 `getClass` 进行检测。
+    * 如果由超类决定相等的概念，那么就可以使用 `instanceof` 进行检测，这样可以在不同子类的对象之间进行相等的比较。
+        ```java
+        @Override
+        public boolean equals(Object otherObject) {
+            if (!super.equals(otherObject)) return false;
+            // 为了实现「由超类决定相等的概念」，可以通过以下两种方式：
+            // 1. 直接移除子类的equals重载，因为既然都是父类决定，子类没有必要进行重载操作，比较推荐这种方式 👍
+            // 2. 基于上面的例子，通过在子类equals中增加instance判断（下面这行代码）
+            if (!(otherObject instanceof Child)) return true;
+            Child other = (Child) otherObject;
+            return Objects.equals(strChild, other.strChild);
+        }
+        ```
+    * 造成二者之间差异的根本原因：
+        * `子对象 instanceof 父类`结果为true，`父对象 instanceof 子类`结果为false
+        * `getClass`得到的结果是动态绑定后的子类
 
 * 编写完美的 equals 方法的建议：
     1. 显式参数命名为 otherObject，稍后需要将它转换为另一个叫做 other 的变量。
@@ -123,7 +227,7 @@ public class Manager extends Employee{
 
 ### `hashCode` 方法
 
-* 散列码（hash code）是由对象导出的一个整形值（可以是负数）。其是没有规律的，如果x与y是两个不同的对象，则x.hashCode()与y.hashCode()基本上不会相同。
+* 散列码（hash code）是由对象导出的一个整形值（可以是负数）。是***没有规律***的，如果x与y是两个不同的对象，则x.hashCode()与y.hashCode()基本上不会相同。
 * hashCode 方法定义在 Object 类中，因此每个对象都有一个默认的散列码方法，其返回结果是对象的存储地址。
 * 一个例子：
   * 代码：
@@ -142,14 +246,14 @@ public class Manager extends Employee{
       -1232882509 1808253012
       ```
   * 可以看到，String 对象的散列码是相同的，这是因为字符串的散列码是由内容导出的；而 StringBuffer 对象散列码不同，这是因为 StringBuffer 类没有定义 `hashCode()` 方法，它的散列码是由默认的 Object 类的默认 `hashCode()` 方法导出的对象存储地址。
-* 如果重新定义 `equals` 方法，就**必须**重新定义 `hashCode` 方法，以便于可以将对象插入到散列表中。
+* 如果重新定义 `equals` 方法，就***必须***重新定义 `hashCode` 方法，以便于可以将对象插入到散列表中。
 * 可以调用 `Objects.hash` 方法并提供多个参数得到散列码（这种做法比较好）：
     ```java
     public int hashCode(){
         return Objects.hash(name, salary, hireDay);
     }
     ```
-* `equals` 与 `hashCode` 定义**必须**一致，即 x.equals(y) 与 x.hashCode() == y.hashCode() 结果一致。
+* `equals` 与 `hashCode` 行为***必须***一致，即 x.equals(y) 与 x.hashCode() == y.hashCode() 结果一致。
 
 ### `toString` 方法
 
