@@ -21,9 +21,10 @@ public class Test {
         System.out.println("hello".equals(str)) ; // true
         System.out.println("hello" == str); // true
         // String 池：Java为了优化字符串操作 提供了一个缓冲池；
-        // str 指向字符串 “hello” ,第二句中字符串 “hello” ，因为字符串在常量池中已经存在，第二句中字符串 “hello” 就不再开辟空间。
-        // 所以不管是 equals 比较内容， == 比较内存地址都为 true
-        // 但请不要使用这种方式比较字符串，不稳键
+        // str 指向字符串 "hello", 第二句中字符串 "hello" ，为同一指向。
+        // 这是因为字符串在常量池中已经存在，第二句中字符串 "hello" 就不再开辟新空间。
+        // 所以不管是 equals 比较内容， == 比较内存地址都为 true。
+        // 但请不要使用这种方式比较字符串，不稳键。
     }
 }
 ```
