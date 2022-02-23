@@ -52,25 +52,46 @@ tags: ["Java", "Java 核心笔记"]
 * 与方法的覆盖表现不同，实际上不能实现「动态多态」
 
 ```java
+public class VarOverrideDemo {
+    public static void main(String [] args) {
+        B b = new B();
+        b.print();  // Hello
+                    // 100
+        
+        System.out.println(c.str);      // C
+        System.out.println(d.str);      // D
+        System.out.println(c.getStr()); // D
+        System.out.println(d.getStr()); // D
+    }
+}
+
 class A {
     String info = "Hello";
 }
 class B extends A {
-    int info = 100; //名称与父类中变量相同
+    int info = 100; // 名称与父类中变量相同
     public void print(){
         System.out.println(super.info);
         System.out.println(this.info);
     }
 }
-public class VarOverrideDemo {
-    public static void main(String [] args) {
-        B b = new B();
-        b.print();
+
+class C {
+    String str = "C";
+
+    public String getStr() {
+        return str;
     }
 }
-// 输出
-// Hello
-// 100
+class D extends C {
+    String str = "D";
+
+    // 即使不加Override注解，也能实现动态绑定
+    // @Override
+    public String getStr() {
+        return str;
+    }
+}
 ```
 
 但其实在实际开发中，这种特性意义不是很大，因为绝大多数情况，属性都是被封装的，而被限制为 `private` 后，对于子类而言不可见，因此不会相互影响。
