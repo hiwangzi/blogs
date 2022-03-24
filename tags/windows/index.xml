@@ -1,1 +1,56 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Windows on WANG!</title><link>https://hiwangzi.com/tags/windows/</link><description>Recent content in Windows on WANG!</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Mon, 04 Sep 2017 19:13:00 +0800</lastBuildDate><atom:link href="https://hiwangzi.com/tags/windows/index.xml" rel="self" type="application/rss+xml"/><item><title>「cmd」与「网卡」—— netsh 命令</title><link>https://hiwangzi.com/posts/2017/09/04/netsh-newbie-note/</link><pubDate>Mon, 04 Sep 2017 19:13:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/09/04/netsh-newbie-note/</guid><description>1. 通过命令提示符（cmd）命令连接 Wi-Fi 1.1 连接曾经连接过的 Wi-Fi :: 查看配置的列表（::表示注释） netsh wlan show profile :: 连接 netsh wlan connect ssid=你的SSID名字(简单可以理解为Wi-Fi名) name=你的配置名字 1.2 连接从未连接过的 Wi-Fi :: 先增加一项 Wi-Fi 配置，注意要在配置文件所在目录执行 netsh wlan add profile filename=&amp;#34;你的配置.xml&amp;#34; :: 查看配置的列表，检查是否添加成功 netsh wlan show profile :: 连接 netsh wlan connect ssid=你的SSID名字 name=你的配置名字 示例配置文件 &amp;lt;?xml version=&amp;#34;1.0&amp;#34;?&amp;gt; &amp;lt;WLANProfile xmlns=&amp;#34;http://www.microsoft.com/networking/WLAN/profile/v1&amp;#34;&amp;gt; &amp;lt;name&amp;gt;你的配置名字（与SSID名字相同即可）&amp;lt;/name&amp;gt; &amp;lt;SSIDConfig&amp;gt; &amp;lt;SSID&amp;gt; &amp;lt;name&amp;gt;你的SSID名字&amp;lt;/name&amp;gt; &amp;lt;/SSID&amp;gt; &amp;lt;/SSIDConfig&amp;gt; &amp;lt;connectionType&amp;gt;ESS&amp;lt;/connectionType&amp;gt; &amp;lt;connectionMode&amp;gt;auto&amp;lt;/connectionMode&amp;gt; &amp;lt;MSM&amp;gt; &amp;lt;security&amp;gt; &amp;lt;authEncryption&amp;gt; &amp;lt;authentication&amp;gt;WPA2PSK&amp;lt;/authentication&amp;gt; &amp;lt;encryption&amp;gt;AES&amp;lt;/encryption&amp;gt; &amp;lt;useOneX&amp;gt;false&amp;lt;/useOneX&amp;gt; &amp;lt;/authEncryption&amp;gt; &amp;lt;sharedKey&amp;gt; &amp;lt;keyType&amp;gt;passPhrase&amp;lt;/keyType&amp;gt; &amp;lt;protected&amp;gt;false&amp;lt;/protected&amp;gt; &amp;lt;keyMaterial&amp;gt;你的WiFi密码&amp;lt;/keyMaterial&amp;gt; &amp;lt;/sharedKey&amp;gt; &amp;lt;/security&amp;gt; &amp;lt;/MSM&amp;gt; &amp;lt;MacRandomization xmlns=&amp;#34;http://www.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Windows on WANG!</title><link>https://hiwangzi.com/tags/windows/</link><description>Recent content in Windows on WANG!</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Mon, 04 Sep 2017 19:13:00 +0800</lastBuildDate><atom:link href="https://hiwangzi.com/tags/windows/index.xml" rel="self" type="application/rss+xml"/><item><title>「cmd」与「网卡」—— netsh 命令</title><link>https://hiwangzi.com/posts/2017/09/04/netsh-newbie-note/</link><pubDate>Mon, 04 Sep 2017 19:13:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/09/04/netsh-newbie-note/</guid><description>1. 通过命令提示符（cmd）命令连接 Wi-Fi 1.1 连接曾经连接过的 Wi-Fi :: 查看配置的列表（::表示注释） netsh wlan show profile :: 连接 netsh wlan connect ssid=你的SSID名字(简单可以理解为Wi-Fi名) name=你的配置名字 1.2 连接从未连接过的 Wi-Fi :: 先增加一项 Wi-Fi 配置，注意要在配置文件所在目录执行 netsh wlan add profile filename=&amp;#34;你的配置.xml&amp;#34; :: 查看配置的列表，检查是否添加成功 netsh wlan show profile :: 连接 netsh wlan connect ssid=你的SSID名字 name=你的配置名字 示例配置文件 &amp;lt;?xml version=&amp;#34;1.0&amp;#34;?&amp;gt; &amp;lt;WLANProfile xmlns=&amp;#34;http://www.microsoft.com/networking/WLAN/profile/v1&amp;#34;&amp;gt; &amp;lt;name&amp;gt;你的配置名字（与SSID名字相同即可）&amp;lt;/name&amp;gt; &amp;lt;SSIDConfig&amp;gt; &amp;lt;SSID&amp;gt; &amp;lt;name&amp;gt;你的SSID名字&amp;lt;/name&amp;gt; &amp;lt;/SSID&amp;gt; &amp;lt;/SSIDConfig&amp;gt; &amp;lt;connectionType&amp;gt;ESS&amp;lt;/connectionType&amp;gt; &amp;lt;connectionMode&amp;gt;auto&amp;lt;/connectionMode&amp;gt; &amp;lt;MSM&amp;gt; &amp;lt;security&amp;gt; &amp;lt;authEncryption&amp;gt; &amp;lt;authentication&amp;gt;WPA2PSK&amp;lt;/authentication&amp;gt; &amp;lt;encryption&amp;gt;AES&amp;lt;/encryption&amp;gt; &amp;lt;useOneX&amp;gt;false&amp;lt;/useOneX&amp;gt; &amp;lt;/authEncryption&amp;gt; &amp;lt;sharedKey&amp;gt; &amp;lt;keyType&amp;gt;passPhrase&amp;lt;/keyType&amp;gt; &amp;lt;protected&amp;gt;false&amp;lt;/protected&amp;gt; &amp;lt;keyMaterial&amp;gt;你的WiFi密码&amp;lt;/keyMaterial&amp;gt; &amp;lt;/sharedKey&amp;gt; &amp;lt;/security&amp;gt; &amp;lt;/MSM&amp;gt; &amp;lt;MacRandomization xmlns=&amp;#34;http://www.</description><content:encoded><![CDATA[<h2 id="1-通过命令提示符cmd命令连接-wi-fi">1. 通过命令提示符（cmd）命令连接 Wi-Fi</h2>
+<h3 id="11-连接曾经连接过的-wi-fi">1.1 连接曾经连接过的 Wi-Fi</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bat" data-lang="bat">:<span style="color:#75715e">: 查看配置的列表（::表示注释）</span>
+netsh wlan show profile
+:<span style="color:#75715e">: 连接</span>
+netsh wlan connect ssid=你的SSID名字(简单可以理解为Wi-Fi名) name=你的配置名字
+</code></pre></div><h3 id="12-连接从未连接过的-wi-fi">1.2 连接从未连接过的 Wi-Fi</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bat" data-lang="bat">:<span style="color:#75715e">: 先增加一项 Wi-Fi 配置，注意要在配置文件所在目录执行</span>
+netsh wlan add profile filename=<span style="color:#e6db74">&#34;你的配置.xml&#34;</span>
+:<span style="color:#75715e">: 查看配置的列表，检查是否添加成功</span>
+netsh wlan show profile
+:<span style="color:#75715e">: 连接</span>
+netsh wlan connect ssid=你的SSID名字 name=你的配置名字
+</code></pre></div><h4 id="示例配置文件">示例配置文件</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
+<span style="color:#f92672">&lt;WLANProfile</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://www.microsoft.com/networking/WLAN/profile/v1&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;name&gt;</span>你的配置名字（与SSID名字相同即可）<span style="color:#f92672">&lt;/name&gt;</span>
+    <span style="color:#f92672">&lt;SSIDConfig&gt;</span>
+        <span style="color:#f92672">&lt;SSID&gt;</span>
+            <span style="color:#f92672">&lt;name&gt;</span>你的SSID名字<span style="color:#f92672">&lt;/name&gt;</span>
+        <span style="color:#f92672">&lt;/SSID&gt;</span>
+    <span style="color:#f92672">&lt;/SSIDConfig&gt;</span>
+    <span style="color:#f92672">&lt;connectionType&gt;</span>ESS<span style="color:#f92672">&lt;/connectionType&gt;</span>
+    <span style="color:#f92672">&lt;connectionMode&gt;</span>auto<span style="color:#f92672">&lt;/connectionMode&gt;</span>
+    <span style="color:#f92672">&lt;MSM&gt;</span>
+        <span style="color:#f92672">&lt;security&gt;</span>
+            <span style="color:#f92672">&lt;authEncryption&gt;</span>
+                <span style="color:#f92672">&lt;authentication&gt;</span>WPA2PSK<span style="color:#f92672">&lt;/authentication&gt;</span>
+                <span style="color:#f92672">&lt;encryption&gt;</span>AES<span style="color:#f92672">&lt;/encryption&gt;</span>
+                <span style="color:#f92672">&lt;useOneX&gt;</span>false<span style="color:#f92672">&lt;/useOneX&gt;</span>
+            <span style="color:#f92672">&lt;/authEncryption&gt;</span>
+            <span style="color:#f92672">&lt;sharedKey&gt;</span>
+                <span style="color:#f92672">&lt;keyType&gt;</span>passPhrase<span style="color:#f92672">&lt;/keyType&gt;</span>
+                <span style="color:#f92672">&lt;protected&gt;</span>false<span style="color:#f92672">&lt;/protected&gt;</span>
+                <span style="color:#f92672">&lt;keyMaterial&gt;</span>你的WiFi密码<span style="color:#f92672">&lt;/keyMaterial&gt;</span>
+            <span style="color:#f92672">&lt;/sharedKey&gt;</span>
+        <span style="color:#f92672">&lt;/security&gt;</span>
+    <span style="color:#f92672">&lt;/MSM&gt;</span>
+    <span style="color:#f92672">&lt;MacRandomization</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://www.microsoft.com/networking/WLAN/profile/v3&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;enableRandomization&gt;</span>false<span style="color:#f92672">&lt;/enableRandomization&gt;</span>
+    <span style="color:#f92672">&lt;/MacRandomization&gt;</span>
+<span style="color:#f92672">&lt;/WLANProfile&gt;</span>
+</code></pre></div><h2 id="2-查看连接过的-wi-fi-密码">2. 查看连接过的 Wi-Fi 密码</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bat" data-lang="bat">:<span style="color:#75715e">: 查看特定</span>
+netsh wlan show profile 配置名称 key=clear
+
+:<span style="color:#75715e">: 查看所有</span>
+<span style="color:#66d9ef">for</span> <span style="color:#66d9ef">/f</span> <span style="color:#e6db74">&#34;skip=9 tokens=1,2 delims=:&#34;</span> %i in (&#39;netsh wlan show profiles&#39;) do  @echo %j | findstr -i -v echo | netsh wlan show profiles %j key=clear
+</code></pre></div><h2 id="3-查看禁用启用网络接口网卡">3. 查看、禁用、启用网络接口（网卡）</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bat" data-lang="bat">:<span style="color:#75715e">: 查看网络接口的列表</span>
+netsh interface show interface
+:<span style="color:#75715e">: 禁用网络接口</span>
+netsh interface set interface 接口名称 disabled
+:<span style="color:#75715e">: 启用网络接口</span>
+netsh interface set interface 接口名称 enabled
+</code></pre></div>]]></content:encoded></item></channel></rss>

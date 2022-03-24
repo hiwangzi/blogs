@@ -1,28 +1,861 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Linux on WANG!</title><link>https://hiwangzi.com/tags/linux/</link><description>Recent content in Linux on WANG!</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Sun, 25 Mar 2018 00:00:00 +0800</lastBuildDate><atom:link href="https://hiwangzi.com/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>安装 Arch 中遇到的 Broadcom b43(BCM43228) 网卡问题</title><link>https://hiwangzi.com/posts/2018/03/25/arch-install-with-bcm/</link><pubDate>Sun, 25 Mar 2018 00:00:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2018/03/25/arch-install-with-bcm/</guid><description>之前按照《以官方 Wiki 的方式安装 ArchLinux》，并结合官方文档，成功的在 VirtualBox 环境下安装好了 Arch。虚拟机限于内存、显卡等因素，体验不够好，因此今天准备在旧笔记本实机安装。在第一步联网过程中，就遇到了阻碍，特此记录。</description></item><item><title>什么是 Unix</title><link>https://hiwangzi.com/posts/2018/02/03/what-is-unix/</link><pubDate>Sat, 03 Feb 2018 00:00:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2018/02/03/what-is-unix/</guid><description>关于内核 当计算机启动时，计算机要经历一系列动作，这些动作构成了引导过程。引导过程的最后一个动作是启动一个非常复杂的程序，该程序就被称为内核（Kernel）。 内核的作用是控制计算机，提供基础服务，是操作系统的核心。 内核有许多种类型，但基本可以分为两大类： 单内核：一个庞大的程序自身可以完成所有的事 微内核：一个非常小的程序只执行最基本的任务，其余通过调用其他程序（称为服务器(server)）实现 内核的使用： 大多数 Unix 系统使用的是某种类型的单内核，一些 Unix （例如 OS X，Minix）使用微内核。 Linux 是单内核。 补：Linus 阅读了 Andrew Tanenbaum 的《Operating System: Design and Implementation》，该书解释了 Minix 的设计原则。Linus 选择使用单内核设计 Linux，而 Andrew Tanenbaum 设计的 Minix 使用的是微内核。在 Linux 开始引起注意后不久，Tanenbaum 公开批判这种设计决策。直到今天，Tanenbaum 仍然在批评这种单内核设计。 关于 Unix Unix = Unix 内核 + Unix 实用工具 Unix 过去是属于 AT&amp;amp;T 的商标（必须为大写 UNIX，以下的全大写均指 AT&amp;amp;T 公司的 Unix） 现在可以理解为指代任何 “类Unix” 系统 关于 “类Unix” 的两种理解： 如果操作系统既包含一个 Unix 内核以及一些 Unix 实用工具，又可以运行能够在其他 Unix 操作系统上运行的程序，那么它就是 Unix 系统 如果理解 Unix 的人说这个系统是 Unix，那么它就是 Unix Unix 的历史 20世纪70年代的 Unix：由贝尔实验室转向 Berkeley</description></item><item><title>命令行计算 RSA, Base64, Hash</title><link>https://hiwangzi.com/posts/2017/11/20/calculate-rsa-base64-hash-in-terminal/</link><pubDate>Mon, 20 Nov 2017 15:05:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/11/20/calculate-rsa-base64-hash-in-terminal/</guid><description>OpenSSL 是个好工具 👍</description></item><item><title>scp 命令简明介绍</title><link>https://hiwangzi.com/posts/2017/10/11/scp-newbie-note/</link><pubDate>Wed, 11 Oct 2017 10:53:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/10/11/scp-newbie-note/</guid><description> 安全复制（英语：Secure copy，缩写SCP）是指在本地主机与远程主机或者两台远程主机之间基于Secure Shell（SSH）协议安全地传输电脑文件。“SCP”通常指安全复制协议或者程序本身。安全复制 - 维基百科，自由的百科全书
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Linux on WANG!</title><link>https://hiwangzi.com/tags/linux/</link><description>Recent content in Linux on WANG!</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Sun, 25 Mar 2018 00:00:00 +0800</lastBuildDate><atom:link href="https://hiwangzi.com/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>安装 Arch 中遇到的 Broadcom b43(BCM43228) 网卡问题</title><link>https://hiwangzi.com/posts/2018/03/25/arch-install-with-bcm/</link><pubDate>Sun, 25 Mar 2018 00:00:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2018/03/25/arch-install-with-bcm/</guid><description>之前按照《以官方 Wiki 的方式安装 ArchLinux》，并结合官方文档，成功的在 VirtualBox 环境下安装好了 Arch。虚拟机限于内存、显卡等因素，体验不够好，因此今天准备在旧笔记本实机安装。在第一步联网过程中，就遇到了阻碍，特此记录。</description><content:encoded><![CDATA[<p>之前按照以 <a href="https://www.viseator.com/2017/05/17/arch_install/">官方 Wiki 的方式安装 ArchLinux</a>，并结合 <a href="https://wiki.archlinux.org/index.php/installation_guide">官方文档</a>，成功的在 VirtualBox 环境下安装好了 Arch。虚拟机限于内存、显卡等因素，体验不够好，因此今天准备在旧笔记本实机安装。在第一步联网过程中，就遇到了阻碍，特此记录。</p>
+<h2 id="查看网卡类型">查看网卡类型</h2>
+<p>在之前的虚拟机环境下，采用 NAT 模式联网，网卡自动识别并加载，只需要执行 <code>dhcpcd</code> 获取 IP 后即可成功连接互联网。但这次，系统并不能自动驱动硬件工作，所以我们需要先检查一下网卡类型。</p>
+<ul>
+<li>执行 <code>lspci -k</code> 查看 Network controller 这一项。</li>
+</ul>
+<pre><code>02:00.0 Network controller: Broadcom Limited BCM43228 802.11a/b/g/n
+Subsystem: Foxconn International, Inc. BCM43228 802.11a/b/g/n
+Kernel driver in use: bcma-pci-bridge
+Kernel moudles: bcma
+</code></pre><ul>
+<li>
+<p>检查 <code>ip link</code> 输出结果中有没有 <code>wlan0</code> 或 <code>wlps21</code> 一类的设备。如果有的话，只需要执行 <code>ip link set &lt;设备名&gt; up</code> 即可，无需再额外安装驱动程序。</p>
+</li>
+<li>
+<p>如果没有，即需要检查内核的固件信息 <code>dmesg | grep firmware</code>，得到更多提示</p>
+</li>
+</ul>
+<pre><code>b43-phy0 ERROR: You must go to http://wireless.kernel.or/en/users/Drivers/b43#devicefirmware and download the correct firmware for this driver version.
+</code></pre><ul>
+<li>如果没有这样的信息，可以先尝试执行 <code>iwlwifi</code> 一类命令，然后查找对应的错误信息 <code>dmesg | grep iwlwifi</code></li>
+<li>获得提示信息后，例如上面的网站，可以访问得到进一步的信息。此处根据上述 <code>ERROR</code> 中的网站给出的指导，执行 <code>lspci -nn -d 14e4:</code> 获得详细的硬件型号，并下载<a href="https://aur.archlinux.org/packages/b43-firmware/">对应的驱动</a>。关于博通无线网卡，可以查阅 <a href="https://wiki.archlinux.org/index.php/Broadcom_wireless">Wiki</a> 页面 获得更多信息</li>
+</ul>
+<h2 id="下载并安装驱动">下载并安装驱动</h2>
+<ul>
+<li>
+<p>没网络怎么下载 ❓ 可以下载至安装U盘的根目录，安装时切换至 <code>/run/archiso/bootmnt</code>，即可看到下载的内容，将其拷贝至 <code>/root</code> 解压。</p>
+</li>
+<li>
+<p>如何来安装驱动 ❓ <a href="https://www.cnblogs.com/clouds008/p/7460928.html">更多参考</a> 在上一步解压完成后，会得到一个 <code>.o</code> 结尾的问题，执行 <code>b43-fwcutter -w /lib/firmware xxx.o</code> 即可完成安装。</p>
+</li>
+<li>
+<p>安装后怎么启动 ❓ <a href="http://linuxwireless.sipsolutions.net/en/users/Drivers/b43/">更多参考</a> 卸载之前的驱动，然后再加载新安装的驱动。</p>
+<ul>
+<li>卸载旧驱动（如果你知道你正在使用的驱动名称的话，只需执行对应的命令即可）
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">modprobe -r b43 bcma
+modprobe -r brcmsmac bcma
+modprobe -r wl
+</code></pre></div></li>
+<li>加载新驱动（只需执行对应的驱动命令即可）
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">modprobe b43
+modprobe brcmsmac
+modprobe wl
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>安装完成后可以通过 <code>ip link</code> 查看是否有新增加的网络接口信息。</p>
+</li>
+</ul>
+<h2 id="安装完成后的联网过程">安装完成后的联网过程</h2>
+<blockquote>
+<p>此部分内容主要参考了 <a href="https://linux.cn/article-4015-1.html">在命令行中管理 Wifi 连接</a></p>
+</blockquote>
+<ul>
+<li>
+<p>通过 <code>ip link set &lt;设备名&gt; up</code> 启动接口服务。</p>
+</li>
+<li>
+<p>可以通过 <code>iw dev &lt;设备名&gt; scan | less</code> 扫描附近网络。</p>
+</li>
+<li>
+<p>联网（方式 1）无加密网络</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">iw dev &lt;设备名&gt; connect &lt;网络 SSID&gt;
+</code></pre></div></li>
+<li>
+<p>联网（方式 2）WEP 加密</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">iw dev &lt;设备名&gt; connect &lt;网络 SSID&gt; key 0:&lt;WEP密钥&gt;
+</code></pre></div></li>
+<li>
+<p>联网（方式 3）WPA/WPA2 加密（现在最常见）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">network={
+    ssid=&#34;&lt;网络 SSID&gt;&#34;
+    psk=&#34;&lt;密码&gt;&#34;
+    priority=1
+}
+</code></pre></div><ul>
+<li><code>vim /etc/wpasupplicant/wpa_supplicant.conf</code> 编辑文件（其实放在别的位置也行），增加以上内容（注意包含引号）</li>
+<li><code>wpa_supplicant -i &lt;设备名&gt; -c /etc/wpa_supplicant/wpa_supplicant.conf &amp;</code> 后台启动网络连接</li>
+</ul>
+</li>
+<li>
+<p>获取 IP：<code>dhcpcd &lt;设备名&gt;</code> 自动获取 IP 地址</p>
+</li>
+<li>
+<p>测试网络：<code>ping hiwangzi.com</code> 测试网络连接是否正常~</p>
+</li>
+</ul>
+]]></content:encoded></item><item><title>什么是 Unix</title><link>https://hiwangzi.com/posts/2018/02/03/what-is-unix/</link><pubDate>Sat, 03 Feb 2018 00:00:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2018/02/03/what-is-unix/</guid><description>关于内核 当计算机启动时，计算机要经历一系列动作，这些动作构成了引导过程。引导过程的最后一个动作是启动一个非常复杂的程序，该程序就被称为内核（Kernel）。 内核的作用是控制计算机，提供基础服务，是操作系统的核心。 内核有许多种类型，但基本可以分为两大类： 单内核：一个庞大的程序自身可以完成所有的事 微内核：一个非常小的程序只执行最基本的任务，其余通过调用其他程序（称为服务器(server)）实现 内核的使用： 大多数 Unix 系统使用的是某种类型的单内核，一些 Unix （例如 OS X，Minix）使用微内核。 Linux 是单内核。 补：Linus 阅读了 Andrew Tanenbaum 的《Operating System: Design and Implementation》，该书解释了 Minix 的设计原则。Linus 选择使用单内核设计 Linux，而 Andrew Tanenbaum 设计的 Minix 使用的是微内核。在 Linux 开始引起注意后不久，Tanenbaum 公开批判这种设计决策。直到今天，Tanenbaum 仍然在批评这种单内核设计。 关于 Unix Unix = Unix 内核 + Unix 实用工具 Unix 过去是属于 AT&amp;amp;T 的商标（必须为大写 UNIX，以下的全大写均指 AT&amp;amp;T 公司的 Unix） 现在可以理解为指代任何 “类Unix” 系统 关于 “类Unix” 的两种理解： 如果操作系统既包含一个 Unix 内核以及一些 Unix 实用工具，又可以运行能够在其他 Unix 操作系统上运行的程序，那么它就是 Unix 系统 如果理解 Unix 的人说这个系统是 Unix，那么它就是 Unix Unix 的历史 20世纪70年代的 Unix：由贝尔实验室转向 Berkeley</description><content:encoded><![CDATA[<h3 id="关于内核">关于内核</h3>
+<ul>
+<li>当计算机启动时，计算机要经历一系列动作，这些动作构成了引导过程。引导过程的最后一个动作是启动一个非常复杂的程序，该程序就被称为<strong>内核（Kernel）</strong>。</li>
+<li>内核的作用是控制计算机，提供基础服务，是<a href="/posts/2017/10/02/vbird-linux-01/#os">操作系统</a>的核心。</li>
+<li>内核有许多种类型，但基本可以分为两大类：
+<ul>
+<li>单内核：一个庞大的程序自身可以完成所有的事</li>
+<li>微内核：一个非常小的程序只执行最基本的任务，其余通过调用其他程序（称为服务器(server)）实现</li>
+</ul>
+</li>
+<li>内核的使用：
+<ul>
+<li>大多数 Unix 系统使用的是某种类型的单内核，一些 Unix （例如 OS X，Minix）使用微内核。</li>
+<li>Linux 是单内核。</li>
+<li>补：Linus 阅读了 Andrew Tanenbaum 的《Operating System: Design and Implementation》，该书解释了 Minix 的设计原则。Linus 选择使用单内核设计 Linux，而 Andrew Tanenbaum 设计的 Minix 使用的是微内核。在 Linux 开始引起注意后不久，Tanenbaum 公开批判这种设计决策。直到今天，Tanenbaum 仍然在批评这种单内核设计。</li>
+</ul>
+</li>
+</ul>
+<h3 id="关于-unix">关于 Unix</h3>
+<ul>
+<li>Unix = Unix 内核 + Unix 实用工具</li>
+<li>Unix 过去是属于 AT&amp;T 的商标（必须为大写 UNIX，以下的全大写均指 AT&amp;T 公司的 Unix）</li>
+<li>现在可以理解为指代任何 “类Unix” 系统</li>
+<li>关于 “类Unix” 的两种理解：
+<ul>
+<li>如果操作系统既包含一个 Unix 内核以及一些 Unix 实用工具，又可以运行能够在其他 Unix 操作系统上运行的程序，那么它就是 Unix 系统</li>
+<li>如果理解 Unix 的人说这个系统是 Unix，那么它就是 Unix</li>
+</ul>
+</li>
+</ul>
+<h3 id="unix-的历史">Unix 的历史</h3>
+<ul>
+<li>
+<p>20世纪70年代的 Unix：由贝尔实验室转向 Berkeley</p>
+<ul>
+<li>1974年，Berkeley 的 Bob Fabry 教授获得了一份 UNIX 副本，该校的学生们开始增强该系统。</li>
+<li>1977年，Bill Joy 装配了第一版的 Berkeley Unix，被称为 BSD(Berkeley Software Distribution)</li>
+<li>1979年，AT&amp;T 公司宣布将 UNIX 作为一个商品销售（UNIX System III(&ldquo;Three&rdquo;), UNIX System V(&ldquo;Five&rdquo;)）</li>
+<li>1979年，所有的 BSD 用户都被要求购买一个 AT&amp;T 公司的许可证，并且之后每年都在提高许可证的价格。因此，BSD 程序员越来越难以忍受 AT&amp;T 公司的束缚。</li>
+</ul>
+</li>
+<li>
+<p>20世纪80年代的 Unix：BSD 与 System V</p>
+<ul>
+<li>截止至1980年，美国东海岸 Unix（AT&amp;T 的 UNIX）和西海岸的 Unix（BSD）平分秋色，都发展很快。</li>
+<li>此时的 UNIX：AT&amp;T 目标是使 UNIX 成为一个成功的商业产品，只面向能够为许可证付大量金钱的公司。1982年，发行了 UNIX System III。1983年，发行了 System V，到年末，System V 安装了 45,000 份。1984年，System V Release 2(SVR2) 发行时，大约安装了 100,000 份。</li>
+<li>此时的 BSD：1980年，Berkeley 的 Bob Fabry 教授接到美国国防部高级研究计划局（DARPA，补：1972年前，该机构名为 ARPA，Internet的祖先 Arpanet 也由该机构创造）的一个大合同。Fabry 随后建立了 CSRG(Computer System Research Group) ，该小组一直延续到 1994 年，且在这段时间，对 BSD 和 Unix 在全球的发展产生了重要影响。随后该小组发布的 Unix 版本都受到了学术界与研究社区的高度关注。1982年，4.1BSD支持TCP/IP，成为 Internet 的基础。1983年，4.2BSD发布，全球已有1000份安装。</li>
+<li>到 1985 年，Unix 流派就是以上两类。其他形式的 Unix 也都派生自以上两类。</li>
+<li>在20世纪80年代末，Unix世界的两大特征：Unix 总体的快速增长和不同类型 Unix 的增殖扩散。</li>
+</ul>
+</li>
+<li>
+<p>AT&amp;T 公司的限制</p>
+<ul>
+<li>1979年，AT&amp;T不允许其公司之外的人查看 UNIX 的源代码</li>
+<li>1984年之一：x86 架构的 Minix 操作系统开始编写并于两年后诞生</li>
+<li>1984年之二：GNU 计划与 FSF(Free Software Foundation) 基金会的成立</li>
+<li>1991年：芬兰大学生 Linux Torvalds 发布了一则简讯，Linux 世界自此开始，随后发展出了数百个发行版</li>
+<li>1992年：Bill Jolitz 替换了最后的 6 个 AT&amp;T 公司的内核文件，发行了一个完全与 AT&amp;T 无关的 Unix：386/BSD。后来更名为 FreeBSD。后来衍生出了 NetBSD(可移植到许多种类的计算机)，OpenBSD(关注安全与密码学)。</li>
+</ul>
+</li>
+</ul>
+<h3 id="为何-linux-成为了更加流行的-unix">为何 Linux 成为了更加流行的 Unix？</h3>
+<ul>
+<li>Linux 是基于 GNU GPL 许可发行的，而 GPL 禁止任何人使用 Linux 创建及发行专有系统。而 BSD 许可证远没有 GPL 严格，在 BSD 许可证之下，允许使用部分 BSD 创建新产品而不共享新产品，因此这种情况下，其他人无法从新产品获得好处，也无法使用与修改新产品（但也因为 BSD 许可证的灵活，所以应用也非常广泛）。</li>
+<li>Linux 比 FreeBSD 更成功的关键在于发行时机，Linux Torvalds 在 1991 年发行了 Linux 内核，而完全开放源代码的 386/BSD 直到 1992 年才发行。</li>
+</ul>
+]]></content:encoded></item><item><title>命令行计算 RSA, Base64, Hash</title><link>https://hiwangzi.com/posts/2017/11/20/calculate-rsa-base64-hash-in-terminal/</link><pubDate>Mon, 20 Nov 2017 15:05:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/11/20/calculate-rsa-base64-hash-in-terminal/</guid><description>OpenSSL 是个好工具 👍</description><content:encoded><![CDATA[<h2 id="基础">基础</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># -n 可以去掉换行符</span>
+echo -n <span style="color:#e6db74">&#39;777777&#39;</span>
+</code></pre></div><h2 id="rsa算法">RSA算法</h2>
+<ul>
+<li>
+<p>加密</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 利用管道命令传递字符串加密</span>
+echo -n <span style="color:#e6db74">&#39;777777&#39;</span> | openssl rsautl -encrypt -pubin -inkey public_key.pem &gt; message.encrypted
+
+<span style="color:#75715e"># （或）利用文件传递字符串加密</span>
+echo -n <span style="color:#e6db74">&#39;777777&#39;</span> &gt; message.txt
+
+openssl rsautl -encrypt -pubin -inkey public_key.pem -in message.txt &gt; message.encrypted
+</code></pre></div></li>
+<li>
+<p>解密</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">openssl rsautl -decrypt -inkey private_key.pem -in message.encrypted -out message.decrypted
+</code></pre></div></li>
+</ul>
+<h2 id="base64">Base64</h2>
+<ul>
+<li>
+<p>编码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">openssl enc -base64 -e -in message.txt &gt; message.base64e
+</code></pre></div></li>
+<li>
+<p>解码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">openssl enc -base64 -d -in message.base64 &gt; message.base64d
+</code></pre></div></li>
+</ul>
+<h2 id="hash">Hash</h2>
+<ul>
+<li>
+<p>MD5</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo -n <span style="color:#e6db74">&#39;777777&#39;</span> | md5sum
+</code></pre></div></li>
+</ul>
+]]></content:encoded></item><item><title>scp 命令简明介绍</title><link>https://hiwangzi.com/posts/2017/10/11/scp-newbie-note/</link><pubDate>Wed, 11 Oct 2017 10:53:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/10/11/scp-newbie-note/</guid><description> 安全复制（英语：Secure copy，缩写SCP）是指在本地主机与远程主机或者两台远程主机之间基于Secure Shell（SSH）协议安全地传输电脑文件。“SCP”通常指安全复制协议或者程序本身。安全复制 - 维基百科，自由的百科全书
 其使用方法类似于 cp 命令。
 复制文件或目录命令：
 复制文件：
 将本地文件拷贝到远程 scp 文件名 --用户名@计算机IP或者计算机名称:远程路径 从远程将文件拷回本地 scp --用户名@计算机IP或者计算机名称:文件名 本地路径 复制目录：
 将本地目录拷贝到远程 scp -r 目录名 用户名@计算机IP或者计算机名称:远程路径 从远程将目录拷回本地 scp -r 用户名@计算机IP或者计算机名称:目录名 本地路径 注意，如果远程主机使用非默认端口22，可以在命令中指定。例如，从远程主机复制一个文件到本地。
-scp -P 2222 user@host:directory/SourceFile TargetFile</description></item><item><title>《鸟哥的Linux私房菜》笔记——04. 简单命令行</title><link>https://hiwangzi.com/posts/2017/10/09/vbird-linux-04/</link><pubDate>Mon, 09 Oct 2017 18:25:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/10/09/vbird-linux-04/</guid><description>键入命令 [zill@hiwangzi.com ~]$ command [-options] parameter1 parameter2 ... 指令 选项 参数(1) 参数(2) 注意：有时也可以使用 + 放置于选项或参数之前
+scp -P 2222 user@host:directory/SourceFile TargetFile</description><content:encoded><![CDATA[<blockquote>
+<p>安全复制（英语：Secure copy，缩写SCP）是指在本地主机与远程主机或者两台远程主机之间基于Secure Shell（SSH）协议安全地传输电脑文件。“SCP”通常指安全复制协议或者程序本身。<a href="https://zh.wikipedia.org/wiki/%E5%AE%89%E5%85%A8%E5%A4%8D%E5%88%B6">安全复制 - 维基百科，自由的百科全书</a></p>
+</blockquote>
+<ul>
+<li>
+<p>其使用方法类似于 <code>cp</code> 命令。</p>
+</li>
+<li>
+<p>复制文件或目录命令：</p>
+<ul>
+<li>
+<p>复制文件：</p>
+<ol>
+<li>将本地文件拷贝到远程 <code>scp 文件名 --用户名@计算机IP或者计算机名称:远程路径</code></li>
+<li>从远程将文件拷回本地 <code>scp --用户名@计算机IP或者计算机名称:文件名 本地路径</code></li>
+</ol>
+</li>
+<li>
+<p>复制目录：</p>
+<ol>
+<li>将本地目录拷贝到远程 <code>scp -r 目录名 用户名@计算机IP或者计算机名称:远程路径</code></li>
+<li>从远程将目录拷回本地 <code>scp -r 用户名@计算机IP或者计算机名称:目录名 本地路径</code></li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>注意，如果远程主机使用非默认端口22，可以在命令中指定。例如，从远程主机复制一个文件到本地。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">scp -P <span style="color:#ae81ff">2222</span> user@host:directory/SourceFile TargetFile
+</code></pre></div></li>
+</ul>
+]]></content:encoded></item><item><title>《鸟哥的Linux私房菜》笔记——04. 简单命令行</title><link>https://hiwangzi.com/posts/2017/10/09/vbird-linux-04/</link><pubDate>Mon, 09 Oct 2017 18:25:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/10/09/vbird-linux-04/</guid><description>键入命令 [zill@hiwangzi.com ~]$ command [-options] parameter1 parameter2 ... 指令 选项 参数(1) 参数(2) 注意：有时也可以使用 + 放置于选项或参数之前
 例如：
 zill@zill-pc:~$ date +%Y/%m/%d 2017/10/09 zill@zill-pc:~$ date +%H:%M 17:32 几个程序 显示日期与时间的指令： date 显示日历的指令： cal 简单好用的计算器： bc（进入交互界面后 scale=number 设置小数点位数） 几个按键 [Tab]：主要用于自动补全 [Ctrl]-c：中断当前程序 [Ctrl]-d：通常代表「键盘输入结束（End Of File, EOF 或 End Of Input）」的意思（可以代替手动输入 exit） [Shift]+{[PageUP]|[Page Down]}：向前翻页|向后翻页 关于帮助文档 1. man 表格的第一行，可以看到「DATE(1)」，其中(1)代表「一般使用者可以使用的指令」。
 常见代号及含义（可以通过 man man 获得更详细的说明）：
-代号 代表内容 1 使用者在shell环境中可以操作的指令 2 系统核心可调用的函数与工具等 3 一些常用的函數(function)与函数库(library)，大部分为C的函数库(libc) 4 硬件的说明，通常在/dev下的文件 5 设置文件或者是某些文件的格式 6 游戏(games) 7 惯例与协定，例如Linux文件系统、网络协议、ASCII code等等的说明 8 系统管理员可以使用的管理指令 9 跟kernel有关的文件 可以使用 man -f 指令 查找相关指令（名称完全相同）。 可以使用 man -k 指令 搜索相关指令。</description></item><item><title>《鸟哥的Linux私房菜》笔记——03. 磁盘分区</title><link>https://hiwangzi.com/posts/2017/10/09/vbird-linux-03/</link><pubDate>Mon, 09 Oct 2017 14:37:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/10/09/vbird-linux-03/</guid><description>Everything is a file.
+代号 代表内容 1 使用者在shell环境中可以操作的指令 2 系统核心可调用的函数与工具等 3 一些常用的函數(function)与函数库(library)，大部分为C的函数库(libc) 4 硬件的说明，通常在/dev下的文件 5 设置文件或者是某些文件的格式 6 游戏(games) 7 惯例与协定，例如Linux文件系统、网络协议、ASCII code等等的说明 8 系统管理员可以使用的管理指令 9 跟kernel有关的文件 可以使用 man -f 指令 查找相关指令（名称完全相同）。 可以使用 man -k 指令 搜索相关指令。</description><content:encoded><![CDATA[<h2 id="键入命令">键入命令</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>zill@hiwangzi.com ~<span style="color:#f92672">]</span>$ command  <span style="color:#f92672">[</span>-options<span style="color:#f92672">]</span>  parameter1  parameter2 ...
+                        指令        选项        参数<span style="color:#f92672">(</span>1<span style="color:#f92672">)</span>     参数<span style="color:#f92672">(</span>2<span style="color:#f92672">)</span>
+</code></pre></div><p>注意：有时也可以使用 <code>+</code> 放置于选项或参数之前</p>
+<p>例如：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">zill@zill-pc:~$ date +%Y/%m/%d
+2017/10/09
+zill@zill-pc:~$ date +%H:%M
+17:32
+</code></pre></div><h2 id="几个程序">几个程序</h2>
+<ul>
+<li>显示日期与时间的指令： date</li>
+<li>显示日历的指令： cal</li>
+<li>简单好用的计算器： bc（进入交互界面后 scale=number 设置小数点位数）</li>
+</ul>
+<h2 id="几个按键">几个按键</h2>
+<ul>
+<li>[Tab]：主要用于自动补全</li>
+<li>[Ctrl]-c：中断当前程序</li>
+<li>[Ctrl]-d：通常代表「键盘输入结束（End Of File, EOF 或 End Of Input）」的意思（可以代替手动输入 <code>exit</code>）</li>
+<li>[Shift]+{[PageUP]|[Page Down]}：向前翻页|向后翻页</li>
+</ul>
+<h2 id="关于帮助文档">关于帮助文档</h2>
+<h3 id="1-man">1. man</h3>
+<p>表格的第一行，可以看到「DATE(1)」，其中(1)代表「一般使用者可以使用的指令」。</p>
+<p>常见代号及含义（可以通过 man man 获得更详细的说明）：</p>
+<table>
+<thead>
+<tr>
+<th>代号</th>
+<th>代表内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>使用者在shell环境中可以操作的指令</td>
+</tr>
+<tr>
+<td>2</td>
+<td>系统核心可调用的函数与工具等</td>
+</tr>
+<tr>
+<td>3</td>
+<td>一些常用的函數(function)与函数库(library)，大部分为C的函数库(libc)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>硬件的说明，通常在/dev下的文件</td>
+</tr>
+<tr>
+<td>5</td>
+<td>设置文件或者是某些文件的格式</td>
+</tr>
+<tr>
+<td>6</td>
+<td>游戏(games)</td>
+</tr>
+<tr>
+<td>7</td>
+<td>惯例与协定，例如Linux文件系统、网络协议、ASCII code等等的说明</td>
+</tr>
+<tr>
+<td>8</td>
+<td>系统管理员可以使用的管理指令</td>
+</tr>
+<tr>
+<td>9</td>
+<td>跟kernel有关的文件</td>
+</tr>
+</tbody>
+</table>
+<p>可以使用 <code>man -f 指令</code> 查找相关指令（名称完全相同）。
+可以使用 <code>man -k 指令</code> 搜索相关指令。</p>
+<h3 id="2-info-page">2. info page</h3>
+<p>Linux 里额外提供的一种线上求助的方法，和 man 的用途差不多，但与man page输出全部信息不同，info page阅读起来更友好。</p>
+<h3 id="3-usrsharedoc">3. /usr/share/doc</h3>
+<h2 id="系统状态">系统状态</h2>
+<ul>
+<li>查看在线的用户：<code>who</code></li>
+<li>查看网络的连接状态：<code>netstat -a</code></li>
+<li>查看后台程序：<code>ps -aux</code></li>
+</ul>
+<h2 id="关机">关机</h2>
+<ul>
+<li>将数据写入硬盘的指令： <code>sync</code>（目前的 <code>shutdown</code>/<code>reboot</code>/<code>halt</code> 等等指令均已在关机前对 <code>sync</code> 进行了调用）</li>
+<li>常用关机指令： <code>shutdown</code></li>
+<li>重新开机、关机： <code>reboot</code>, <code>halt</code>, <code>poweroff</code></li>
+<li>还可以使用管理工具 systemctl 关机
+<pre><code>[root@study ~]# systemctl [指令]
+指令項目包括如下：
+halt       進入系統停止的模式，螢幕可能會保留一些訊息，這與你的電源管理模式有關
+poweroff   進入系統關機模式，直接關機沒有提供電力喔！
+reboot     直接重新開機
+suspend    進入休眠模式
+</code></pre></li>
+</ul>
+]]></content:encoded></item><item><title>《鸟哥的Linux私房菜》笔记——03. 磁盘分区</title><link>https://hiwangzi.com/posts/2017/10/09/vbird-linux-03/</link><pubDate>Mon, 09 Oct 2017 14:37:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/10/09/vbird-linux-03/</guid><description>Everything is a file.
 常见硬件对应于 Linux 下的文件（/dev目录下）
-装置 装置在Linux内的档名 SCSI/SATA/U盘硬盘机 /dev/sd[a-p] U盘 /dev/sd[a-p]（与SATA相同） VirtI/O界面 /dev/vd[a-p]（用于虚拟机内） 软盘机 /dev/fd[0-1] 打印机 25针: /dev/lp[0-2]; USB: /dev/usb/lp[0-15] 鼠标 PS2: /dev/psaux; USB: /dev/usb/mouse[0-15] CDROM/DVDROM /dev/scd[0-1]（通用）; /dev/sr[0-1]（通用，CentOS较常见） 当前CDROM/DVDROM /dev/cdrom 当前的鼠标 /dev/mouse 磁带机 IDE: /dev/ht0; SATA/SCSI: /dev/st0 IDE硬盘机 /dev/hd[a-d]（近乎被淘汰） MBR 分区方式 硬盘的第一个扇区主要记录了两个重要的信息，分别是：</description></item><item><title>《鸟哥的Linux私房菜》笔记——02. 关于Linux</title><link>https://hiwangzi.com/posts/2017/10/02/vbird-linux-02/</link><pubDate>Mon, 02 Oct 2017 12:28:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/10/02/vbird-linux-02/</guid><description>Unix 历史 1969年以前：伟大的梦想——Bell, MIT 与 GE 的「Multics」系统 1969年：Ken Thompson 的小型 file server system 1973年：Unix 正式诞生（Ritchie等人以 C 语言写出第一个正式 Unix核心） 1977年：重要的 Unix 分支——BSD 的诞生 1979年：重要的 System V 架构（支持x86）与版权宣告 1984年之一：x86 架构的 Minix 操作系统开始编写并于两年后诞生 1984年之二：GNU 计划与 FSF(Free Software Foundation) 基金会的成立 1988年：图形界面 XFree86(X Window System + Free + x86) 计划 1991年：芬兰大学生 Linux Torvalds 的一则简讯 Linux 的核心版本 2.6.18-92.el5 主版本.次版本.释出版本-修改版本 核心被分为两个分支：
-主、次版本为奇数：发展中版本(development) 如2.5.xx，这种核心版本主要用在测试与发展新功能，所以通常这种版本仅有核心开发工程师会使用。 如果有新增的核心程序代码，会加到这种版本当中，等到众多工程师测试没问题后，才加入下一版的稳定核心中； 主、次版本为偶数：稳定版本(stable) 如2.6.xx，等到核心功能发展成熟后会加到这类的版本中，主要用在一般家庭计算机以及企业版本中。 重点在于提供使用者一个相对稳定的Linux作业环境平台。 Linux 是一个操作系统最底层的核心以及其提供的核心工具。他是 GNU GPL 授权模式，所以，任何人均可取得源代码，并且可以修改。</description></item><item><title>《鸟哥的Linux私房菜》笔记——01. 计算机概论</title><link>https://hiwangzi.com/posts/2017/10/02/vbird-linux-01/</link><pubDate>Mon, 02 Oct 2017 11:11:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/10/02/vbird-linux-01/</guid><description>计算机的五大部分：输入单元、输出单元、CPU（控制单元(Control Unit)、算数逻辑单元(ALU)）、内存。 CPU 的架构
+装置 装置在Linux内的档名 SCSI/SATA/U盘硬盘机 /dev/sd[a-p] U盘 /dev/sd[a-p]（与SATA相同） VirtI/O界面 /dev/vd[a-p]（用于虚拟机内） 软盘机 /dev/fd[0-1] 打印机 25针: /dev/lp[0-2]; USB: /dev/usb/lp[0-15] 鼠标 PS2: /dev/psaux; USB: /dev/usb/mouse[0-15] CDROM/DVDROM /dev/scd[0-1]（通用）; /dev/sr[0-1]（通用，CentOS较常见） 当前CDROM/DVDROM /dev/cdrom 当前的鼠标 /dev/mouse 磁带机 IDE: /dev/ht0; SATA/SCSI: /dev/st0 IDE硬盘机 /dev/hd[a-d]（近乎被淘汰） MBR 分区方式 硬盘的第一个扇区主要记录了两个重要的信息，分别是：</description><content:encoded><![CDATA[<ul>
+<li>
+<p>Everything is a file.</p>
+</li>
+<li>
+<p>常见硬件对应于 Linux 下的文件（/dev目录下）</p>
+<table>
+<thead>
+<tr>
+<th>装置</th>
+<th>装置在Linux内的档名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SCSI/SATA/U盘硬盘机</td>
+<td>/dev/sd[a-p]</td>
+</tr>
+<tr>
+<td>U盘</td>
+<td>/dev/sd[a-p]（与SATA相同）</td>
+</tr>
+<tr>
+<td>VirtI/O界面</td>
+<td>/dev/vd[a-p]（用于虚拟机内）</td>
+</tr>
+<tr>
+<td>软盘机</td>
+<td>/dev/fd[0-1]</td>
+</tr>
+<tr>
+<td>打印机</td>
+<td>25针: /dev/lp[0-2]; USB: /dev/usb/lp[0-15]</td>
+</tr>
+<tr>
+<td>鼠标</td>
+<td>PS2: /dev/psaux; USB: /dev/usb/mouse[0-15]</td>
+</tr>
+<tr>
+<td>CDROM/DVDROM</td>
+<td>/dev/scd[0-1]（通用）; /dev/sr[0-1]（通用，CentOS较常见）</td>
+</tr>
+<tr>
+<td>当前CDROM/DVDROM</td>
+<td>/dev/cdrom</td>
+</tr>
+<tr>
+<td>当前的鼠标</td>
+<td>/dev/mouse</td>
+</tr>
+<tr>
+<td>磁带机</td>
+<td>IDE: /dev/ht0; SATA/SCSI: /dev/st0</td>
+</tr>
+<tr>
+<td>IDE硬盘机</td>
+<td>/dev/hd[a-d]（近乎被淘汰）</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<h2 id="mbr-分区方式">MBR 分区方式</h2>
+<ul>
+<li>
+<p>硬盘的第一个扇区主要记录了两个重要的信息，分别是：</p>
+<ul>
+<li>主要启动记录区(Master Boot Record, MBR)：可以安装启动管理程序的地方，有446 bytes</li>
+<li>分割表(partition table)：记录整块硬盘分割的状态，有64 bytes</li>
+</ul>
+</li>
+<li>
+<p>关于磁盘分区表(partition table)：</p>
+<ul>
+<li>磁盘分区的最小单位是磁柱。</li>
+<li>在分割表所在的64 bytes容量中，总共分为四组记录区，每组记录区记录了该区段的启始与结束的磁柱号码。</li>
+</ul>
+</li>
+<li>
+<p>假设下面的硬盘文件名为/dev/hda，那么这四个分区的文件名就如下所示：</p>
+<p><img loading="lazy" src="./resources/1104579-20171009143755074-1863723813.png" alt=""  />
+</p>
+<ul>
+<li>P1: /dev/hda1</li>
+<li>P2: /dev/hda2</li>
+<li>P3: /dev/hda3</li>
+<li>P4: /dev/hda4</li>
+</ul>
+</li>
+<li>
+<p>以上提到的四个分区指的是主分区，如果需要，可以通过扩展分区来实现：</p>
+<p><img loading="lazy" src="./resources/1104579-20171009144159184-1131367971.png" alt=""  />
+</p>
+<ul>
+<li>
+<p>在上图中，四个主分区记录区仅使用其中两个，P2通过扩展分区，分配出五个逻辑分区。</p>
+</li>
+<li>
+<p>扩展分配的目的是<strong>使用额外的磁区来记录分割信息，扩展分配本身并不能被拿来格式化。</strong></p>
+</li>
+<li>
+<p>其在Linux系统中文件名如下：</p>
+<ul>
+<li>P1: /dev/hda1</li>
+<li>P2: /dev/hda2</li>
+<li>L1: /dev/hda5</li>
+<li>L2: /dev/hda6</li>
+<li>L3: /dev/hda7</li>
+<li>L4: /dev/hda8</li>
+<li>L5: /dev/hda9
+其中没有出现/dev/hda3与/dev/hda4，是因为前面四个数字保留给主分区/扩展分区使用。</li>
+</ul>
+</li>
+<li>
+<p>小总结：</p>
+<ul>
+<li>主要分割与扩展分配最多可以有四笔(硬盘的限制)</li>
+<li>扩展分配最多只能有一个(操作系统的限制)</li>
+<li>逻辑分割是由扩展分配持续切割出来的分割槽；</li>
+<li>能够被格式化后，作为数据存取的分割槽为主要分割与逻辑分割。扩展分配无法格式化；</li>
+<li>逻辑分割的数量依操作系统而不同，在Linux系统中，IDE硬盘最多有59个逻辑分割(5号到63号)， SATA硬盘则有11个逻辑分割(5号到15号)。</li>
+</ul>
+</li>
+<li>
+<p>缺点：</p>
+<ul>
+<li>操作系统无法识别大于 2.2T 以上的磁盘容量；</li>
+<li>MBR 仅有一个区块，若被破坏后，无法或很难恢复；</li>
+<li>存放 boot loader 的区块仅有 446 bytes，无法容纳较多的代码。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="guid-partition-table-gpt-分区方式">GUID partition table, GPT 分区方式</h2>
+<ul>
+<li>
+<p>过去一个扇区大小为512bytes，而目前已经出现了4k的扇区设计。为了兼容于所有的硬盘，在扇区的定义上，大多使用逻辑区块地址（Logical Block Address, LBA）来处理。GPT将硬盘所有区块以此LBA（预设为512bytes）来规划，第一个LBA称为LBA0。</p>
+</li>
+<li>
+<p>与MBR仅仅使用第一个512bytes来记录不同，GPT使用了34个LBA区块来记录硬盘分割信息，同时整个硬盘的最后33个LBA被用来作为另一个备份。</p>
+<p><img loading="lazy" src="./resources/1104579-20171009155633527-64701774.png" alt=""  />
+</p>
+<ul>
+<li>LBA0（MBR兼容区块）：
+与MBR模式类似，也分为两部分，一部分是与之前446bytes相似的区块，存储第一阶段的boot loader程序。但在原本的磁盘分割表记录区中，仅仅放入一个特殊标志分割，以此表明当前为GPT分区方式。</li>
+<li>LBA1（GPT表头记录）：
+这个部分记录了分割表本身的位置与大小，同时记录了备份用的GPT分割放置的位置，以及校验码（CRC32）。操作系统可以根据校验码判断GPT是否正确，若有错误，则可以取得备份来恢复。</li>
+<li>LBA2-33（实际记录分割记录信息处）：
+从LBA2区块开始，每个LBA都可以记录4个分割记录，所以在默认情况下，可以记录4*32=128个记录。每一个记录除了记录所需要的标志码与相关记录意外，还<strong>分别</strong>提供了64bits来记录开始/结束的区块号码。因此对一单一的分区来说，最大容量限制在「264 × 512bytes = 263 × 1Kbytes = 233 × TB = 8 ZB 」</li>
+</ul>
+</li>
+</ul>
+<h2 id="系统启动流程bios--mbrgpt">系统启动流程（BIOS + MBR/GPT）</h2>
+<p>简单的说，整个启动流程到操作系统之前的动作应该是这样的：</p>
+<ul>
+<li>BIOS：启动主动运行的韧体，会认识第一个可启动的装置；</li>
+<li>MBR：第一个可启动装置的第一个磁区内的主要启动记录区块，内含启动管理程序；</li>
+<li>启动管理程序(boot loader)：一支可读取核心文件来运行的软件；</li>
+<li>核心文件：开始操作系统的功能&hellip;</li>
+</ul>
+<p>关于第二点，如果分区方式为GPT的话，BIOS同样可以在MBR兼容区块（LBA0）读取到boot loader程序，如果boot loader可以识别GPT分区的话，就可以正常启动系统。</p>
+<p>由于MBR仅有446 bytes，所以boot loader非常精简，其主要任务是：</p>
+<ul>
+<li>提供菜单：使用者可以选择不同的启动项目，这也是多重启动的重要功能！</li>
+<li>加载核心文件：直接指向可启动的程序区段来开始操作系统；</li>
+<li>转交其他loader：将启动管理功能转交给其他loader负责。</li>
+</ul>
+<p>正是因为有第三点的功能，才能实现「多系统」功能。</p>
+<p>举例，计算机只有一个硬盘，分为四个分区，其中第一、二分区分别安装了Windows与Linux。如何在启动时选择启动哪个操作系统呢？</p>
+<p>假设MBR内安装的是可以同时认识Windows与Linux操作系统的启动管理程序，整个流程就如下图所示：</p>
+<p><img loading="lazy" src="./resources/1104579-20171009144614652-2006736437.png" alt=""  />
+</p>
+<p>MBR的启动管理程序提供两个菜单，菜单一(M1)可以直接加载Windows的核心文件来启动； 菜单二(M2)则是将启动管理工作交给第二个分割槽的启动磁区(boot sector)。</p>
+<p>当使用者在启动的时候选择菜单二时， 那么整个启动管理工作就会交给第二分割槽的启动管理程序了。 当第二个启动管理程序启动后，该启动管理程序内(上图中)仅有一个启动菜单，因此就能够使用Linux的核心文件来启动。</p>
+<ul>
+<li>小总结：
+<ul>
+<li>每个分割槽都拥有自己的启动磁区(boot sector)</li>
+<li>图中的系统槽为第一及第二分割槽，</li>
+<li>实际可启动的核心文件是放置到各分割槽内的！</li>
+<li>loader只会认识自己的系统槽内的可启动核心文件，以及其他loader而已；</li>
+<li>loader可直接指向或者是间接将管理权转交给另一个管理程序。</li>
+</ul>
+</li>
+</ul>
+<h2 id="系统启动流程uefi--gpt">系统启动流程（UEFI + GPT）</h2>
+<p>事实上，BIOS 并不能识别GPT，其是通过GPT的兼容实现（LBA0）来加载boot loader。同时，BIOS仅仅为16位程序，功能较弱。因此UEFI(Unified Extensible Firmware Interface) 这个可扩展的界面产生。其基本上可以说是一个低级层次的小型操作系统。</p>
+<table>
+<thead>
+<tr>
+<th>比较项目</th>
+<th>传统 BIOS</th>
+<th>UEFI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>使用程序语言</td>
+<td>汇编语言</td>
+<td>C 语言</td>
+</tr>
+<tr>
+<td>硬件资源控制</td>
+<td>使用中断 (IRQ) 管理; 不可变的内存存取; 不可变得输入/输出存取</td>
+<td>使用驱动程序与协定</td>
+</tr>
+<tr>
+<td>处理器运行环境</td>
+<td>16 位元</td>
+<td>CPU 保护模式</td>
+</tr>
+<tr>
+<td>扩展方式</td>
+<td>通过 IRQ 连接</td>
+<td>直接載入驱动程序</td>
+</tr>
+<tr>
+<td>第三方厂商支持</td>
+<td>较差</td>
+<td>较好且可支持多平台</td>
+</tr>
+<tr>
+<td>图形化能力</td>
+<td>较差</td>
+<td>较好</td>
+</tr>
+<tr>
+<td>內建简化操作系统前环境</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+</tbody>
+</table>
+<p>另外，与BIOS相比，虽然UEFI可以直接读取GPT的分割表，不过最好依然拥有BIOS boot的分区支持（LBA0）。同时为了兼容Windows，并提供其他第三方厂商所使用的UEFI程序存储空间，必须格式化一个vfat的文件系统，大约提供512MB到1G左右的容量，以便让其他UEFI程序执行较为方便。</p>
+<h2 id="关于挂载mount">关于挂载（mount）</h2>
+<ul>
+<li>
+<p>Linux 的目录树结构</p>
+<p><img loading="lazy" src="./resources/1104579-20171009144625871-1297639301.png" alt=""  />
+</p>
+</li>
+<li>
+<p>文件系统与目录树的关系
+所谓的「挂载」就是利用一个目录当成进入点，将磁盘分区槽的数据放置在该目录下； 也就是说，进入该目录就可以读取该分区的意思。这个动作我们称为『挂载』，那个进入点的目录我们称为『挂载点』。</p>
+<p><img loading="lazy" src="./resources/1104579-20171009144634543-457477148.png" alt=""  />
+</p>
+</li>
+</ul>
+<p>上图中假设硬盘分为两个分区，partition 1是挂载到根目录，而partition 2则是挂载到/home这个目录。 这也就是说，当数据放置在/home内的各次目录时，数据是放置到partition 2的，如果不是放在/home底下的目录， 那么数据就会被放置到partition 1。</p>
+<p>其实判断某个文件在那个partition底下是很简单的，透过反向追踪即可。以上图来说， 当我想要知道/home/vbird/test这个文件在那个partition时，由test &ndash;&gt; vbird &ndash;&gt; home &ndash;&gt; /，看那个『进入点』先被查到那就是使用的进入点了。 所以test使用的是/home这个进入点而不是/。</p>
+]]></content:encoded></item><item><title>《鸟哥的Linux私房菜》笔记——02. 关于Linux</title><link>https://hiwangzi.com/posts/2017/10/02/vbird-linux-02/</link><pubDate>Mon, 02 Oct 2017 12:28:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/10/02/vbird-linux-02/</guid><description>Unix 历史 1969年以前：伟大的梦想——Bell, MIT 与 GE 的「Multics」系统 1969年：Ken Thompson 的小型 file server system 1973年：Unix 正式诞生（Ritchie等人以 C 语言写出第一个正式 Unix核心） 1977年：重要的 Unix 分支——BSD 的诞生 1979年：重要的 System V 架构（支持x86）与版权宣告 1984年之一：x86 架构的 Minix 操作系统开始编写并于两年后诞生 1984年之二：GNU 计划与 FSF(Free Software Foundation) 基金会的成立 1988年：图形界面 XFree86(X Window System + Free + x86) 计划 1991年：芬兰大学生 Linux Torvalds 的一则简讯 Linux 的核心版本 2.6.18-92.el5 主版本.次版本.释出版本-修改版本 核心被分为两个分支：
+主、次版本为奇数：发展中版本(development) 如2.5.xx，这种核心版本主要用在测试与发展新功能，所以通常这种版本仅有核心开发工程师会使用。 如果有新增的核心程序代码，会加到这种版本当中，等到众多工程师测试没问题后，才加入下一版的稳定核心中； 主、次版本为偶数：稳定版本(stable) 如2.6.xx，等到核心功能发展成熟后会加到这类的版本中，主要用在一般家庭计算机以及企业版本中。 重点在于提供使用者一个相对稳定的Linux作业环境平台。 Linux 是一个操作系统最底层的核心以及其提供的核心工具。他是 GNU GPL 授权模式，所以，任何人均可取得源代码，并且可以修改。</description><content:encoded><![CDATA[<h2 id="unix-历史">Unix 历史</h2>
+<ul>
+<li>1969年以前：伟大的梦想——Bell, MIT 与 GE 的「Multics」系统</li>
+<li>1969年：Ken Thompson 的小型 file server system</li>
+<li>1973年：Unix 正式诞生（Ritchie等人以 C 语言写出第一个正式 Unix核心）</li>
+<li>1977年：重要的 Unix 分支——BSD 的诞生</li>
+<li>1979年：重要的 System V 架构（支持x86）与版权宣告</li>
+<li>1984年之一：x86 架构的 Minix 操作系统开始编写并于两年后诞生</li>
+<li>1984年之二：GNU 计划与 FSF(Free Software Foundation) 基金会的成立</li>
+<li>1988年：图形界面 XFree86(X Window System + Free + x86) 计划</li>
+<li>1991年：芬兰大学生 Linux Torvalds 的一则简讯</li>
+</ul>
+<h2 id="linux-的核心版本">Linux 的核心版本</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">2.6.18-92.el5 
+主版本.次版本.释出版本-修改版本 
+</code></pre></div><p>核心被分为两个分支：</p>
+<ul>
+<li>主、次版本为奇数：发展中版本(development)
+<ul>
+<li>如2.5.xx，这种核心版本主要用在测试与发展新功能，所以通常这种版本仅有核心开发工程师会使用。 如果有新增的核心程序代码，会加到这种版本当中，等到众多工程师测试没问题后，才加入下一版的稳定核心中；</li>
+</ul>
+</li>
+<li>主、次版本为偶数：稳定版本(stable)
+<ul>
+<li>如2.6.xx，等到核心功能发展成熟后会加到这类的版本中，主要用在一般家庭计算机以及企业版本中。 重点在于提供使用者一个相对稳定的Linux作业环境平台。</li>
+</ul>
+</li>
+</ul>
+<p>Linux 是一个操作系统最底层的核心以及其提供的核心工具。他是 GNU GPL 授权模式，所以，任何人均可取得源代码，并且可以修改。</p>
+<p>此外，因为 Linux 参考 POSIX 设计规范，于是兼容于 Unix 操作系统，故亦可称之为 Unix Like 的一种。</p>
+<h2 id="关于开源">关于开源</h2>
+<p>Open source 的代表授权为 GNU 的 GPL 授权及 BSD 等等，底下列出知名的 Open Source 授权网页：</p>
+<ul>
+<li>
+<p>GNU General Public License：http://www.gnu.org/licenses/licenses.html#GPL</p>
+<ul>
+<li>目前有version 2, version 3两种版本，Linux使用的是version 2这一版。</li>
+</ul>
+</li>
+<li>
+<p>Berkeley Software Distribution (BSD)：http://en.wikipedia.org/wiki/BSD_license</p>
+</li>
+<li>
+<p>Apache License, Version 2.0：http://www.apache.org/licenses/LICENSE-2.0</p>
+</li>
+</ul>
+<h2 id="关于闭源">关于闭源</h2>
+<p>免费的专利软件代表的授权模式有：</p>
+<ul>
+<li>
+<p>Freeware：
+<a href="http://en.wikipedia.org/wiki/Freeware">http://en.wikipedia.org/wiki/Freeware</a>
+不同于 Free software，Freeware为『免费软件』而非『自由软件！』</p>
+</li>
+<li>
+<p>Shareware：
+<a href="http://en.wikipedia.org/wiki/Shareware">http://en.wikipedia.org/wiki/Shareware</a>
+与免费软件有点类似的是，Shareware在使用初期，它也是免费的，但是，到了所谓的『试用期限』之后，你就必须要选择『付费后继续使用』或者『将它移除』。 通常，这些共享件都会自行撰写失效程序，让你在试用期限之后就无法使用该软件。</p>
+</li>
+</ul>
+]]></content:encoded></item><item><title>《鸟哥的Linux私房菜》笔记——01. 计算机概论</title><link>https://hiwangzi.com/posts/2017/10/02/vbird-linux-01/</link><pubDate>Mon, 02 Oct 2017 11:11:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/10/02/vbird-linux-01/</guid><description>计算机的五大部分：输入单元、输出单元、CPU（控制单元(Control Unit)、算数逻辑单元(ALU)）、内存。 CPU 的架构
 精简指令集（Reduced Instruction Set Computing, RISC），例如：SPARC，ARM 复杂指令集（Complex Instruction Set Computing, RISC），例如：Intel/AMD x86 架构 CPU
 外频：CPU 与外部组件进行数据传输时的速度 内频：CPU 内部用来加速工作性能的一个倍数 注：
 两者相乘为 CPU 的频率速度 超频：将CPU的倍频或外频更改为更高，但倍频通常被锁定，经常被修改的是外频。 主板芯片组
 北桥：系统总线（速度相对较快），内存传输的主要信道 南桥：I/O 总线，连接硬盘、USB、网卡等设备 注：
 北桥所支持的频率称为前端总线速度（Front Side Bus, FSB），而每次传送的位数则是总线宽度。 CPU 每次能够处理的数据量称为字组大小（word size）
 计算机被称为“32位”或“64位”的主要依据 早期“32位”的CPU中，因为CPU每次能够解析的数据量有限，因此由内存传来的数据量就有所限制，即导致了“32位”CPU最多只能支持到4GB内存 内存主要组件 动态随机访问内存（Dynamic Random Access Memory, DRAM）
-CPU 内部第二层缓存（L2 Cache）使用静态随机访问内存（Static Random Access Memory, SRAM） 计算机的分类</description></item><item><title>Debian/Linux 下无线网卡驱动的安装</title><link>https://hiwangzi.com/posts/2017/08/29/install-wifi-driver-for-bcm43228-in-linux/</link><pubDate>Tue, 29 Aug 2017 16:43:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/08/29/install-wifi-driver-for-bcm43228-in-linux/</guid><description>在 Debian 下为 BCM43228 无线网卡安装驱动</description></item><item><title>Linux 安装软件的几种方式</title><link>https://hiwangzi.com/posts/2017/08/22/how-to-install-software-for-linux/</link><pubDate>Tue, 22 Aug 2017 16:38:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/08/22/how-to-install-software-for-linux/</guid><description>源代码编译安装 源代码包的安装一般为下载软件源代码，然后编译安装。常见的 C 程序软件的安装步骤是 configure, make, make install 三部曲（./configure &amp;amp;&amp;amp; make &amp;amp;&amp;amp; make install）。
+CPU 内部第二层缓存（L2 Cache）使用静态随机访问内存（Static Random Access Memory, SRAM） 计算机的分类</description><content:encoded><![CDATA[<ol>
+<li>计算机的五大部分：输入单元、输出单元、CPU（控制单元(Control Unit)、算数逻辑单元(ALU)）、内存。</li>
+</ol>
+<p><img loading="lazy" src="./resources/1104579-20171010180348699-1186464218.png" alt=""  />
+</p>
+<ol start="2">
+<li>
+<p>CPU 的架构</p>
+<ul>
+<li>精简指令集（Reduced Instruction Set Computing, RISC），例如：SPARC，ARM</li>
+<li>复杂指令集（Complex Instruction Set Computing, RISC），例如：Intel/AMD x86 架构</li>
+</ul>
+</li>
+<li>
+<p>CPU</p>
+<ul>
+<li>外频：CPU 与外部组件进行数据传输时的速度</li>
+<li>内频：CPU 内部用来加速工作性能的一个倍数</li>
+</ul>
+<p>注：</p>
+<ul>
+<li>两者相乘为 CPU 的频率速度</li>
+<li>超频：将CPU的倍频或外频更改为更高，但倍频通常被锁定，经常被修改的是外频。</li>
+</ul>
+</li>
+<li>
+<p>主板芯片组</p>
+<ul>
+<li>北桥：系统总线（速度相对较快），内存传输的主要信道</li>
+<li>南桥：I/O 总线，连接硬盘、USB、网卡等设备</li>
+</ul>
+<p>注：</p>
+<ul>
+<li>北桥所支持的频率称为前端总线速度（Front Side Bus, FSB），而每次传送的位数则是总线宽度。</li>
+</ul>
+</li>
+<li>
+<p>CPU 每次能够处理的数据量称为字组大小（word size）</p>
+<ul>
+<li>计算机被称为“32位”或“64位”的主要依据</li>
+<li>早期“32位”的CPU中，因为CPU每次能够解析的数据量有限，因此由内存传来的数据量就有所限制，即导致了“32位”CPU最多只能支持到4GB内存</li>
+</ul>
+</li>
+<li>
+<p>内存主要组件 动态随机访问内存（Dynamic Random Access Memory, DRAM）</p>
+<ul>
+<li>CPU 内部第二层缓存（L2 Cache）使用静态随机访问内存（Static Random Access Memory, SRAM）</li>
+</ul>
+</li>
+<li>
+<p>计算机的分类</p>
+<ul>
+<li>超级计算机（Super Computer）</li>
+<li>大型计算机（Mainframe Computer）</li>
+<li>迷你计算机（Mini Computer）</li>
+<li>工作站（Workstation）</li>
+<li>微型计算机（Micro Computer）</li>
+</ul>
+</li>
+<li>
+<p>计算机常用的计量单位</p>
+<ul>
+<li>容量一般采用二进制，速度一般采用十进制
+<table>
+<thead>
+<tr>
+<th>进位制</th>
+<th>kilo</th>
+<th>mega</th>
+<th>giga</th>
+<th>tera</th>
+<th>peta</th>
+<th>exa</th>
+<th>zetta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>binary</td>
+<td>1024</td>
+<td>1024K</td>
+<td>1024M</td>
+<td>1024G</td>
+<td>1024T</td>
+<td>1024P</td>
+<td>1024E</td>
+</tr>
+<tr>
+<td>decimal</td>
+<td>1000</td>
+<td>1000K</td>
+<td>1000M</td>
+<td>1000G</td>
+<td>1000T</td>
+<td>1000P</td>
+<td>1000E</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+<li>
+<p>磁盘
+<img loading="lazy" src="./resources/1104579-20171002110613880-936687345.png" alt=""  />
+
+——图自 <a href="https://zh.wikipedia.org/wiki/%E7%B0%87">簇 - 维基百科，自由的百科全书</a>
+磁盘分割格式：</p>
+<ul>
+<li>MBR：主引导记录（Master Boot Record）</li>
+<li>GPT：GUID磁盘分割表（GUID Partition Table），全局唯一标识磁盘分区表</li>
+</ul>
+</li>
+</ol>
+
+<div id="os"></div>
+<ol start="10">
+<li>操作系统
+<ul>
+<li>操作系统的重点在于管理计算机的所有活动以及驱动系统中的所有硬件。
+<img loading="lazy" src="./resources/1104579-20171010175701371-921624811.png" alt=""  />
+</li>
+<li>内核（Kernel）的功能：
+<ul>
+<li>系统调用接口（System call interface）</li>
+<li>程序管理（Process control）</li>
+<li>内存管理（Memory management）</li>
+<li>文件系统管理（Filesystem management）</li>
+<li>设备驱动（Device driver）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+]]></content:encoded></item><item><title>Debian/Linux 下无线网卡驱动的安装</title><link>https://hiwangzi.com/posts/2017/08/29/install-wifi-driver-for-bcm43228-in-linux/</link><pubDate>Tue, 29 Aug 2017 16:43:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/08/29/install-wifi-driver-for-bcm43228-in-linux/</guid><description>在 Debian 下为 BCM43228 无线网卡安装驱动</description><content:encoded><![CDATA[<p>我的 PC 型号是 Acer V3-572G，安装了 Debian 后，发现只能通过有线网络上网，无法识别无线网卡，以下是解决的过程(不局限于此型号 PC):</p>
+<ul>
+<li>
+<p>在命令行键入 <code>lspci</code> ，得到网卡型号「BCM43228」</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">xox@debian-x64:~$ lspci
+
+00:00.0 Host bridge: Intel Corporation Haswell-ULT DRAM Controller <span style="color:#f92672">(</span>rev 0b<span style="color:#f92672">)</span>
+00:02.0 VGA compatible controller: Intel Corporation Haswell-ULT Integrated Graphics Controller <span style="color:#f92672">(</span>rev 0b<span style="color:#f92672">)</span>
+00:03.0 Audio device: Intel Corporation Haswell-ULT HD Audio Controller <span style="color:#f92672">(</span>rev 0b<span style="color:#f92672">)</span>
+00:14.0 USB controller: Intel Corporation <span style="color:#ae81ff">8</span> Series USB xHCI HC <span style="color:#f92672">(</span>rev 04<span style="color:#f92672">)</span>
+00:16.0 Communication controller: Intel Corporation <span style="color:#ae81ff">8</span> Series HECI <span style="color:#75715e">#0 (rev 04)</span>
+00:1b.0 Audio device: Intel Corporation <span style="color:#ae81ff">8</span> Series HD Audio Controller <span style="color:#f92672">(</span>rev 04<span style="color:#f92672">)</span>
+00:1c.0 PCI bridge: Intel Corporation <span style="color:#ae81ff">8</span> Series PCI Express Root Port <span style="color:#ae81ff">3</span> <span style="color:#f92672">(</span>rev e4<span style="color:#f92672">)</span>
+00:1c.3 PCI bridge: Intel Corporation <span style="color:#ae81ff">8</span> Series PCI Express Root Port <span style="color:#ae81ff">4</span> <span style="color:#f92672">(</span>rev e4<span style="color:#f92672">)</span>
+00:1c.4 PCI bridge: Intel Corporation <span style="color:#ae81ff">8</span> Series PCI Express Root Port <span style="color:#ae81ff">5</span> <span style="color:#f92672">(</span>rev e4<span style="color:#f92672">)</span>
+00:1d.0 USB controller: Intel Corporation <span style="color:#ae81ff">8</span> Series USB EHCI <span style="color:#75715e">#1 (rev 04)</span>
+00:1f.0 ISA bridge: Intel Corporation <span style="color:#ae81ff">8</span> Series LPC Controller <span style="color:#f92672">(</span>rev 04<span style="color:#f92672">)</span>
+00:1f.2 SATA controller: Intel Corporation <span style="color:#ae81ff">8</span> Series SATA Controller <span style="color:#ae81ff">1</span> <span style="color:#f92672">[</span>AHCI mode<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>rev 04<span style="color:#f92672">)</span>
+00:1f.3 SMBus: Intel Corporation <span style="color:#ae81ff">8</span> Series SMBus Controller <span style="color:#f92672">(</span>rev 04<span style="color:#f92672">)</span>
+01:00.0 Unassigned class <span style="color:#f92672">[</span>ff00<span style="color:#f92672">]</span>: Realtek Semiconductor Co., Ltd. RTL8411B PCI Express Card Reader <span style="color:#f92672">(</span>rev 01<span style="color:#f92672">)</span>
+01:00.1 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller <span style="color:#f92672">(</span>rev 12<span style="color:#f92672">)</span>
+02:00.0 Network controller: Broadcom Limited BCM43228 802.11a/b/g/n
+03:00.0 3D controller: NVIDIA Corporation GM108M <span style="color:#f92672">[</span>GeForce 840M<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>rev a2<span style="color:#f92672">)</span>
+</code></pre></div></li>
+<li>
+<p>使用搜索引擎得到特定型号的固件包</p>
+</li>
+</ul>
+<p>如下图，第一个搜索结果中即有相关信息 <a href="https://wiki.debian.org/wl">wl - Debian Wiki</a></p>
+<p><img loading="lazy" src="./resources/1104579-20170829164015671-927631999.jpg" alt=""  />
+</p>
+<ul>
+<li>
+<p><code>apt-get install</code> 安装驱动</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># apt-get update</span>
+<span style="color:#75715e"># apt-get install linux-image-$(uname -r|sed &#39;s,[^-]*-[^-]*-,,&#39;) linux-headers-$(uname -r|sed &#39;s,[^-]*-[^-]*-,,&#39;) broadcom-sta-dkms</span>
+</code></pre></div></li>
+<li>
+<p>重启即可使用无线网络</p>
+</li>
+</ul>
+]]></content:encoded></item><item><title>Linux 安装软件的几种方式</title><link>https://hiwangzi.com/posts/2017/08/22/how-to-install-software-for-linux/</link><pubDate>Tue, 22 Aug 2017 16:38:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/08/22/how-to-install-software-for-linux/</guid><description>源代码编译安装 源代码包的安装一般为下载软件源代码，然后编译安装。常见的 C 程序软件的安装步骤是 configure, make, make install 三部曲（./configure &amp;amp;&amp;amp; make &amp;amp;&amp;amp; make install）。
 一句话来解释整个过程：
 根据源码包中 Makefile.in 文件的指示，configure 脚本检查当前的系统环境和配置选项，在当前目录中生成 Makefile 文件(还有其它本文无需关心的文件)，然后 make 程序就按照当前目录中的 Makefile 文件的指示将源代码编译为二进制文件，最后将这些二进制文件移动(即安装)到指定的地方(仍然按照 Makefile 文件的指示)。
 借助软件包管理器安装 例如借助 yum、apt-get 等管理软件进行安装。
 在 Ubuntu 系统上，软件包的格式是 deb，相比于「源代码编译安装」，deb 包这类的二进制包是依赖硬件和软件平台的。
 顺便提一点，apt-get只是dpkg的一个前端而已，dpkg 是Debian软件包管理器的基础。而上层的工具，像是 APT，用于从远程获取软件包以及处理复杂的软件包关系。
 二进制格式安装 编译好的文件，类似于 Windows 下的 exe，后缀一般为 bin，如 jdk 就有 bin 后缀（虽然 Linux 下没有后缀的概念，但为了好区分，一般文件名都加后缀）。安装就是先给它可执行权限，然后执行，例如：
-chmod 777 xxx.bin ./xxx.bin 总结 源代码编译安装最为灵活自由 借助包管理器最为方便 二进制格式安装方式一般被一些闭源的驱动和预编译的安装包所采用 参考 源代码包 - deepin Wiki 深入理解软件包的配置、编译与安装 在 Linux 下安装软件的方法有哪些？各有什么优劣？</description></item></channel></rss>
+chmod 777 xxx.bin ./xxx.bin 总结 源代码编译安装最为灵活自由 借助包管理器最为方便 二进制格式安装方式一般被一些闭源的驱动和预编译的安装包所采用 参考 源代码包 - deepin Wiki 深入理解软件包的配置、编译与安装 在 Linux 下安装软件的方法有哪些？各有什么优劣？</description><content:encoded><![CDATA[<h2 id="源代码编译安装">源代码编译安装</h2>
+<p>源代码包的安装一般为下载软件源代码，然后编译安装。常见的 C 程序软件的安装步骤是 <code>configure</code>, <code>make</code>, <code>make install</code> 三部曲（<code>./configure &amp;&amp; make &amp;&amp; make install</code>）。</p>
+<p>一句话来解释整个过程：</p>
+<blockquote>
+<p>根据源码包中 Makefile.in 文件的指示，configure 脚本检查当前的系统环境和配置选项，在当前目录中生成 Makefile 文件(还有其它本文无需关心的文件)，然后 make 程序就按照当前目录中的 Makefile 文件的指示将源代码编译为二进制文件，最后将这些二进制文件移动(即安装)到指定的地方(仍然按照 Makefile 文件的指示)。</p>
+</blockquote>
+<h2 id="借助软件包管理器安装">借助软件包管理器安装</h2>
+<p>例如借助 <code>yum</code>、<code>apt-get</code> 等管理软件进行安装。</p>
+<p>在 Ubuntu 系统上，软件包的格式是 deb，相比于「源代码编译安装」，deb 包这类的二进制包是依赖硬件和软件平台的。</p>
+<p>顺便提一点，<code>apt-get</code>只是<code>dpkg</code>的一个前端而已，<code>dpkg</code> 是Debian软件包管理器的基础。而上层的工具，像是 <a href="https://zh.wikipedia.org/wiki/%E9%AB%98%E7%BA%A7%E5%8C%85%E8%A3%85%E5%B7%A5%E5%85%B7">APT</a>，用于从远程获取软件包以及处理复杂的<a href="https://zh.wikipedia.org/wiki/%E9%AB%98%E7%BA%A7%E5%8C%85%E8%A3%85%E5%B7%A5%E5%85%B7#.E4.BE.9D.E8.B3.B4.E9.97.9C.E4.BF.82.E8.99.95.E7.90.86">软件包关系</a>。</p>
+<h2 id="二进制格式安装">二进制格式安装</h2>
+<p>编译好的文件，类似于 Windows 下的 exe，后缀一般为 bin，如 jdk 就有 bin 后缀（虽然 Linux 下没有后缀的概念，但为了好区分，一般文件名都加后缀）。安装就是先给它可执行权限，然后执行，例如：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">chmod <span style="color:#ae81ff">777</span> xxx.bin
+./xxx.bin
+</code></pre></div><h1 id="总结">总结</h1>
+<ul>
+<li>源代码编译安装最为灵活自由</li>
+<li>借助包管理器最为方便</li>
+<li>二进制格式安装方式一般被一些闭源的驱动和预编译的安装包所采用</li>
+</ul>
+<h1 id="参考">参考</h1>
+<ul>
+<li><a href="https://wiki.deepin.org/index.php?title=%E6%BA%90%E4%BB%A3%E7%A0%81%E5%8C%85">源代码包 - deepin Wiki</a></li>
+<li><a href="http://www.jinbuguo.com/linux/understand_package_install.html">深入理解软件包的配置、编译与安装</a></li>
+<li><a href="https://zhihu.com/question/20126212/">在 Linux 下安装软件的方法有哪些？各有什么优劣？</a></li>
+</ul>
+]]></content:encoded></item></channel></rss>

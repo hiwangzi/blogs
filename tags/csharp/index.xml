@@ -4,7 +4,264 @@
 此处使用 Entity Framework(Model First)，快速将 model diagram 转为数据库中的表及实体类。
 假设的场景是学生选课，一名学生可以选多门课，一门课也可以被多个学生选择。E-R 图如下所示： 对应自动生成的数据库如下：
 StudentSet CourseSet CourseRegistrationSet 其中 Course_Id 与 Students_Id（注：此处词尾(s)负数的原因参见上面 E-R 图中右边的 Properties 中 End1 Navigation Property 的设置）分别以另外两张数据表的 Id 主键作为外键。 同时 Course_Id 与 Students_Id 两者联合做 CourseRegistrationSet 表的主键。 对应自动生成实体类的代码如下：
-Student.cs namespace Model { using System; using System.</description></item><item><title>《面向对象软件开发实践》笔记一</title><link>https://hiwangzi.com/posts/2017/03/25/oop-practice-csharp-note-1/</link><pubDate>Sat, 25 Mar 2017 13:53:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/03/25/oop-practice-csharp-note-1/</guid><description>开始学习这门课程，是源自一次无意间的发现。上一周时看到金老师的博客，觉得内容非常不错，这才开始了这门课程的学习。
+Student.cs namespace Model { using System; using System.</description><content:encoded><![CDATA[<h2 id="介绍">介绍</h2>
+<p>在之前的 <a href="http://www.cnblogs.com/hiwangzi/p/EntityFrameworkSample.html">Entity Framework 快速上手介绍</a> 之中，两个实体之间只是简单的一对一关系，而在实际的应用场景中，还会出现多对多关系，同时还有可能会出现多对多关系还附带有其他字段的情况。</p>
+<p>下面以几个例子，对<strong>表间多对多关系的类表示</strong>加以更加详细地描述。虽然两个场景举例是使用的 C# 及 Entity Framework(Model First) 框架自动生成数据库、实体类。但这种设计方法，并不只是在使用 ORM 框架时需要，事实上，它是 POCO 及简单 Java 类（POJO）的设计原则之一。</p>
+<h2 id="场景实例">场景实例</h2>
+<h3 id="场景一">场景一</h3>
+<p>在考虑多对多关系还附带有字段的情况之前，让我们先看一下，多对多关系但不附带额外字段的情况下，实体类代码的表示。</p>
+<p>此处使用 Entity Framework(Model First)，快速将 model diagram 转为数据库中的表及实体类。</p>
+<p>假设的场景是学生选课，一名学生可以选多门课，一门课也可以被多个学生选择。E-R 图如下所示：
+<img loading="lazy" src="./resources/1104579-20170526203822872-1383747342.png" alt=""  />
+</p>
+<p>对应自动生成的数据库如下：</p>
+<p><img loading="lazy" src="./resources/1104579-20170526204422044-36349200.png" alt=""  />
+</p>
+<ul>
+<li>StudentSet
+<img loading="lazy" src="./resources/1104579-20170526201734497-273871464.png" alt=""  />
+</li>
+<li>CourseSet
+<img loading="lazy" src="./resources/1104579-20170526201740747-806786252.png" alt=""  />
+</li>
+<li>CourseRegistrationSet
+<img loading="lazy" src="./resources/1104579-20170526204412497-32662665.png" alt=""  />
+
+<ul>
+<li>其中 <code>Course_Id</code> 与 <code>Students_Id</code>（注：此处词尾(s)负数的原因参见上面 E-R 图中右边的 <code>Properties</code> 中 <code>End1 Navigation Property</code> 的设置）分别以另外两张数据表的 <code>Id</code> 主键作为外键。</li>
+<li>同时 <code>Course_Id</code> 与 <code>Students_Id</code> 两者联合做 <code>CourseRegistrationSet</code> 表的主键。</li>
+</ul>
+</li>
+</ul>
+<p>对应自动生成实体类的代码如下：</p>
+<ul>
+<li>Student.cs
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">namespace</span> Model
+{
+    <span style="color:#66d9ef">using</span> System;
+    <span style="color:#66d9ef">using</span> System.Collections.Generic;
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">partial</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Student</span>
+    {
+<span style="color:#a6e22e">        [System.Diagnostics.CodeAnalysis.SuppressMessage(&#34;Microsoft.Usage&#34;, &#34;CA2214:DoNotCallOverridableMethodsInConstructors&#34;)]</span>
+        <span style="color:#66d9ef">public</span> Student()
+        {
+            <span style="color:#66d9ef">this</span>.Course = <span style="color:#66d9ef">new</span> HashSet&lt;Course&gt;();
+        }
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> Id { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> <span style="color:#960050;background-color:#1e0010">学号</span> { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> <span style="color:#960050;background-color:#1e0010">姓名</span> { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+<span style="color:#a6e22e">
+</span><span style="color:#a6e22e">        [System.Diagnostics.CodeAnalysis.SuppressMessage(&#34;Microsoft.Usage&#34;, &#34;CA2227:CollectionPropertiesShouldBeReadOnly&#34;)]</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">virtual</span> ICollection&lt;Course&gt; Course { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+    }
+}
+</code></pre></div></li>
+<li>Course.cs
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">namespace</span> Model
+{
+    <span style="color:#66d9ef">using</span> System;
+    <span style="color:#66d9ef">using</span> System.Collections.Generic;
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">partial</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Course</span>
+    {
+<span style="color:#a6e22e">        [System.Diagnostics.CodeAnalysis.SuppressMessage(&#34;Microsoft.Usage&#34;, &#34;CA2214:DoNotCallOverridableMethodsInConstructors&#34;)]</span>
+        <span style="color:#66d9ef">public</span> Course()
+        {
+            <span style="color:#66d9ef">this</span>.Students = <span style="color:#66d9ef">new</span> HashSet&lt;Student&gt;();
+        }
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> Id { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> <span style="color:#960050;background-color:#1e0010">课程名称</span> { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> <span style="color:#960050;background-color:#1e0010">学分</span> { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+<span style="color:#a6e22e">
+</span><span style="color:#a6e22e">        [System.Diagnostics.CodeAnalysis.SuppressMessage(&#34;Microsoft.Usage&#34;, &#34;CA2227:CollectionPropertiesShouldBeReadOnly&#34;)]</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">virtual</span> ICollection&lt;Student&gt; Students { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+    }
+}
+</code></pre></div></li>
+</ul>
+<h4 id="分析">分析</h4>
+<ul>
+<li>数据库表之间一对一、一对多的关系在代码中是通过 <strong>对象引用</strong> 或 <strong>对象数组/List等形式的引用</strong> 实现的。</li>
+<li>从实例中可以看出，CourseRegistrationSet 表中的多对多关系在代码中的表现形式同样是实体类中的 <strong>对象List等形式的引用</strong>，只不过多对多关系是<strong>多个实体类中都存在其他实体类对象List的引用</strong>。</li>
+</ul>
+<h3 id="场景二">场景二</h3>
+<p>现在让我们增加一个需求，实际应用之中，数据库不可能仅仅存储某学生选了某门课程这些信息，同时还需要保存选课时间、操作人、成绩等等信息。</p>
+<p>现在让我们为 <code>CourseRegistrationSet</code> 表增加一个字段——成绩。</p>
+<ul>
+<li>CourseRegistrationSet
+<img loading="lazy" src="./resources/1104579-20170526201746638-724623826.png" alt=""  />
+</li>
+</ul>
+<p>同时我们需要更新一下程序中的代码，这时候问题出现了🙄：两个实体类中互相存储着对方<strong>对象List</strong>的引用，成绩字段该放到哪里呢？</p>
+<p>此时我们换一种思路，如果将 <code>CourseRegistrationSet</code> 同样想象为一种特殊的实体，那么就可以实现将 <code>Student</code> 与 <code>Course</code> 关联的同时，还可以保存<strong>成绩</strong>信息。即如下图所示：</p>
+<p><img loading="lazy" src="./resources/1104579-20170526195449482-1615050529.png" alt=""  />
+</p>
+<p>如果你刚刚仔细阅读了 Entity Framework(Model First) 自动生成的 <strong>数据库表结构</strong> 以及 <strong>类的代码</strong>，再结合上面新的 E-R图，大概也就可以明白，应该如何在代码中表示多对多关系（附带额外字段/属性）。</p>
+<p>上面的场景生成的数据表结构如下：</p>
+<ul>
+<li>StudentSet
+<img loading="lazy" src="./resources/1104579-20170526201734497-273871464.png" alt=""  />
+</li>
+<li>CourseSet
+<img loading="lazy" src="./resources/1104579-20170526201740747-806786252.png" alt=""  />
+</li>
+<li>CourseRegistrationSet
+<img loading="lazy" src="./resources/1104579-20170526201746638-724623826.png" alt=""  />
+</li>
+</ul>
+<p>自动生成的实体类的代码：</p>
+<ul>
+<li>Student.cs
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">namespace</span> Model
+{
+    <span style="color:#66d9ef">using</span> System;
+    <span style="color:#66d9ef">using</span> System.Collections.Generic;
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">partial</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Student</span>
+    {
+<span style="color:#a6e22e">        [System.Diagnostics.CodeAnalysis.SuppressMessage(&#34;Microsoft.Usage&#34;, &#34;CA2214:DoNotCallOverridableMethodsInConstructors&#34;)]</span>
+        <span style="color:#66d9ef">public</span> Student()
+        {
+            <span style="color:#66d9ef">this</span>.CourseRegistration = <span style="color:#66d9ef">new</span> HashSet&lt;CourseRegistration&gt;();
+        }
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> Id { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> <span style="color:#960050;background-color:#1e0010">学号</span> { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> <span style="color:#960050;background-color:#1e0010">姓名</span> { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+<span style="color:#a6e22e">
+</span><span style="color:#a6e22e">        [System.Diagnostics.CodeAnalysis.SuppressMessage(&#34;Microsoft.Usage&#34;, &#34;CA2227:CollectionPropertiesShouldBeReadOnly&#34;)]</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">virtual</span> ICollection&lt;CourseRegistration&gt; CourseRegistration { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+    }
+}
+</code></pre></div></li>
+<li>Course.cs
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">namespace</span> Model
+{
+    <span style="color:#66d9ef">using</span> System;
+    <span style="color:#66d9ef">using</span> System.Collections.Generic;
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">partial</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Course</span>
+    {
+<span style="color:#a6e22e">        [System.Diagnostics.CodeAnalysis.SuppressMessage(&#34;Microsoft.Usage&#34;, &#34;CA2214:DoNotCallOverridableMethodsInConstructors&#34;)]</span>
+        <span style="color:#66d9ef">public</span> Course()
+        {
+            <span style="color:#66d9ef">this</span>.CourseRegistration = <span style="color:#66d9ef">new</span> HashSet&lt;CourseRegistration&gt;();
+        }
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> Id { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> <span style="color:#960050;background-color:#1e0010">课程名称</span> { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> <span style="color:#960050;background-color:#1e0010">学分</span> { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+<span style="color:#a6e22e">
+</span><span style="color:#a6e22e">        [System.Diagnostics.CodeAnalysis.SuppressMessage(&#34;Microsoft.Usage&#34;, &#34;CA2227:CollectionPropertiesShouldBeReadOnly&#34;)]</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">virtual</span> ICollection&lt;CourseRegistration&gt; CourseRegistration { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+    }
+}
+</code></pre></div></li>
+<li>CourseRegistration.cs
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">namespace</span> Model
+{
+    <span style="color:#66d9ef">using</span> System;
+    <span style="color:#66d9ef">using</span> System.Collections.Generic;
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">partial</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CourseRegistration</span>
+    {
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> Id { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> <span style="color:#960050;background-color:#1e0010">成绩</span> { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">virtual</span> Student Student { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">virtual</span> Course Course { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+    }
+}
+</code></pre></div></li>
+</ul>
+<h4 id="分析-1">分析</h4>
+<ul>
+<li>数据库表之间多对多的关系在代码中表示需要将“多对多关系”同样抽象为“实体”来实现。但仍然是通过 <strong>对象引用</strong> 或 <strong>对象数组/List等形式的引用</strong> 实现的。</li>
+<li>从实例中可以看出，<code>Student</code> 与 <code>Course</code> 之间原本<strong>直接</strong>的多对多关系被转换成了：
+<ul>
+<li><code>Student</code> 与 <code>CourseRegistration</code> 的一对多关系</li>
+<li><code>Course</code> 与 <code>CourseRegistration</code> 的一对多关系</li>
+<li><code>CourseRegistration</code> 与 <code>Student</code>, <code>Course</code> 的一对一关系</li>
+</ul>
+</li>
+</ul>
+<h2 id="one-more-thing事实上是主题相关的更多内容">One more thing&hellip;（事实上是主题相关的更多内容）</h2>
+<p>在前段时间的实习期间设计数据库时，两次遇到这个问题；同时前段时间在一次上机考试中，又遇到了这个问题。</p>
+<ul>
+<li>
+<p>第一次时，没有找到合适的相关资料，同时秉持着一个现在看来并不恰当的信念：“实体类对应实体表”。因此，解决方法比较粗暴，当时直接将额外字段加到了某一张表之中。下面是当时的情景：（括号中为对应于上面的案例）</p>
+<ul>
+<li>工人（学生）拥有（选课）技能（课程），额外需要一个字段表示工人对技能的熟练程度（成绩）。</li>
+<li>看起来和上面的场景二就是一模一样呀🙃然而当时我并没有想到场景二中的解决方法，而是把“工人对技能的熟练程度”这个字段加到了技能表中。还算幸运的是，技能熟练程度只分为三个级别。</li>
+</ul>
+</li>
+<li>
+<p>那段时间，又恰巧碰到了一门考试，遇到了同样的问题，然后正在上机考试的我，突发奇想地想到了这个办法来解决这个问题。但当时设计的类同样<strong>存在缺陷</strong>。</p>
+<ul>
+<li>题目描述：
+<ul>
+<li>设计一个机票销售网站提供机票在线销售功能。客户登录系统后，可以查看航班列表，以及剩余机票数量，可以进行机票的购买，可以查看已购机票情况，对已购机票在规定的日期期限内可以退票。</li>
+</ul>
+</li>
+<li>数据库要求：
+<ul>
+<li>客户表(Id, 身份证号, 姓名, 电话, 密码)</li>
+<li>机票表(Id, 航班号, 起飞时间, 价格, 剩余数量)</li>
+<li>机票购买表(Id, 客户Id, 机票Id, 购票日期, 退票标志, 退票日期)</li>
+</ul>
+</li>
+<li>我的实体类设计（Java, 此处省略 getter, setter）：
+<ul>
+<li>Client.java</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Client</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> id<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> String govNumber<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> String fullName<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> String phoneNumber<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> String password<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> List<span style="color:#f92672">&lt;</span>Ticketing<span style="color:#f92672">&gt;</span> ticketingList<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><ul>
+<li>Ticket.java</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Ticket</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> id<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> String flightNumber<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> Date takeOffTime<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">double</span> price<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> avaliable<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> List<span style="color:#f92672">&lt;</span>Client<span style="color:#f92672">&gt;</span> clientList<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><ul>
+<li>Ticketing.java</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Ticketing</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> id<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> Client client<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> Ticket ticket<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> Date ticketingDate<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> cancelRemark<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> Date cancelDate<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div></li>
+</ul>
+<p>发现我当时的问题出在哪里了么？如果找到了，欢迎在评论区留言哦~😀（我就先不明说咯，逃</p>
+</li>
+<li>
+<p>第三次遇到此问题</p>
+<ul>
+<li>自认为此次解决方法算是符合业界规范 😂 如果文章中有什么错误之处，烦请指出，感谢。</li>
+<li>如下图所示，通过 Arrangement 实体连接其他三个实体。
+<img loading="lazy" src="./resources/1104579-20170526221155294-1567452524.png" alt=""  />
+</li>
+</ul>
+</li>
+</ul>
+]]></content:encoded></item><item><title>《面向对象软件开发实践》笔记一</title><link>https://hiwangzi.com/posts/2017/03/25/oop-practice-csharp-note-1/</link><pubDate>Sat, 25 Mar 2017 13:53:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/03/25/oop-practice-csharp-note-1/</guid><description>开始学习这门课程，是源自一次无意间的发现。上一周时看到金老师的博客，觉得内容非常不错，这才开始了这门课程的学习。
 面向对象软件开发实践之基本技能训练 - 网易云课堂
 这门课能告诉他们：一个有用的软件到底是如何诞生的，我们在学校里学的操作系统、数据结构等专业课程到底在开发中是怎样应用的……
 以下是本课程第一单元的笔记：
@@ -12,7 +269,50 @@ Student.cs namespace Model { using System; using System.</description></item><it
 查看方式有两种：
 直接在 .NET Reference Source 网站中在线浏览。
 通过配置，在 Visual Studio 中调试 .NET Framework 源码。 具体配置方法参考：
-微软开放了.NET 4.5.1的源代码 .NET Framework 4.5.1 已正式开源 配置Visual Studio 以调试.net framework的源代码 ildasm IL 反汇编程序是 IL 汇编程序 (Ilasm.exe) 的配套工具。Ildasm.exe 可利用包含中间语言 (IL) 代码的可移植可执行 (PE) 文件，并创建适合输入到 Ilasm.exe 的文本文件。此工具自动随 Visual Studio 一起安装。</description></item><item><title>Entity Framework 新手入门友好实例</title><link>https://hiwangzi.com/posts/2017/03/24/entity-framework-newbie-sample/</link><pubDate>Fri, 24 Mar 2017 22:35:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/03/24/entity-framework-newbie-sample/</guid><description>起因 因为实习的原因，程序之中用到了较多的数据库操作逻辑。如果每一处数据库操作都手写的话，工作量较大且后期不易于维护，所以希望能通过 ORM 框架来解决这两个问题。
+微软开放了.NET 4.5.1的源代码 .NET Framework 4.5.1 已正式开源 配置Visual Studio 以调试.net framework的源代码 ildasm IL 反汇编程序是 IL 汇编程序 (Ilasm.exe) 的配套工具。Ildasm.exe 可利用包含中间语言 (IL) 代码的可移植可执行 (PE) 文件，并创建适合输入到 Ilasm.exe 的文本文件。此工具自动随 Visual Studio 一起安装。</description><content:encoded><![CDATA[<p>开始学习这门课程，是源自一次无意间的发现。上一周时看到<a href="http://jinxuliang.com/MainWebSite">金老师的博客</a>，觉得内容非常不错，这才开始了这门课程的学习。</p>
+<p><a href="http://mooc.study.163.com/course/BIT-1000003016">面向对象软件开发实践之基本技能训练 - 网易云课堂</a></p>
+<blockquote>
+<p>这门课能告诉他们：一个有用的软件到底是如何诞生的，我们在学校里学的操作系统、数据结构等专业课程到底在开发中是怎样应用的……</p>
+</blockquote>
+<p><img loading="lazy" src="./resources/1104579-20170325135010252-41469939.png" alt=""  />
+</p>
+<p>以下是本课程第一单元的笔记：</p>
+<h1 id="工具">工具</h1>
+<h2 id="net-reference-source">.NET Reference Source</h2>
+<p>在此之前，有一次也想查看微软类库的源代码，可在 Visual Studio 中使用 F12 可以查看到的，仅仅只是定义，并没有对应的实现。那时还在想，难道是微软仅仅只是开放定义给开发人员。后来在网络上也没有搜索到相关内容（那时不知道如何描述，也没有找到合适的人请教），直到在这门课程中看到金老师的演示，才了解到微软的 .NET Framework 框架源码是完全开放的。</p>
+<p>查看方式有两种：</p>
+<ol>
+<li>
+<p>直接在 <a href="https://referencesource.microsoft.com/">.NET Reference Source</a> 网站中在线浏览。</p>
+<p><img loading="lazy" src="./resources/1104579-20170325134935721-22581124.png" alt=""  />
+</p>
+</li>
+<li>
+<p>通过配置，在 Visual Studio 中调试 .NET Framework 源码。
+具体配置方法参考：</p>
+<ul>
+<li><a href="http://www.infoq.com/cn/news/2014/02/microsoft-net-source-code">微软开放了.NET 4.5.1的源代码</a></li>
+<li><a href="http://www.xcode.me/more/open-net-framework-451">.NET Framework 4.5.1 已正式开源</a></li>
+<li><a href="http://edu.cnzz.cn/201412/95492de5.shtml">配置Visual Studio 以调试.net framework的源代码</a></li>
+</ul>
+</li>
+</ol>
+<h2 id="ildasm">ildasm</h2>
+<p>IL 反汇编程序是 IL 汇编程序 (Ilasm.exe) 的配套工具。Ildasm.exe 可利用包含中间语言 (IL) 代码的可移植可执行 (PE) 文件，并创建适合输入到 Ilasm.exe 的文本文件。此工具自动随 Visual Studio 一起安装。</p>
+<p>命令行方式使用文档说明：<a href="https://msdn.microsoft.com/zh-cn/library/f7dy01k1(v=vs.110).aspx">Ildasm.exe（IL 反汇编程序）</a></p>
+<p>如果已经安装了 Visual Studio 的话，可以在这个目录（<code>C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6.1 Tools</code>）下找到这个程序。实际情况取决于 Visual Studio 的版本，所以路径中的版本数字也可能会有所不同。</p>
+<p><img loading="lazy" src="./resources/1104579-20170325135053330-1063388121.png" alt=""  />
+</p>
+<h2 id="ilspy">ilspy</h2>
+<p>ILSpy is the open-source .NET assembly browser and decompiler.</p>
+<p>这个工具可以帮助我们将 .NET 可执行程序反汇编出 C# 源代码。官网地址：http://ilspy.net/</p>
+<h1 id="关于-net">关于 .NET</h1>
+<p><img loading="lazy" src="./resources/1104579-20170325135111252-670076091.png" alt=""  />
+</p>
+<p><img loading="lazy" src="./resources/1104579-20170325135141455-829966262.png" alt=""  />
+</p>
+<p>未完待续&hellip;</p>
+]]></content:encoded></item><item><title>Entity Framework 新手入门友好实例</title><link>https://hiwangzi.com/posts/2017/03/24/entity-framework-newbie-sample/</link><pubDate>Fri, 24 Mar 2017 22:35:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/03/24/entity-framework-newbie-sample/</guid><description>起因 因为实习的原因，程序之中用到了较多的数据库操作逻辑。如果每一处数据库操作都手写的话，工作量较大且后期不易于维护，所以希望能通过 ORM 框架来解决这两个问题。
 在昨天之前，对于 ORM 这个词汇，我也仅仅只是在上个学期的 Java EE 课上看企业老师“神速”地使用 Hibernate 做了建立数据库、插入数据的演示。
 这两天花了很多时间了解 Entity Framework，终于在今晚成功地实现了“查插删改”，中间经过了很多的波折。例如：查找的很多资料提供的代码都是不完整的，同时他们的讲解也不够“新人（菜鸟）友好型”。所以我决定把一个简单的实例的具体步骤写出来，帮助像我这样的菜鸟快速将 EF(Entity Framework) 应用起来。
 如果博文有不当之处，欢迎指出，谢谢~
@@ -20,4 +320,352 @@ Student.cs namespace Model { using System; using System.</description></item><it
 对象关系映射（英语：Object Relational Mapping，简称 ORM，或 O/RM，或 O/R mapping），是一种程序设计技术，用于实现面向对象编程语言里不同类型系统的数据之间的转换。简单来说，就是可以把一条数据库记录转换为程序中的一个对象，或者反向转换，当然实际上 ORM 可以做更多的事情。）
 Entity Framework (又称ADO.NET Entity Framework) 是微软以 ADO.NET 为基础所发展出来的对象关系对应 (O/R Mapping) 解决方案。
 使用 Entity Framework 在实际数据库相关代码开发中可以采取三种方式：
-DB First：先开发数据库，然后借助 Visual Studio 将数据库中的表结构（或视图）转换为程序中实体模型类。 Code First：直接在程序中定义实体模型类，然后借助 Visual Studio 将其转换为数据库中的表。 Model First：借助 Visual Studio 中的可视化设计工具，设计好数据模型（可以理解为E-R图），然后转换为数据库中的表。 本实例采用第三种方式，即 Model First。</description></item><item><title>C#指定并保留分隔符，字符串转数组</title><link>https://hiwangzi.com/posts/2016/09/04/split-string-into-array-by-specific-separator-in-csharp/</link><pubDate>Sun, 04 Sep 2016 14:41:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2016/09/04/split-string-into-array-by-specific-separator-in-csharp/</guid><description>mmmmmmynameismickeym -&amp;gt; [&amp;ldquo;m&amp;rdquo;, &amp;ldquo;m&amp;rdquo;, &amp;ldquo;m&amp;rdquo;, &amp;ldquo;m&amp;rdquo;, &amp;ldquo;m&amp;rdquo;, &amp;ldquo;m&amp;rdquo;, &amp;ldquo;yna&amp;rdquo;, &amp;ldquo;m&amp;rdquo;, &amp;ldquo;eis&amp;rdquo;, &amp;ldquo;m&amp;rdquo;, &amp;ldquo;ickey&amp;rdquo;, &amp;ldquo;m&amp;rdquo;]</description></item></channel></rss>
+DB First：先开发数据库，然后借助 Visual Studio 将数据库中的表结构（或视图）转换为程序中实体模型类。 Code First：直接在程序中定义实体模型类，然后借助 Visual Studio 将其转换为数据库中的表。 Model First：借助 Visual Studio 中的可视化设计工具，设计好数据模型（可以理解为E-R图），然后转换为数据库中的表。 本实例采用第三种方式，即 Model First。</description><content:encoded><![CDATA[<h1 id="起因">起因</h1>
+<p>因为实习的原因，程序之中用到了较多的数据库操作逻辑。如果每一处数据库操作都手写的话，工作量较大且后期不易于维护，所以希望能通过 ORM 框架来解决这两个问题。</p>
+<p>在昨天之前，对于 ORM 这个词汇，我也仅仅只是在上个学期的 Java EE 课上看企业老师“神速”地使用 Hibernate 做了建立数据库、插入数据的演示。</p>
+<p>这两天花了很多时间了解 Entity Framework，终于在今晚成功地实现了“查插删改”，中间经过了很多的波折。例如：查找的很多资料提供的代码都是不完整的，同时他们的讲解也不够“新人（菜鸟）友好型”。所以我决定把一个简单的实例的具体步骤写出来，帮助像我这样的菜鸟快速将 EF(Entity Framework) 应用起来。</p>
+<p>如果博文有不当之处，欢迎指出，谢谢~</p>
+<h1 id="简介">简介</h1>
+<p>首先是两个概念</p>
+<ul>
+<li>
+<p><a href="https://zh.wikipedia.org/wiki/%E5%AF%B9%E8%B1%A1%E5%85%B3%E7%B3%BB%E6%98%A0%E5%B0%84">对象关系映射</a>（英语：Object Relational Mapping，简称 ORM，或 O/RM，或 O/R mapping），是一种程序设计技术，用于实现面向对象编程语言里不同类型系统的数据之间的转换。简单来说，就是可以把一条数据库记录转换为程序中的一个对象，或者反向转换，当然实际上 ORM 可以做更多的事情。）</p>
+</li>
+<li>
+<p><a href="https://zh.wikipedia.org/wiki/Entity_Framework">Entity Framework</a> (又称ADO.NET Entity Framework) 是微软以 ADO.NET 为基础所发展出来的对象关系对应 (O/R Mapping) 解决方案。</p>
+</li>
+</ul>
+<p>使用 Entity Framework 在实际数据库相关代码开发中可以采取三种方式：</p>
+<ul>
+<li>DB First：先开发数据库，然后借助 Visual Studio 将数据库中的表结构（或视图）转换为程序中实体模型类。</li>
+<li>Code First：直接在程序中定义实体模型类，然后借助 Visual Studio 将其转换为数据库中的表。</li>
+<li>Model First：借助 Visual Studio 中的可视化设计工具，设计好数据模型（可以理解为E-R图），然后转换为数据库中的表。</li>
+</ul>
+<p>本实例采用第三种方式，即 Model First。</p>
+<h1 id="实例演示">实例演示</h1>
+<p>本实例使用的是 Visual Studio 2017(Community)，通过一个 WinForm 程序访问 SQL Server 2016(Express) 数据库来演示。</p>
+<p>本程序可以实现学生信息的自我维护，包括对用户名、密码、性别、班级、电话等资料的处理。学生可以填写信息注册账号，然后使用账号登录查看自己的信息，并对自己的信息进行修改。</p>
+<p>演示：</p>
+<p><img loading="lazy" src="./resources/1104579-20170324230234065-200866055.gif" alt="demo"  />
+</p>
+<h2 id="数据实体">数据实体</h2>
+<p>两个实体：</p>
+<ul>
+<li>
+<p>用户（用户名，密码）</p>
+</li>
+<li>
+<p>个人资料（学号，姓名，性别，电话，地址，爱好）</p>
+</li>
+</ul>
+<p><img loading="lazy" src="./resources/1104579-20170324203238908-2019676022.png" alt="E-R图"  />
+</p>
+<h2 id="具体步骤">具体步骤</h2>
+<h3 id="1-新建一个名为-sstudent-的-winform-程序项目">1. 新建一个名为 Sstudent 的 WinForm 程序项目</h3>
+<h3 id="2-新建一个名为-model-的类库项目可选">2. 新建一个名为 Model 的类库项目（可选）</h3>
+<p><img loading="lazy" src="./resources/1104579-20170324221145705-2008536491.png" alt=""  />
+</p>
+<h3 id="3-新增一个名为-sstudent-的-adonet-entity-data-model">3. 新增一个名为 Sstudent 的 ADO.NET Entity Data Model</h3>
+<p><img loading="lazy" src="./resources/1104579-20170324221209518-471292487.png" alt=""  />
+</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221228393-1328355887.png" alt=""  />
+</p>
+<h4 id="31-在向导中选择空的实体设计器模型">3.1 在向导中选择空的实体设计器模型</h4>
+<p><img loading="lazy" src="./resources/1104579-20170324221223299-45703138.png" alt=""  />
+</p>
+<h4 id="32-然后就可以开始创建自己的实体模型">3.2 然后就可以开始创建自己的实体模型</h4>
+<p><img loading="lazy" src="./resources/1104579-20170324221307346-496476446.png" alt=""  />
+</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221320408-640441422.png" alt=""  />
+</p>
+<p>这里首先从工具栏拖出两个 Entity 。</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221249565-1600712620.png" alt=""  />
+</p>
+<p>此时我们观察一下属性区，这里有两项比较重要的属性，如下图</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221257736-316838821.png" alt=""  />
+</p>
+<p>其中 Name 可以理解为对应将来的数据库表中的一条记录的名字，Entity Set Name 对应的则是一张表的名字。这里修改一下，即用户表（或用户集，UserSet）中会有多条用户记录（User）。</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221355096-2145566696.png" alt=""  />
+</p>
+<p>再来观察一下实体中的属性，在我们创建 Entity 的时候，会自动产生一个名为 Id 的非空自增实体键，如下图所示。</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221401330-1383697017.png" alt=""  />
+</p>
+<p>现在我们完善一下两个实体的属性，这里为了简便，所有的属性都设置为了 String 类型，对应到数据库即为 nvarchar(MAX)。这里其中一个属性用中文命名是想说明，C# 对中文是完全支持的。</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221413549-389531410.png" alt=""  />
+</p>
+<p>在完成了实体的创建之后，下一步进行实体之间关系的创建，同样从工具栏中拖出一个关系到两个实体之间，因为用户与个人资料之间的关系是 1对1，所以选中关系后，在属性区修改其对应关系。</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221431361-646234423.png" alt=""  />
+</p>
+<p>然后，在操作区点击右键，选择从模型生成数据库，根据指引，即可完成数据库的建立。</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221454127-1051539095.png" alt=""  />
+</p>
+<p>如果之前没有数据库连接的话，点击“新建连接”选项，按照你的需求选择，这里选择 SQL Server，输入相关信息后，即可完成连接的建立。</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221528440-661247942.png" alt=""  />
+</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221557143-1317974254.png" alt=""  />
+</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221609049-40650076.png" alt=""  />
+</p>
+<p>补充：如果此处输入的数据库名不存在，会自动创建对应数据库。</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221616158-963792860.png" alt=""  />
+</p>
+<p>然后按照提示，可以得到自动生成的 SQL 文件，点击绿色按钮执行即可（此处同样要求输入数据库的账号密码）。</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221630127-1121502099.png" alt=""  />
+</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221640752-1514726219.png" alt=""  />
+</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221647549-2066674917.png" alt=""  />
+</p>
+<p>在完成创建后，到SQL Server Management Studio 中查看数据库即可发现，表已经被创建。</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221659408-465682256.png" alt=""  />
+</p>
+<p>因为实体之间是 1对1 的关系，所以不会创建新的关系表，而是将其中一张表的主键附加到另一张表中，如下图所示。</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221710033-113824704.png" alt=""  />
+</p>
+<h3 id="4-下面来说一说如何通过创建的模型来访问数据库">4. 下面来说一说如何通过创建的模型来访问数据库。</h3>
+<h4 id="41-先来看一下-ef-框架帮我们创建的文件如下图所示">4.1 先来看一下 EF 框架帮我们创建的文件，如下图所示。</h4>
+<p><img loading="lazy" src="./resources/1104579-20170324221726643-1991348623.png" alt=""  />
+</p>
+<h4 id="42-我们新建一个名为-ui-的项目用于展现界面与接受用户操作因为本项目同样直接使用-ef-框架所以在此项目中也需要引用-entity-framework同时引用-model-项目">4.2 我们新建一个名为 UI 的项目，用于展现界面与接受用户操作。因为本项目同样直接使用 EF 框架，所以在此项目中也需要引用 Entity Framework，同时引用 Model 项目。</h4>
+<p>(1) 使用 Nuget 引用 Entity Framework。</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221817315-2089909743.png" alt=""  />
+</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221805908-2138574699.png" alt=""  />
+</p>
+<p>(2) 引用同解决方案的另一个项目 Model。</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221741580-223043384.png" alt=""  />
+</p>
+<p><img loading="lazy" src="./resources/1104579-20170324221756440-1343484106.png" alt=""  />
+</p>
+<p>然后就可以方便地如下图所示一般使用“数据库”了，下图所示为两个实体对象集（可理解为数据表）。</p>
+<p><img loading="lazy" src="./resources/1104579-20170324222007221-337398525.png" alt=""  />
+</p>
+<h4 id="43-通过-ef-框架实现查询功能">4.3 通过 EF 框架实现查询功能。</h4>
+<pre><code class="language-CS" data-lang="CS">// 登录
+private void button_Login_Click(object sender, EventArgs e)
+{
+    // 使用 EF 框架实现查询
+    User u=sstudentContainer.UserSet.Where(user =&gt; user.Userame == textBox_Username.Text &amp;&amp; user.Password == textBox_Password.Text).FirstOrDefault();
+    // 如果查询不到，会返回 null
+    if (u != null)
+    {
+        new MyProfile(u).Show();
+        this.Hide();
+    }
+    else
+    {
+        MessageBox.Show(&quot;用户名或密码错误，请重试！&quot;);
+    }
+}
+</code></pre><h4 id="44-通过-ef-框架实现插入功能">4.4 通过 EF 框架实现插入功能。</h4>
+<pre><code class="language-CS" data-lang="CS">// 注册
+private void button_Signup_Click(object sender, EventArgs e)
+{
+    try
+    {
+        // 使用 EF 框架实现添加新数据功能
+        User u = new User();
+        Profile p = new Profile();
+
+        u.Password = this.textBox_Password.Text;
+        u.Userame = this.textBox_Username.Text;
+
+        p.Address = this.textBox_Address.Text;
+        p.Hobby = this.textBox_Hobby.Text;
+        p.PhoneNumber = this.textBox_PhoneNumber.Text;
+        p.Sex = this.textBox_Sex.Text;
+        p.StudentNumber = this.textBox_StudentNumber.Text;
+        p.姓名 = this.textBox_FullName.Text;
+
+        u.Profile = p;
+
+        // 添加两个新对象分别进入两张表
+        sstudentContainer.UserSet.Add(u);
+        // 因为 EF 会自动将关联的对象同时加入数据库，所以无需手动增加
+        //sstudentContainer.ProfileSet.Add(p);
+
+        // 保存新增记录进入数据库
+        sstudentContainer.SaveChanges();
+
+        MessageBox.Show(&quot;注册成功！&quot;);
+
+        this.Close();
+    }
+    catch (Exception)
+    {
+        MessageBox.Show(&quot;抱歉，注册失败！&quot;);
+        throw;
+    }
+}
+</code></pre><h4 id="45-通过-ef-框架实现删除功能">4.5 通过 EF 框架实现删除功能。</h4>
+<pre><code class="language-CS" data-lang="CS">// 删除用户所有资料
+private void button_Delete_Click(object sender, EventArgs e)
+{
+    // 使用 EF 框架实现删除数据
+    try
+    {
+        // 需要首先使用 sstudentContainer 查找到该项记录（对象），然后将其删除
+        User u = sstudentContainer.UserSet.Where(user =&gt; user.Id == this.user.Id).FirstOrDefault();
+        Profile p = u.Profile;
+
+        // 删除用户
+        sstudentContainer.ProfileSet.Remove(p);
+        sstudentContainer.UserSet.Remove(u);
+
+        // 保存删除操作进入数据库
+        sstudentContainer.SaveChanges();
+
+        MessageBox.Show(&quot;再见，删除成功！&quot;);
+
+        this.Close();
+    }
+    catch (Exception)
+    {
+        // 发生异常，删除失败
+        MessageBox.Show(&quot;抱歉，删除失败！&quot;);
+        throw;
+    }
+}
+</code></pre><h4 id="46-通过-ef-框架实现更新功能">4.6 通过 EF 框架实现更新功能。</h4>
+<pre><code class="language-CS" data-lang="CS">// 更新用户资料
+private void button_Update_Click(object sender, EventArgs e)
+{
+    // 使用 EF 框架实现更新数据
+    try
+    {
+        // 需要首先使用 sstudentContainer 查找到该项记录（对象），然后对其进行修改
+        User u = sstudentContainer.UserSet.Where(user =&gt; user.Id == this.user.Id).FirstOrDefault();
+        Profile p = u.Profile;
+
+        u.Password = this.textBox_Password.Text;
+        u.Userame = this.textBox_Username.Text;
+
+        p.Address = this.textBox_Address.Text;
+        p.Hobby = this.textBox_Hobby.Text;
+        p.PhoneNumber = this.textBox_PhoneNumber.Text;
+        p.Sex = this.textBox_Sex.Text;
+        p.StudentNumber = this.textBox_StudentNumber.Text;
+        p.姓名 = this.textBox_FullName.Text;
+
+        // 保存更改进入数据库
+        sstudentContainer.SaveChanges();
+
+        MessageBox.Show(&quot;更新资料成功！&quot;);
+    }
+    catch (Exception)
+    {
+        // 发生异常，更新失败
+        MessageBox.Show(&quot;更新资料失败！&quot;);
+        throw;
+    }
+}
+</code></pre><h4 id="47-当我们尝试运行程序的时候会发现出现异常这是因为在-ui-项目中缺少了数据库连接字符串即下图中的选中部分只要将其复制即可">4.7 当我们尝试运行程序的时候，会发现出现异常，这是因为在 UI 项目中缺少了数据库连接字符串，即下图中的选中部分。只要将其复制，即可。</h4>
+<p><img loading="lazy" src="./resources/1104579-20170324222023596-348197448.png" alt=""  />
+</p>
+<p><img loading="lazy" src="./resources/1104579-20170324222029705-941688901.png" alt=""  />
+</p>
+<h1 id="补充">补充</h1>
+<p>EF 能帮我们做的事情还有很多，例如可以方便快捷地通过 ToList() 方法直接将数据库中所有数据转换为对象List。而本文只是一个简单的入门实例，只是仅仅帮助初次接触 EF 摸不到头脑的新手快速实战应用，需要学习的还有很多。如果本文有任何错误或不当之处，敬请指出，共同进步，谢谢~</p>
+<p>附上源代码：<a href="./resources/Sstudent.zip">下载地址</a></p>
+<p>补充一个不错的视频（但是其中的实例演示并没有成功）：</p>
+<p><a href="https://www.youtube.com/watch?v=hbOJjjDyZIA">Entity Framework 實戰技巧 - YouTube</a></p>
+<p>Code First 实例可以参考：</p>
+<p><a href="https://segmentfault.com/a/1190000004152660">Entity Framework(EF) Code First 多对多关系的实体增，删，改，查操作全程详细示例</a></p>
+<p>其他可能对你有帮助的链接：</p>
+<ol>
+<li>
+<p><a href="http://www.jianshu.com/p/ce8026992275">ORM框架之EntityFramework介绍</a></p>
+</li>
+<li>
+<p><a href="http://blog.csdn.net/zezhi821/article/category/1072082">Entity(Ado.net) - zezhi821的专栏</a></p>
+</li>
+</ol>
+]]></content:encoded></item><item><title>C#指定并保留分隔符，字符串转数组</title><link>https://hiwangzi.com/posts/2016/09/04/split-string-into-array-by-specific-separator-in-csharp/</link><pubDate>Sun, 04 Sep 2016 14:41:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2016/09/04/split-string-into-array-by-specific-separator-in-csharp/</guid><description>mmmmmmynameismickeym -&amp;gt; [&amp;ldquo;m&amp;rdquo;, &amp;ldquo;m&amp;rdquo;, &amp;ldquo;m&amp;rdquo;, &amp;ldquo;m&amp;rdquo;, &amp;ldquo;m&amp;rdquo;, &amp;ldquo;m&amp;rdquo;, &amp;ldquo;yna&amp;rdquo;, &amp;ldquo;m&amp;rdquo;, &amp;ldquo;eis&amp;rdquo;, &amp;ldquo;m&amp;rdquo;, &amp;ldquo;ickey&amp;rdquo;, &amp;ldquo;m&amp;rdquo;]</description><content:encoded><![CDATA[<h1 id="要求如下">要求如下：</h1>
+<pre><code>source string: mmmmmmynameismickeym
+
+separator: m
+
+result string []: {&quot;m&quot;, &quot;m&quot;, &quot;m&quot;, &quot;m&quot;, &quot;m&quot;, &quot;m&quot;, &quot;yna&quot;, &quot;m&quot;, &quot;eis&quot;, &quot;m&quot;, &quot;ickey&quot;, &quot;m&quot;}
+</code></pre><h1 id="思路分析">思路分析：</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">1 判断 source string 是否包含 separator
+    1.1 若不包含，则将其包装为 string 数组返回
+    1.2 若包含，则进行下列操作
+
+2 将 source string 转换为 char 数组
+
+3 对数组每个字符依次进行检测（循环）
+    3.1 若不为分隔符，则先将内容存入临时 string 变量 temp
+    3.2 若为分隔符，则检测 temp 是否为空
+        - 若 temp 不为空，则先将 temp 变量的值写入 result 数组
+        - 将分隔符写入 result 数组
+
+4 循环体外，检查 temp 变量是否为 null
+    - 若不为空，则将其写入 result 数组
+    - 返回 string 数组 result
+</code></pre></div><h1 id="代码">代码：</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#75715e">// 需要引入命名空间
+</span><span style="color:#75715e">// using System;
+</span><span style="color:#75715e">// using System.Linq;
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">string</span>[] splitString(<span style="color:#66d9ef">string</span> source_str, <span style="color:#66d9ef">char</span> separator)
+{
+    <span style="color:#75715e">//1. 判断 source string 是否包含 separator
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//1.1 string 中不包括分隔符
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (source_str.IndexOf(separator) == -<span style="color:#ae81ff">1</span>)
+    {
+        <span style="color:#75715e">//为了返回原字符串，将其包成一个只有一项的string数组返回
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">string</span>[] source_str_pack = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">string</span>[<span style="color:#ae81ff">1</span>]; <span style="color:#75715e">//试一试string[source_str]
+</span><span style="color:#75715e"></span>        source_str_pack[<span style="color:#ae81ff">0</span>] = source_str;
+        <span style="color:#66d9ef">return</span> source_str_pack;
+    }
+
+    <span style="color:#75715e">//1.2 string 中包括分隔符
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">else</span>
+    {
+        <span style="color:#75715e">//2. 将 source_str 转换为 char 数组
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">char</span>[] source = source_str.ToCharArray();
+        <span style="color:#66d9ef">string</span> temp = <span style="color:#66d9ef">null</span>;
+        <span style="color:#66d9ef">int</span> resultID = <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">string</span>[] result = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">string</span>[source.Length];<span style="color:#75715e">//这样的结果会有大量的 null 元素，后面在返回结果前，进行处理去除无用的 null 元素
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//3. 对数组每个字符依次进行检测
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i = <span style="color:#ae81ff">0</span>; i &lt; source.Length; i++)
+        {
+            <span style="color:#75715e">//3.1 若不为分隔符，则先将内容存入临时 string 变量 temp
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> (source[i].Equals(separator) == <span style="color:#66d9ef">false</span>)
+            {
+                <span style="color:#66d9ef">if</span> (temp == <span style="color:#66d9ef">null</span>)
+                {
+                    temp = <span style="color:#e6db74">&#34;&#34;</span>;
+                }
+                temp = temp.Insert(temp.Length, source[i].ToString());
+            }
+            <span style="color:#75715e">//3.2 若为分隔符，则检测 temp 是否为空
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">else</span>
+            {
+                <span style="color:#75715e">//temp不为空，先将 temp 变量的值写入 result 数组
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">if</span> (temp != <span style="color:#66d9ef">null</span>)
+                {
+                    result[resultID] = temp;
+                    resultID++;
+                    temp = <span style="color:#66d9ef">null</span>;
+                }
+                <span style="color:#75715e">//将分隔符写入 result 数组
+</span><span style="color:#75715e"></span>                result[resultID] = source[i].ToString();
+                resultID++;
+                }
+            }
+            <span style="color:#75715e">//4. 检查 temp 变量是否为 null
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//若不为空，先将其写入 result 数组
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> (temp != <span style="color:#66d9ef">null</span>)
+            {
+                result[resultID] = temp;
+                resultID++;
+                temp = <span style="color:#66d9ef">null</span>;
+            }
+            <span style="color:#75715e">//返回 string 数组 result
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//后面在返回结果前，进行处理去除无用的 null 元素
+</span><span style="color:#75715e"></span>            result = result.Where(s =&gt; !String.IsNullOrEmpty(s)).ToArray();
+            <span style="color:#66d9ef">return</span> result;
+    }
+}
+</code></pre></div>]]></content:encoded></item></channel></rss>

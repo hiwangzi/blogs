@@ -1,5 +1,205 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Redis on WANG!</title><link>https://hiwangzi.com/tags/redis/</link><description>Recent content in Redis on WANG!</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Tue, 21 Nov 2017 11:20:00 +0800</lastBuildDate><atom:link href="https://hiwangzi.com/tags/redis/index.xml" rel="self" type="application/rss+xml"/><item><title>【Redis 笔记】常用命令</title><link>https://hiwangzi.com/posts/2017/11/21/redis-command/</link><pubDate>Tue, 21 Nov 2017 11:20:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/11/21/redis-command/</guid><description> 编号 命令 描述 1 DEL key 此命令删除一个指定键(如果存在)。 2 DUMP key 此命令返回存储在指定键的值的序列化版本。 3 EXISTS key 此命令检查键是否存在。 4 EXPIRE key seconds 设置键在指定时间秒数之后到期/过期。 5 EXPIREAT key timestamp 设置在指定时间戳之后键到期/过期。这里的时间是Unix时间戳格式。 6 PEXPIRE key milliseconds 设置键的到期时间(以毫秒为单位)。 7 PEXPIREAT key milliseconds-timestamp 以Unix时间戳形式来设置键的到期时间(以毫秒为单位)。 8 KEYS pattern 查找与指定模式匹配的所有键。 9 MOVE key db 将键移动到另一个数据库。 10 PERSIST key 删除指定键的过期时间，得永生。 11 PTTL key 获取键的剩余到期时间(以毫秒为单位)。 12 RANDOMKEY 从Redis返回一个随机的键。 13 RENAME key newkey 更改键的名称。 14 RENAMENX key newkey 如果新键不存在，重命名键。 15 TYPE key 返回存储在键中的值的数据类型。</description></item><item><title>【Redis 笔记】数据类型</title><link>https://hiwangzi.com/posts/2017/11/21/redis-data-type/</link><pubDate>Tue, 21 Nov 2017 10:41:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/11/21/redis-data-type/</guid><description>REmote DIctionary Server(Redis)，一个 key-value 存储系统。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Redis on WANG!</title><link>https://hiwangzi.com/tags/redis/</link><description>Recent content in Redis on WANG!</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Tue, 21 Nov 2017 11:20:00 +0800</lastBuildDate><atom:link href="https://hiwangzi.com/tags/redis/index.xml" rel="self" type="application/rss+xml"/><item><title>【Redis 笔记】常用命令</title><link>https://hiwangzi.com/posts/2017/11/21/redis-command/</link><pubDate>Tue, 21 Nov 2017 11:20:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/11/21/redis-command/</guid><description> 编号 命令 描述 1 DEL key 此命令删除一个指定键(如果存在)。 2 DUMP key 此命令返回存储在指定键的值的序列化版本。 3 EXISTS key 此命令检查键是否存在。 4 EXPIRE key seconds 设置键在指定时间秒数之后到期/过期。 5 EXPIREAT key timestamp 设置在指定时间戳之后键到期/过期。这里的时间是Unix时间戳格式。 6 PEXPIRE key milliseconds 设置键的到期时间(以毫秒为单位)。 7 PEXPIREAT key milliseconds-timestamp 以Unix时间戳形式来设置键的到期时间(以毫秒为单位)。 8 KEYS pattern 查找与指定模式匹配的所有键。 9 MOVE key db 将键移动到另一个数据库。 10 PERSIST key 删除指定键的过期时间，得永生。 11 PTTL key 获取键的剩余到期时间(以毫秒为单位)。 12 RANDOMKEY 从Redis返回一个随机的键。 13 RENAME key newkey 更改键的名称。 14 RENAMENX key newkey 如果新键不存在，重命名键。 15 TYPE key 返回存储在键中的值的数据类型。</description><content:encoded><![CDATA[<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>DEL key</td>
+<td>此命令删除一个指定键(如果存在)。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>DUMP key</td>
+<td>此命令返回存储在指定键的值的序列化版本。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>EXISTS key</td>
+<td>此命令检查键是否存在。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>EXPIRE key seconds</td>
+<td>设置键在指定时间秒数之后到期/过期。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>EXPIREAT key timestamp</td>
+<td>设置在指定时间戳之后键到期/过期。这里的时间是Unix时间戳格式。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>PEXPIRE key milliseconds</td>
+<td>设置键的到期时间(以毫秒为单位)。</td>
+</tr>
+<tr>
+<td>7</td>
+<td>PEXPIREAT key milliseconds-timestamp</td>
+<td>以Unix时间戳形式来设置键的到期时间(以毫秒为单位)。</td>
+</tr>
+<tr>
+<td>8</td>
+<td>KEYS pattern</td>
+<td>查找与指定模式匹配的所有键。</td>
+</tr>
+<tr>
+<td>9</td>
+<td>MOVE key db</td>
+<td>将键移动到另一个数据库。</td>
+</tr>
+<tr>
+<td>10</td>
+<td>PERSIST key</td>
+<td>删除指定键的过期时间，得永生。</td>
+</tr>
+<tr>
+<td>11</td>
+<td>PTTL key</td>
+<td>获取键的剩余到期时间(以毫秒为单位)。</td>
+</tr>
+<tr>
+<td>12</td>
+<td>RANDOMKEY</td>
+<td>从Redis返回一个随机的键。</td>
+</tr>
+<tr>
+<td>13</td>
+<td>RENAME key newkey</td>
+<td>更改键的名称。</td>
+</tr>
+<tr>
+<td>14</td>
+<td>RENAMENX key newkey</td>
+<td>如果新键不存在，重命名键。</td>
+</tr>
+<tr>
+<td>15</td>
+<td>TYPE key</td>
+<td>返回存储在键中的值的数据类型。</td>
+</tr>
+</tbody>
+</table>
+]]></content:encoded></item><item><title>【Redis 笔记】数据类型</title><link>https://hiwangzi.com/posts/2017/11/21/redis-data-type/</link><pubDate>Tue, 21 Nov 2017 10:41:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/11/21/redis-data-type/</guid><description>REmote DIctionary Server(Redis)，一个 key-value 存储系统。
 数据类型 Redis 支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)。
 string
 string 类型是二进制安全的。意思是 redis 的 string 可以包含任何数据。比如 jpg 图片或者序列化的对象。 string 类型是 Redis 最基本的数据类型，一个键最大能存储 512MB。 相关命令：set, get 127.0.0.1:6379&amp;gt; set str1 hello OK 127.0.0.1:6379&amp;gt; get str1 &amp;#34;hello&amp;#34; hash
-hash 是键值对的集合。 每个 hash 可以存储 2^32 - 1 个（超过 40 亿个）键值对。 相关命令：hmset, hmget, hgetall 127.0.0.1:6379&amp;gt; hmset hashmap1 name hiwangzi blog hiwangzi.com OK 127.0.0.1:6379&amp;gt; hmget hashmap1 name 1) &amp;#34;hiwangzi&amp;#34; 127.</description></item></channel></rss>
+hash 是键值对的集合。 每个 hash 可以存储 2^32 - 1 个（超过 40 亿个）键值对。 相关命令：hmset, hmget, hgetall 127.0.0.1:6379&amp;gt; hmset hashmap1 name hiwangzi blog hiwangzi.com OK 127.0.0.1:6379&amp;gt; hmget hashmap1 name 1) &amp;#34;hiwangzi&amp;#34; 127.</description><content:encoded><![CDATA[<p>REmote DIctionary Server(Redis)，一个 key-value 存储系统。</p>
+<h2 id="数据类型">数据类型</h2>
+<p>Redis 支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)。</p>
+<ul>
+<li>
+<p>string</p>
+<ul>
+<li>string 类型是二进制安全的。意思是 redis 的 string 可以包含任何数据。比如 jpg 图片或者序列化的对象。</li>
+<li>string 类型是 Redis 最基本的数据类型，一个键最大能存储 512MB。</li>
+<li>相关命令：<code>set</code>, <code>get</code>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">127.0.0.1:6379&gt; set str1 hello
+OK
+127.0.0.1:6379&gt; get str1
+<span style="color:#e6db74">&#34;hello&#34;</span>
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>hash</p>
+<ul>
+<li>hash 是键值对的集合。</li>
+<li>每个 hash 可以存储 2^32 - 1 个（超过 40 亿个）键值对。</li>
+<li>相关命令：<code>hmset</code>, <code>hmget</code>, <code>hgetall</code>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">127.0.0.1:6379&gt; hmset hashmap1 name hiwangzi blog hiwangzi.com
+OK
+127.0.0.1:6379&gt; hmget hashmap1 name
+1<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;hiwangzi&#34;</span>
+127.0.0.1:6379&gt; hgetall hashmap1
+1<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;name&#34;</span>
+2<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;hiwangzi&#34;</span>
+3<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;blog&#34;</span>
+4<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;hiwangzi.com&#34;</span>
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>list</p>
+<ul>
+<li>list 是字符串列表，按<strong>插入顺序排序</strong>。</li>
+<li>列表的最大长度为 2^32 - 1 个元素。</li>
+<li>相关命令：<code>lpush</code>, <code>lrange</code>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">127.0.0.1:6379&gt; lpush list1 a b
+<span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">2</span>
+127.0.0.1:6379&gt; lrange list1 <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">100</span>
+1<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;b&#34;</span>
+2<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;a&#34;</span>
+127.0.0.1:6379&gt; lpush list1 c
+<span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">3</span>
+127.0.0.1:6379&gt; lrange list1 <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">2</span>
+1<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;c&#34;</span>
+2<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;b&#34;</span>
+3<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;a&#34;</span>
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>set</p>
+<ul>
+<li>set 是字符串的<strong>无序</strong>集合。</li>
+<li>添加，删除和验证成员是否存在的时间O(1)复杂性。</li>
+<li>set 的最大成员数量为 2^32 - 1 个元素。</li>
+<li>相关命令：<code>sadd</code>, <code>smembers</code>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">127.0.0.1:6379&gt; sadd set1 a b
+<span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">2</span>
+127.0.0.1:6379&gt; smembers set1
+1<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;b&#34;</span>
+2<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;a&#34;</span>
+127.0.0.1:6379&gt; sadd set1 c
+<span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span>
+127.0.0.1:6379&gt; smembers set1
+1<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;b&#34;</span>
+2<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;c&#34;</span>
+3<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;a&#34;</span>
+127.0.0.1:6379&gt; sadd set1 a
+<span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">0</span>
+127.0.0.1:6379&gt; smembers set1
+1<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;b&#34;</span>
+2<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;c&#34;</span>
+3<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;a&#34;</span>
+
+<span style="color:#75715e"># a 被添加了两次，但集合有唯一属性，所以只会存储一个。</span>
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>zset</p>
+<ul>
+<li>zset = sorted set</li>
+<li>Redis可排序集合类似于Redis集合，是不重复的字符集合。 不同之处在于，排序集合的每个成员都与分数相关联，这个分数用于按最小分数到最大分数来排序的排序集合。虽然成员是唯一的，但分数值可以重复。</li>
+<li>相关命令：<code>zadd</code>, <code>zrange</code>, <code>zrangebyscore</code>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">127.0.0.1:6379&gt; zadd zset_test <span style="color:#ae81ff">0</span> redis
+<span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span>
+127.0.0.1:6379&gt; zadd zset_test <span style="color:#ae81ff">0</span> mongodb
+<span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span>
+127.0.0.1:6379&gt; zadd zset_test <span style="color:#ae81ff">1</span> sqllite
+<span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span>
+127.0.0.1:6379&gt; zadd zset_test <span style="color:#ae81ff">1</span> sqllite
+<span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">0</span>
+127.0.0.1:6379&gt; zrange zset_test <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1000</span>
+1<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;mongodb&#34;</span>
+2<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;redis&#34;</span>
+3<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;sqllite&#34;</span>
+127.0.0.1:6379&gt; zrangebyscore zset_test <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1000</span>
+1<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;mongodb&#34;</span>
+2<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;redis&#34;</span>
+3<span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;sqllite&#34;</span>
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="http://www.yiibai.com/redis/redis_data_types.html">Redis数据类型 - Redis教程</a></li>
+</ul>
+]]></content:encoded></item></channel></rss>

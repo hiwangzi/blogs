@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>PostgreSQL on WANG!</title><link>https://hiwangzi.com/tags/postgresql/</link><description>Recent content in PostgreSQL on WANG!</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Thu, 23 Nov 2017 22:26:00 +0800</lastBuildDate><atom:link href="https://hiwangzi.com/tags/postgresql/index.xml" rel="self" type="application/rss+xml"/><item><title>PostgreSQL 满足条件时插入数据</title><link>https://hiwangzi.com/posts/2017/11/23/conditional-insert-into-statement-in-postgres/</link><pubDate>Thu, 23 Nov 2017 22:26:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/11/23/conditional-insert-into-statement-in-postgres/</guid><description>例如：当表中不存在某记录时，才插入这条记录。
 INSERT INTO 表名(列名1, 列名2) SELECT &amp;#39;值1&amp;#39;, &amp;#39;值2&amp;#39; WHERE NOT EXISTS ( SELECT * FROM 表名 WHERE 列名1 = &amp;#39;值1&amp;#39;, 列名2 = &amp;#39;值2&amp;#39; ); 参考 PostgreSQL: Documentation: 10: INSERT
 This example inserts some rows into table films from a table tmp_films with the same column layout as films:
-INSERT INTO films SELECT * FROM tmp_films WHERE date_prod &amp;lt; '2004-05-07'; database - Conditional INSERT INTO statement in postgres - Stack Overflow</description></item></channel></rss>
+INSERT INTO films SELECT * FROM tmp_films WHERE date_prod &amp;lt; '2004-05-07'; database - Conditional INSERT INTO statement in postgres - Stack Overflow</description><content:encoded><![CDATA[<p>例如：当表中不存在某记录时，才插入这条记录。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> <span style="color:#960050;background-color:#1e0010">表名</span>(<span style="color:#960050;background-color:#1e0010">列名</span><span style="color:#ae81ff">1</span>, <span style="color:#960050;background-color:#1e0010">列名</span><span style="color:#ae81ff">2</span>)
+<span style="color:#66d9ef">SELECT</span>
+    <span style="color:#e6db74">&#39;值1&#39;</span>, <span style="color:#e6db74">&#39;值2&#39;</span>
+<span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">EXISTS</span> (
+    <span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> <span style="color:#960050;background-color:#1e0010">表名</span> <span style="color:#66d9ef">WHERE</span> <span style="color:#960050;background-color:#1e0010">列名</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;值1&#39;</span>, <span style="color:#960050;background-color:#1e0010">列名</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;值2&#39;</span>
+);
+</code></pre></div><h2 id="参考">参考</h2>
+<ol>
+<li>
+<p><a href="https://www.postgresql.org/docs/current/static/sql-insert.html">PostgreSQL: Documentation: 10: INSERT</a></p>
+<blockquote>
+<p>This example inserts some rows into table films from a table tmp_films with the same column layout as films:</p>
+<pre><code>INSERT INTO films SELECT * FROM tmp_films WHERE date_prod &lt; '2004-05-07';
+</code></pre>
+</blockquote>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/15710162/conditional-insert-into-statement-in-postgres">database - Conditional INSERT INTO statement in postgres - Stack Overflow</a></p>
+</li>
+</ol>
+]]></content:encoded></item></channel></rss>
