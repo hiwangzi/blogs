@@ -19,6 +19,7 @@ params:
   defaultTheme: auto
   ShowShareButtons: true
   ShowReadingTime: false
+  ShowFullTextinRSS: true
   assets:
     favicon: '/images/favicon.ico'
 
@@ -27,12 +28,12 @@ params:
     Content: "[欢迎你 地球人](/about)"
 
   socialIcons:
-    - name: twitter
-      url: "https://twitter.com/hiwangzi"
-    - name: goodreads
-      url: "https://www.goodreads.com/hiwangzi"
     - name: github
       url: "https://github.com/hiwangzi"
+    - name: goodreads
+      url: "https://www.goodreads.com/hiwangzi"
+    - name: twitter
+      url: "https://twitter.com/hiwangzi"
     - name: rss
       url: "/index.xml"
   
