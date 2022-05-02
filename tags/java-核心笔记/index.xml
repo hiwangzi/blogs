@@ -1486,6 +1486,108 @@ arr<span style="color:#f92672">[</span>3<span style="color:#f92672">][</span>1<s
         <span style="color:#f92672">}</span>
     <span style="color:#f92672">}</span>
 <span style="color:#f92672">}</span>
+</code></pre></div>]]></content:encoded></item><item><title>【Java 核心笔记】02.01 String类</title><link>https://hiwangzi.com/posts/2017/09/27/core-java-02-01/</link><pubDate>Wed, 27 Sep 2017 10:31:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/09/27/core-java-02-01/</guid><description>String 类的对象实例化 方式一 // 直接赋值 public class StringDemo01 { public static void main(String args[]) { String name = &amp;#34;hiwangzi&amp;#34; ; // 实例化String对象 System.out.println(&amp;#34;姓名：&amp;#34; + name) ; } } 方式二 // 使用关键字 new public class StringDemo02 { public static void main(String args[]) { String name = new String(&amp;#34;hiwangzi&amp;#34;) ; // 实例化String对象 System.out.println(&amp;#34;姓名：&amp;#34; + name) ; } } 两种实例化方法的比较 方式一 public class StringDemo07 { public static void main(String args[]) { String str1 = &amp;#34;hello&amp;#34; ; // 直接赋值 String str2 = &amp;#34;hello&amp;#34; ; // 直接赋值 String str3 = &amp;#34;hello&amp;#34; ; // 直接赋值 System.</description><content:encoded><![CDATA[<h1 id="string-类的对象实例化">String 类的对象实例化</h1>
+<h2 id="方式一">方式一</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 直接赋值 
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StringDemo01</span> <span style="color:#f92672">{</span> 
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">[])</span> <span style="color:#f92672">{</span> 
+        String name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hiwangzi&#34;</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// 实例化String对象 
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;姓名：&#34;</span> <span style="color:#f92672">+</span> name<span style="color:#f92672">)</span> <span style="color:#f92672">;</span> 
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="方式二">方式二</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 使用关键字 new 
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StringDemo02</span> <span style="color:#f92672">{</span> 
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">[])</span> <span style="color:#f92672">{</span> 
+        String name <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;hiwangzi&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// 实例化String对象 
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;姓名：&#34;</span> <span style="color:#f92672">+</span> name<span style="color:#f92672">)</span> <span style="color:#f92672">;</span> 
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h1 id="两种实例化方法的比较">两种实例化方法的比较</h1>
+<h2 id="方式一-1">方式一</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StringDemo07</span> <span style="color:#f92672">{</span> 
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">[])</span> <span style="color:#f92672">{</span>
+        String str1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello&#34;</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// 直接赋值 
+</span><span style="color:#75715e"></span>        String str2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello&#34;</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// 直接赋值 
+</span><span style="color:#75715e"></span>        String str3 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello&#34;</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// 直接赋值 
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;str1 == str2 --&gt; &#34;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">(</span>str1<span style="color:#f92672">==</span>str2<span style="color:#f92672">))</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// true 
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;str1 == str3 --&gt; &#34;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">(</span>str1<span style="color:#f92672">==</span>str3<span style="color:#f92672">))</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// true 
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;str2 == str3 --&gt; &#34;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">(</span>str2<span style="color:#f92672">==</span>str3<span style="color:#f92672">))</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// true 
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> 
+<span style="color:#f92672">}</span>
+</code></pre></div><p><img loading="lazy" src="./resources/1.png" alt="直接赋值实例化字符串"  />
+</p>
+<h2 id="方式二-1">方式二</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StringDemo08</span> <span style="color:#f92672">{</span> 
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">[])</span> <span style="color:#f92672">{</span> 
+        String str1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;hello&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">;</span> 
+    <span style="color:#f92672">}</span> 
+<span style="color:#f92672">}</span>
+</code></pre></div><p><img loading="lazy" src="./resources/2.png" alt="通过new关键字实例化字符串"  />
+</p>
+<p>故：
+使用直接赋值的方式只需要一个实例化对象即可，而使用new String()的方式则需要开辟两个内存对象空间。所以在开发中最好使用直接赋值的方式完成。</p>
+<h1 id="字符串的内容不可改变">字符串的内容不可改变</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StringDemo09</span><span style="color:#f92672">{</span> 
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">[]){</span> 
+        String str <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello&#34;</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// 声明字符串 
+</span><span style="color:#75715e"></span>        str <span style="color:#f92672">=</span> str <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; world!!!&#34;</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// 修改字符串 
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;str = &#34;</span> <span style="color:#f92672">+</span> str<span style="color:#f92672">)</span> <span style="color:#f92672">;</span> 
+    <span style="color:#f92672">}</span> 
+<span style="color:#f92672">}</span> 
+
+</code></pre></div><p>运行结果：</p>
+<p>表面上改变了字符串 str，而在内存中却并不如此。
+str  Str =  &ldquo;hello&rdquo;  &quot; world!&quot;  &ldquo;hello world!&rdquo;  str + &quot; world!&quot;;  String str = &ldquo;hello&rdquo;;  str + &quot; world!&quot;
+实际上：</p>
+<ul>
+<li>字符串的内容一旦声明则不可改变。</li>
+<li>字符串内容的改变，实际上改变的是内存地址的引用关系。</li>
+</ul>
+<p>所以开发中，应避免如下的应用：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StringDemo10</span><span style="color:#f92672">{</span> 
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">[]){</span> 
+        String str1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;LiXingHua&#34;</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// 声明字符串对象 
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span>i<span style="color:#f92672">&lt;</span>100<span style="color:#f92672">;</span>i<span style="color:#f92672">++){</span> <span style="color:#75715e">// 循环修改内容 
+</span><span style="color:#75715e"></span>                str1 <span style="color:#f92672">+=</span> i <span style="color:#f92672">;</span> <span style="color:#75715e">// 字符串的引用不断改变 
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">}</span> 
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>str1<span style="color:#f92672">)</span> <span style="color:#f92672">;</span> 
+    <span style="color:#f92672">}</span> 
+<span style="color:#f92672">};</span> 
+
+</code></pre></div><p>因为：
+这样的操作需要引用与值之间断开-连接100次才可以完成，性能很低，应该避免使用。
+若想实现类似的操作，可以使用StringBuffer类。</p>
+<h1 id="string-内容的比较">String 内容的比较</h1>
+<h2 id="方式一使用--进行比较比较的是堆内存的地址">方式一：使用 == 进行比较（比较的是堆内存的地址）</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StringDemo04</span><span style="color:#f92672">{</span> 
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">[]){</span> 
+        String str1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello&#34;</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// 直接赋值 
+</span><span style="color:#75715e"></span>        String str2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;hello&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// 通过new赋值 
+</span><span style="color:#75715e"></span>        String str3 <span style="color:#f92672">=</span> str2 <span style="color:#f92672">;</span> <span style="color:#75715e">// 传递引用 
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;str1 == str2 --&gt; &#34;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">(</span>str1<span style="color:#f92672">==</span>str2<span style="color:#f92672">))</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// false 
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;str1 == str3 --&gt; &#34;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">(</span>str1<span style="color:#f92672">==</span>str3<span style="color:#f92672">))</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// false 
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;str2 == str3 --&gt; &#34;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">(</span>str2<span style="color:#f92672">==</span>str3<span style="color:#f92672">))</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// true 
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> 
+<span style="color:#f92672">};</span> 
+
+</code></pre></div><p>OKI 001  0M 002  strl  str2  str3  String strl = &ldquo;hello&rdquo;  = new  String str2  = str2•.  String str3  &ldquo;hello&rdquo;  &ldquo;hello&rdquo;</p>
+<ul>
+<li>现在使用的判断相等，是判断地址空间是否相等，判断的是地址值。</li>
+<li>如果要想判断其内容是否相等，则就需使用String类中提供的equals()方法。</li>
+</ul>
+<h2 id="方式二使用-equals-方法进行比较比较的是字符串的内容">方式二：使用 equals() 方法进行比较（比较的是字符串的内容）</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StringDemo04</span> <span style="color:#f92672">{</span> 
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">[]){</span> 
+        String str1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello&#34;</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// 直接赋值 
+</span><span style="color:#75715e"></span>        String str2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;hello&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// 通过new赋值 
+</span><span style="color:#75715e"></span>        String str3 <span style="color:#f92672">=</span> str2 <span style="color:#f92672">;</span> <span style="color:#75715e">// 传递引用 
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;str1 equals str2 --&gt; &#34;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">(</span>str1<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>str2<span style="color:#f92672">)))</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// true 
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;str1 equals str3 --&gt; &#34;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">(</span>str1<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>str3<span style="color:#f92672">)))</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// true 
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;str2 equals str3 --&gt; &#34;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">(</span>str2<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>str3<span style="color:#f92672">)))</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// true 
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> 
+<span style="color:#f92672">};</span> 
+
 </code></pre></div>]]></content:encoded></item><item><title>【Java 核心笔记】02. 数据类型与运算符</title><link>https://hiwangzi.com/posts/2017/09/27/core-java-02/</link><pubDate>Wed, 27 Sep 2017 10:30:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/09/27/core-java-02/</guid><description>数据类型 概述 注意：
 在 Java 中，小数默认类型为 double，整数默认类型是 int 基本数据类型的默认值（开发中尽可能为每一个变量赋初值） 类型 默认值 byte (byte) 0 short (short) 0 int 0 long 0L float 0.0f double 0.0d char \u0000 boolean false 基本数据类型 整型 注意：Java 没有任何无符号（unsigned）形式的 int、long、short 或 byte 类型。 不同进制的表示形式：
 十六进制数值有一个前缀 0x 或 0X（如0xCAFE）。 八进制有一个前缀 0，例如，010 对应十进制中的 8 。很显然，八进制表示法比较容易混淆，所以建议最好不要使用八进制常数。 从Java 7开始，加上前缀 0b 或 0B 就可以写二进制数。例如， 0b1001 就是 9 。另外，同样是从 Java 7 开始，还可以为数字字面量加下划线，如用（1_000_000 或 0b1111_0100_0010_0100_0000）表示一百万。这些下划线只是为了让人更易读。Java编译器会去除这些下划线。 浮点类型 可以使用十六进制表示浮点数值。例如，0.</description><content:encoded><![CDATA[<h1 id="数据类型">数据类型</h1>
