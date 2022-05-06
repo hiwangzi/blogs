@@ -411,7 +411,7 @@ suspend    進入休眠模式
 </li>
 <li>
 <p>假设下面的硬盘文件名为/dev/hda，那么这四个分区的文件名就如下所示：</p>
-<p><img loading="lazy" src="./resources/1104579-20171009143755074-1863723813.png" alt=""  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/10/09/vbird-linux-03/resources/1104579-20171009143755074-1863723813.png" alt=""  />
 </p>
 <ul>
 <li>P1: /dev/hda1</li>
@@ -422,7 +422,7 @@ suspend    進入休眠模式
 </li>
 <li>
 <p>以上提到的四个分区指的是主分区，如果需要，可以通过扩展分区来实现：</p>
-<p><img loading="lazy" src="./resources/1104579-20171009144159184-1131367971.png" alt=""  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/10/09/vbird-linux-03/resources/1104579-20171009144159184-1131367971.png" alt=""  />
 </p>
 <ul>
 <li>
@@ -472,7 +472,7 @@ suspend    進入休眠模式
 </li>
 <li>
 <p>与MBR仅仅使用第一个512bytes来记录不同，GPT使用了34个LBA区块来记录硬盘分割信息，同时整个硬盘的最后33个LBA被用来作为另一个备份。</p>
-<p><img loading="lazy" src="./resources/1104579-20171009155633527-64701774.png" alt=""  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/10/09/vbird-linux-03/resources/1104579-20171009155633527-64701774.png" alt=""  />
 </p>
 <ul>
 <li>LBA0（MBR兼容区块）：
@@ -502,7 +502,7 @@ suspend    進入休眠模式
 <p>正是因为有第三点的功能，才能实现「多系统」功能。</p>
 <p>举例，计算机只有一个硬盘，分为四个分区，其中第一、二分区分别安装了Windows与Linux。如何在启动时选择启动哪个操作系统呢？</p>
 <p>假设MBR内安装的是可以同时认识Windows与Linux操作系统的启动管理程序，整个流程就如下图所示：</p>
-<p><img loading="lazy" src="./resources/1104579-20171009144614652-2006736437.png" alt=""  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/10/09/vbird-linux-03/resources/1104579-20171009144614652-2006736437.png" alt=""  />
 </p>
 <p>MBR的启动管理程序提供两个菜单，菜单一(M1)可以直接加载Windows的核心文件来启动； 菜单二(M2)则是将启动管理工作交给第二个分割槽的启动磁区(boot sector)。</p>
 <p>当使用者在启动的时候选择菜单二时， 那么整个启动管理工作就会交给第二分割槽的启动管理程序了。 当第二个启动管理程序启动后，该启动管理程序内(上图中)仅有一个启动菜单，因此就能够使用Linux的核心文件来启动。</p>
@@ -570,13 +570,13 @@ suspend    進入休眠模式
 <ul>
 <li>
 <p>Linux 的目录树结构</p>
-<p><img loading="lazy" src="./resources/1104579-20171009144625871-1297639301.png" alt=""  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/10/09/vbird-linux-03/resources/1104579-20171009144625871-1297639301.png" alt=""  />
 </p>
 </li>
 <li>
 <p>文件系统与目录树的关系
 所谓的「挂载」就是利用一个目录当成进入点，将磁盘分区槽的数据放置在该目录下； 也就是说，进入该目录就可以读取该分区的意思。这个动作我们称为『挂载』，那个进入点的目录我们称为『挂载点』。</p>
-<p><img loading="lazy" src="./resources/1104579-20171009144634543-457477148.png" alt=""  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/10/09/vbird-linux-03/resources/1104579-20171009144634543-457477148.png" alt=""  />
 </p>
 </li>
 </ul>
@@ -653,7 +653,7 @@ suspend    進入休眠模式
 CPU 内部第二层缓存（L2 Cache）使用静态随机访问内存（Static Random Access Memory, SRAM） 计算机的分类</description><content:encoded><![CDATA[<ol>
 <li>计算机的五大部分：输入单元、输出单元、CPU（控制单元(Control Unit)、算数逻辑单元(ALU)）、内存。</li>
 </ol>
-<p><img loading="lazy" src="./resources/1104579-20171010180348699-1186464218.png" alt=""  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/10/02/vbird-linux-01/resources/1104579-20171010180348699-1186464218.png" alt=""  />
 </p>
 <ol start="2">
 <li>
@@ -754,7 +754,7 @@ CPU 内部第二层缓存（L2 Cache）使用静态随机访问内存（Static R
 </li>
 <li>
 <p>磁盘
-<img loading="lazy" src="./resources/1104579-20171002110613880-936687345.png" alt=""  />
+<img loading="lazy" src="https://hiwangzi.com/posts/2017/10/02/vbird-linux-01/resources/1104579-20171002110613880-936687345.png" alt=""  />
 
 ——图自 <a href="https://zh.wikipedia.org/wiki/%E7%B0%87">簇 - 维基百科，自由的百科全书</a>
 磁盘分割格式：</p>
@@ -770,7 +770,7 @@ CPU 内部第二层缓存（L2 Cache）使用静态随机访问内存（Static R
 <li>操作系统
 <ul>
 <li>操作系统的重点在于管理计算机的所有活动以及驱动系统中的所有硬件。
-<img loading="lazy" src="./resources/1104579-20171010175701371-921624811.png" alt=""  />
+<img loading="lazy" src="https://hiwangzi.com/posts/2017/10/02/vbird-linux-01/resources/1104579-20171010175701371-921624811.png" alt=""  />
 </li>
 <li>内核（Kernel）的功能：
 <ul>
@@ -813,7 +813,7 @@ CPU 内部第二层缓存（L2 Cache）使用静态随机访问内存（Static R
 </li>
 </ul>
 <p>如下图，第一个搜索结果中即有相关信息 <a href="https://wiki.debian.org/wl">wl - Debian Wiki</a></p>
-<p><img loading="lazy" src="./resources/1104579-20170829164015671-927631999.jpg" alt=""  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/08/29/install-wifi-driver-for-bcm43228-in-linux/resources/1104579-20170829164015671-927631999.jpg" alt=""  />
 </p>
 <ul>
 <li>

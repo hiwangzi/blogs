@@ -3,7 +3,7 @@
 <li>charset: character set</li>
 <li>encoding: charset encoding</li>
 </ul>
-<p><img loading="lazy" src="./resources/1.png" alt="「字符集与字符集编码」类比于Java中的「接口与实现」"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2018/03/11/unicode-notes/resources/1.png" alt="「字符集与字符集编码」类比于Java中的「接口与实现」"  />
 </p>
 <h2 id="字符的编号code在unicode中码点code-point">字符的编号（code）在Unicode中：码点（code point）</h2>
 <ul>
@@ -37,7 +37,7 @@
 <ul>
 <li>
 <p>Unicode 共有码点数 17 × 65536，为了便于管理，每 65536 个码点划分为一个平面。</p>
-<p><img loading="lazy" src="./resources/2.png" alt="Unicode Plane"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2018/03/11/unicode-notes/resources/2.png" alt="Unicode Plane"  />
 </p>
 </li>
 <li>
@@ -63,12 +63,12 @@
 </li>
 <li>
 <p>采用的即是「高位保留」的方式区分不同变长。</p>
-<p><img loading="lazy" src="./resources/3.png" alt="「高位保留」的方式区分不同变长"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2018/03/11/unicode-notes/resources/3.png" alt="「高位保留」的方式区分不同变长"  />
 </p>
 </li>
 <li>
 <p>转换举例</p>
-<p><img loading="lazy" src="./resources/4.png" alt="转换举例"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2018/03/11/unicode-notes/resources/4.png" alt="转换举例"  />
 </p>
 </li>
 <li>

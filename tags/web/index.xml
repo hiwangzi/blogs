@@ -95,12 +95,12 @@ HTTP/0.9：并没有作为正式标准被建立 HTTP/1.0：公布于 1996 年 5 
 </li>
 <li>
 <p>HTTP over TCP/IP 通信传输图解：</p>
-<p><img loading="lazy" src="./resources/1104579-20171203102739226-772718691.jpg" alt="http-over-tcp-ip"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/12/03/http-note-web/resources/1104579-20171203102739226-772718691.jpg" alt="http-over-tcp-ip"  />
 </p>
 </li>
 <li>
 <p>各种协议与 HTTP 协议的关系：</p>
-<p><img loading="lazy" src="./resources/1104579-20171203102657319-1819007375.jpg" alt="http-and-other-protocols"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/12/03/http-note-web/resources/1104579-20171203102657319-1819007375.jpg" alt="http-and-other-protocols"  />
 </p>
 </li>
 <li>
@@ -113,7 +113,7 @@ HTTP/0.9：并没有作为正式标准被建立 HTTP/1.0：公布于 1996 年 5 
 </li>
 <li>
 <p>URI 的举例分析</p>
-<p><img loading="lazy" src="./resources/1104579-20171203102808601-1312573802.jpg" alt="uri-example"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/12/03/http-note-web/resources/1104579-20171203102808601-1312573802.jpg" alt="uri-example"  />
 </p>
 </li>
 </ul>

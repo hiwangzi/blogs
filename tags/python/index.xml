@@ -117,7 +117,7 @@ To solve specific problems
 </ul>
 </li>
 <li>Stored-program computers
-<img loading="lazy" src="./resources/1104579-20170210210225713-1288002435.png" alt="A basic machine architecture"  />
+<img loading="lazy" src="https://hiwangzi.com/posts/2017/02/10/mit-introduction-to-computer-science-and-programming-in-python-note-1/resources/1104579-20170210210225713-1288002435.png" alt="A basic machine architecture"  />
 </li>
 <li>Program is a recipe. Each programming language provides a set of primitive operations.</li>
 <li>Given a fixed set of primitives, a good programmer can program anything.</li>

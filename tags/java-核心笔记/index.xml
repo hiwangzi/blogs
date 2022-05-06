@@ -137,7 +137,7 @@ Method <span style="color:#a6e22e">getMethod</span><span style="color:#f92672">(
 <li>继承(inheritance)（is-a）</li>
 </ul>
 <h2 id="对应的-uml-符号">对应的 UML 符号</h2>
-<p><img loading="lazy" src="./resources/uml-notation-for-class-relationships.png" alt="UML符号"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/10/14/core-java-04-06/resources/uml-notation-for-class-relationships.png" alt="UML符号"  />
 </p>
 <ul>
 <li>
@@ -145,7 +145,7 @@ Method <span style="color:#a6e22e">getMethod</span><span style="color:#f92672">(
 </li>
 <li>
 <p>以下是一个UML类图的示例：</p>
-<p><img loading="lazy" src="./resources/class-diagram-example.png" alt="UML类图示例"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/10/14/core-java-04-06/resources/class-diagram-example.png" alt="UML类图示例"  />
 </p>
 </li>
 </ul>
@@ -611,7 +611,7 @@ public class Demo { public static void main(String args[]) { { // 普通代码�
 </span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>ab<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;ab&#34;</span><span style="color:#f92672">);</span> <span style="color:#75715e">// true
 </span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
 <span style="color:#f92672">}</span>
-</code></pre></div><p><img loading="lazy" src="./resources/string-pool-test.png" alt="字符串池测试结果"  />
+</code></pre></div><p><img loading="lazy" src="https://hiwangzi.com/posts/2017/10/07/core-java-04-03/resources/string-pool-test.png" alt="字符串池测试结果"  />
 </p>
 <ul>
 <li>时光恍惚，当时还在用着 Deepin（上图）</li>
@@ -758,10 +758,10 @@ System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span>
 ]]></content:encoded></item><item><title>【Java 核心笔记】04.01. 继承与多态、重写Object类方法</title><link>https://hiwangzi.com/posts/2017/10/07/core-java-04-01/</link><pubDate>Sat, 07 Oct 2017 17:30:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/10/07/core-java-04-01/</guid><description>继承 Java 中只允许单继承。 继承的UML类图表示，关于UML 在使用继承的时候应该注意的是：子类不能直接访问父类中的私有成员，但是子类可以调用父类中的非私有方法。（详见下文访问控制） 使用super()方法调用父类构造函数 class A { A(String str) { System.out.println(str); } } class B extends A { B() { // 1. 因为A类缺少默认构造方法，所以必须显示调用父类A的构造函数， // 否则无法编译通过。 // 2. 另外，使用super，显示调用父类构造函数时，必须在方法体首行。 super(&amp;#34;default&amp;#34;); System.out.println(&amp;#34;Hello&amp;#34;); System.out.println(&amp;#34;World&amp;#34;); } B(String str) { // 此处调用本类的无参构造函数，已经传递调用了父类A的构造函数。 this(); } } public class SuperTest { public static void main(String [] args) { B b = new B(&amp;#34;Hi&amp;#34;); } // 输出结果如下： // default // Hello // World } 一个对象变量可以指示多种实际类型的现象被称为多态（polymorphism）。 子类不能覆盖父类中 final 修饰的方法（final 类中所有方法自动地成为 final 方法，并且 final 类不能被继承）。 在父类转子类的类型转换前，可以先借助 instanceof 操作符，查看是否能够转换成功。 if (staff instanceof Manager) { boss = (Manager) staff; } 在超类（父类）设计合理的情况下，很少会使用到类型转换和 instanceof 运算符。 动态绑定、静态绑定 在运行时能够自动地选择调用哪个方法的现象称为动态绑定（dynamic binding）。 如果是 private 方法、static 方法、final 方法或者构造器，编译器可以准确知道应该调用哪个方法，此种调用方式称为静态绑定（static binding）。 抽象类 包含一个或多个抽象方法的类本身必须被声明为抽象的（abstract）。 除了抽象方法，抽象类还可以包含具体数据和具体方法。 扩展抽象类有两种选择： 一是部分实现抽象方法，此时子类仍需标记为抽象类； 二是定义全部抽象方法。 类即使不包含抽象方法，也可以将类声明为抽象类。 抽象类不能被实例化。 访问控制 仅对本类可见—— private</description><content:encoded><![CDATA[<h2 id="继承">继承</h2>
 <ul>
 <li>Java 中只允许单继承。
-<img loading="lazy" src="./resources/1.png" alt="多重继承 vs 多层继承"  />
+<img loading="lazy" src="https://hiwangzi.com/posts/2017/10/07/core-java-04-01/resources/1.png" alt="多重继承 vs 多层继承"  />
 </li>
 <li>继承的UML类图表示，<a href="/posts/2017/10/14/core-java-04-06/">关于UML</a>
-<img loading="lazy" src="./resources/2.png" alt="继承的UML类图表示"  />
+<img loading="lazy" src="https://hiwangzi.com/posts/2017/10/07/core-java-04-01/resources/2.png" alt="继承的UML类图表示"  />
 </li>
 <li>在使用继承的时候应该注意的是：子类不能直接访问父类中的私有成员，但是子类可以调用父类中的非私有方法。（详见下文<a href="#%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6">访问控制</a>）</li>
 <li>使用<code>super()</code>方法调用父类构造函数
@@ -1135,7 +1135,7 @@ System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span>
 <ul>
 <li>
 <p>类属于引用传递类型，同样存在着“栈内存-堆内存”的引用关系</p>
-<p><img loading="lazy" src="resources/memory-allocation.jpg" alt="内存划分"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/09/27/core-java-04/resources/memory-allocation.jpg" alt="内存划分"  />
 </p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Person per <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Person<span style="color:#f92672">();</span>
 </code></pre></div><ul>
@@ -1155,11 +1155,11 @@ System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span>
 <li>属性保存在堆内存</li>
 <li>方法保存在全局代码区（此区域中的内容是所有对象共享的）</li>
 </ul>
-<p><img loading="lazy" src="resources/pointer.jpg" alt="内存划分"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/09/27/core-java-04/resources/pointer.jpg" alt="内存划分"  />
 </p>
 <p>注意：对象间的引用传递，实际上传递的就是<strong>堆内存空间的使用权</strong>。</p>
 <h2 id="垃圾产生与回收gc">垃圾产生与回收（GC）</h2>
-<p><img loading="lazy" src="resources/gc.jpg" alt="垃圾回收"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/09/27/core-java-04/resources/gc.jpg" alt="垃圾回收"  />
 </p>
 <h2 id="类的一些要点">类的一些要点</h2>
 <ul>
@@ -1271,14 +1271,14 @@ int arr[][] = new int[4][3]; // 声明并实例化二维数组 arr[0][0] = 20160
 <ol>
 <li>
 <p>声明数组</p>
-<p><img loading="lazy" src="resources/declare-array.jpg" alt="声明数组"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/09/27/core-java-03/resources/declare-array.jpg" alt="声明数组"  />
 </p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">int</span> score <span style="color:#f92672">[]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span> <span style="color:#75715e">// null表示引用数据类型的默认值
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">[]</span> score <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span> <span style="color:#75715e">// 与上一句等价
 </span></code></pre></div></li>
 <li>
 <p>为数组开辟空间</p>
-<p><img loading="lazy" src="resources/allocate-memory-to-array.jpg" alt="声明数组"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/09/27/core-java-03/resources/allocate-memory-to-array.jpg" alt="声明数组"  />
 </p>
 </li>
 </ol>
@@ -1306,7 +1306,7 @@ arr<span style="color:#f92672">[</span>3<span style="color:#f92672">][</span>1<s
 </code></pre></div></li>
 <li>
 <p>声明同时赋值</p>
-<p><img loading="lazy" src="resources/init-2d-array.jpg" alt="声明二维数组同时赋值"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/09/27/core-java-03/resources/init-2d-array.jpg" alt="声明二维数组同时赋值"  />
 </p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 每行的数组元素个数不一样，分配空间不同
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ArrayDemo</span> <span style="color:#f92672">{</span>
@@ -1434,7 +1434,7 @@ arr<span style="color:#f92672">[</span>3<span style="color:#f92672">][</span>1<s
         num2 <span style="color:#f92672">=</span> temp<span style="color:#f92672">;</span>
     <span style="color:#f92672">}</span>
 <span style="color:#f92672">}</span>
-</code></pre></div><p><img loading="lazy" src="resources/var-swap.png" alt="交换后结果"  />
+</code></pre></div><p><img loading="lazy" src="https://hiwangzi.com/posts/2017/09/27/core-java-03/resources/var-swap.png" alt="交换后结果"  />
 </p>
 <h2 id="可变参数">可变参数</h2>
 <p>即方法中，可以接收的参数不再是固定的，而是随着需要传递。</p>
@@ -1515,7 +1515,7 @@ arr<span style="color:#f92672">[</span>3<span style="color:#f92672">][</span>1<s
 </span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;str2 == str3 --&gt; &#34;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">(</span>str2<span style="color:#f92672">==</span>str3<span style="color:#f92672">))</span> <span style="color:#f92672">;</span> <span style="color:#75715e">// true 
 </span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> 
 <span style="color:#f92672">}</span>
-</code></pre></div><p><img loading="lazy" src="./resources/1.png" alt="直接赋值实例化字符串"  />
+</code></pre></div><p><img loading="lazy" src="https://hiwangzi.com/posts/2017/09/27/core-java-02-01/resources/1.png" alt="直接赋值实例化字符串"  />
 </p>
 <h2 id="方式二-1">方式二</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StringDemo08</span> <span style="color:#f92672">{</span> 
@@ -1523,7 +1523,7 @@ arr<span style="color:#f92672">[</span>3<span style="color:#f92672">][</span>1<s
         String str1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;hello&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">;</span> 
     <span style="color:#f92672">}</span> 
 <span style="color:#f92672">}</span>
-</code></pre></div><p><img loading="lazy" src="./resources/2.png" alt="通过new关键字实例化字符串"  />
+</code></pre></div><p><img loading="lazy" src="https://hiwangzi.com/posts/2017/09/27/core-java-02-01/resources/2.png" alt="通过new关键字实例化字符串"  />
 </p>
 <p>故：
 使用直接赋值的方式只需要一个实例化对象即可，而使用new String()的方式则需要开辟两个内存对象空间。所以在开发中最好使用直接赋值的方式完成。</p>
@@ -1592,7 +1592,7 @@ str  Str =  &ldquo;hello&rdquo;  &quot; world!&quot;  &ldquo;hello world!&rdquo;
 在 Java 中，小数默认类型为 double，整数默认类型是 int 基本数据类型的默认值（开发中尽可能为每一个变量赋初值） 类型 默认值 byte (byte) 0 short (short) 0 int 0 long 0L float 0.0f double 0.0d char \u0000 boolean false 基本数据类型 整型 注意：Java 没有任何无符号（unsigned）形式的 int、long、short 或 byte 类型。 不同进制的表示形式：
 十六进制数值有一个前缀 0x 或 0X（如0xCAFE）。 八进制有一个前缀 0，例如，010 对应十进制中的 8 。很显然，八进制表示法比较容易混淆，所以建议最好不要使用八进制常数。 从Java 7开始，加上前缀 0b 或 0B 就可以写二进制数。例如， 0b1001 就是 9 。另外，同样是从 Java 7 开始，还可以为数字字面量加下划线，如用（1_000_000 或 0b1111_0100_0010_0100_0000）表示一百万。这些下划线只是为了让人更易读。Java编译器会去除这些下划线。 浮点类型 可以使用十六进制表示浮点数值。例如，0.</description><content:encoded><![CDATA[<h1 id="数据类型">数据类型</h1>
 <h2 id="概述">概述</h2>
-<p><img loading="lazy" src="./resources/data-type.jpg" alt="数据类型"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/09/27/core-java-02/resources/data-type.jpg" alt="数据类型"  />
 </p>
 <p>注意：</p>
 <ul>
@@ -1644,7 +1644,7 @@ str  Str =  &ldquo;hello&rdquo;  &quot; world!&quot;  &ldquo;hello world!&rdquo;
 </ul>
 <h2 id="基本数据类型">基本数据类型</h2>
 <h3 id="整型">整型</h3>
-<p><img loading="lazy" src="./resources/integer.jpg" alt="整型"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/09/27/core-java-02/resources/integer.jpg" alt="整型"  />
 </p>
 <p>注意：Java 没有任何无符号（unsigned）形式的 int、long、short 或 byte 类型。
 不同进制的表示形式：</p>
@@ -1654,7 +1654,7 @@ str  Str =  &ldquo;hello&rdquo;  &quot; world!&quot;  &ldquo;hello world!&rdquo;
 <li>从Java 7开始，加上前缀 <code>0b</code> 或 <code>0B</code> 就可以写二进制数。例如， <code>0b1001</code> 就是 <code>9</code> 。另外，同样是从 <code>Java 7</code> 开始，还可以为数字字面量加下划线，如用（<code>1_000_000</code> 或 <code>0b1111_0100_0010_0100_0000</code>）表示一百万。这些下划线只是为了让人更易读。Java<strong>编译器</strong>会去除这些下划线。</li>
 </ul>
 <h3 id="浮点类型">浮点类型</h3>
-<p><img loading="lazy" src="./resources/float.jpg" alt="浮点类型"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/09/27/core-java-02/resources/float.jpg" alt="浮点类型"  />
 </p>
 <p>可以使用十六进制表示浮点数值。例如，<code>0.125=2^(-3)</code>可以表示成<code>0x1.0p-3</code>。在十六进制表示法中，使用p表示指数，而不是e。
 <strong>注意，底数采用十六进制，指数采用十进制。指数的基数是2，而不是10。</strong>
@@ -1671,7 +1671,7 @@ str  Str =  &ldquo;hello&rdquo;  &quot; world!&quot;  &ldquo;hello world!&rdquo;
 <p>📒 关于字符编码更多内容请参考<a href="/posts/2018/03/11/unicode-notes">《Unicode 笔记》</a>。</p>
 <p>char 类型的值可以表示为十六进制值，其范围从 <code>\u0000</code> 到 <code>\uFFFF</code>。
 除了转义序列 <code>\u</code> 之外，还有一些用于表示特殊字符的转义序列，请参看表3-3。</p>
-<p><img loading="lazy" src="./resources/escape-sequence.png" alt="escape-sequence.png"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/09/27/core-java-02/resources/escape-sequence.png" alt="escape-sequence.png"  />
 </p>
 <ul>
 <li>所有这些转义序列都可以出现在加引号的字符字面量或字符串中。例如，<code>'\u2122'</code> 或 <code>&quot;Hello\n&quot;</code>。</li>
@@ -1697,7 +1697,7 @@ System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span>
 <span style="color:#75715e">// 输出
 </span><span style="color:#75715e">// 1 + 2 = 12
 </span><span style="color:#75715e">// 1 + 2 = 3
-</span></code></pre></div><p><img loading="lazy" src="./resources/auto-type-conversion.jpg" alt="自动类型转换"  />
+</span></code></pre></div><p><img loading="lazy" src="https://hiwangzi.com/posts/2017/09/27/core-java-02/resources/auto-type-conversion.jpg" alt="自动类型转换"  />
 
 注：虚线箭头可能有精度的损失</p>
 <h3 id="强制转换">强制转换</h3>
@@ -1812,7 +1812,7 @@ System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span>
 &gt;&gt;    右移（用符号位填充高位）
 &gt;&gt;&gt;   (用0填充高位)
 </code></pre><h2 id="运算符优先级">运算符优先级</h2>
-<p><img loading="lazy" src="./resources/operator-priority.jpg" alt="运算符优先级"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/09/27/core-java-02/resources/operator-priority.jpg" alt="运算符优先级"  />
 </p>
 ]]></content:encoded></item><item><title>【Java 核心笔记】01. Java介绍</title><link>https://hiwangzi.com/posts/2017/09/27/core-java-01/</link><pubDate>Wed, 27 Sep 2017 10:27:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/09/27/core-java-01/</guid><description>「白皮书」关键术语 简单性 C++&amp;ndash; 面向对象 分布式 健壮性 安全性 体系结构中立 可移植性 解释型 高性能 多线程 动态性 Java 发展历程 SUN公司——Stanford University Network 主设计者：James Gosling 1996年初 - 发布 Java 1.0 Java 2, JDK 1.2 有了很大的改变 - 更加接近“一次编写，随处运行”的承诺 J2SE 5.0 得到了进一步改进 - 泛型、(以下几项受 C# 启发) foreach、自动装箱、注解 2014年 - 发布 Java 8 - 重大改变：提供了一种「函数式」编程方式，可以容易地表述并发执行的计算 Java 主要技术分支 Java SE Java 2 Platform, Standard Edition 前身：J2SE，2005年更名为Java SE Java EE（主要应用） Java 2 Platform, Enterprise Edition 前身：J2EE，2005年更名为Java EE Java ME（嵌入式） Java 2 Platform, Micro Edition 前身：J2ME，2005年更名为Java ME JVM, JRE, JDK JVM(Java Virtual Machine) &amp;lt; JRE(Java Runtime Environment) &amp;lt; JDK(Java Development Kit) “跨平台” 与 “解释执行” 早期的 Java是解释型的。现在 Java 虚拟机使用了即时编译器，因此采用 Java 编写的“热点”代码其运行速度与 C++ 相差无几，有些情况下甚至更快。 Java 开发环境 Path 的主要功能是设置 JDK 的可执行命令 classpath 主要是在执行的时候起作用，告诉JVM类的保存路径，一般（默认）设置为.</description><content:encoded><![CDATA[<h2 id="白皮书关键术语">「白皮书」关键术语</h2>
 <ul>
@@ -1837,7 +1837,7 @@ System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span>
 <li>J2SE 5.0 得到了进一步改进 - 泛型、(以下几项受 C# 启发) foreach、自动装箱、注解</li>
 <li>2014年 - 发布 Java 8 - 重大改变：提供了一种「<strong>函数式</strong>」编程方式，可以容易地表述并发执行的计算</li>
 </ul>
-<p><img loading="lazy" src="./resources/java-version.jpg" alt="Java的版本"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/09/27/core-java-01/resources/java-version.jpg" alt="Java的版本"  />
 </p>
 <h2 id="java-主要技术分支">Java 主要技术分支</h2>
 <ul>
@@ -1859,7 +1859,7 @@ Java 2 Platform, Micro Edition
 <ul>
 <li>早期的 Java是解释型的。现在 Java 虚拟机使用了即时编译器，因此采用 Java 编写的“热点”代码其运行速度与 C++ 相差无几，有些情况下甚至更快。</li>
 </ul>
-<p><img loading="lazy" src="./resources/java-cross-platform.png" alt="Java的跨平台性"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/09/27/core-java-01/resources/java-cross-platform.png" alt="Java的跨平台性"  />
 </p>
 <h2 id="java-开发环境">Java 开发环境</h2>
 <ol>
@@ -1870,7 +1870,7 @@ Java 2 Platform, Micro Edition
 <li>注意：classpath 只在 java 命令时起作用，对 javac 无作用</li>
 </ul>
 <h2 id="一些术语">一些术语</h2>
-<p><img loading="lazy" src="./resources/java-terms.jpg" alt="Java的一些术语"  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/09/27/core-java-01/resources/java-terms.jpg" alt="Java的一些术语"  />
 </p>
 <ul>
 <li>当Oracle为解决一些紧急问题做出某些微小的版本改变时，将其称为更新。例如：Java SE 8u31是Java SE 8的第31次更新，它的内部版本号是1.8.0_31。更新不需要安装在前一个版本上，它会包含整个JDK的最新版本。</li>

@@ -11,7 +11,7 @@
 <blockquote>
 <p>这门课能告诉他们：一个有用的软件到底是如何诞生的，我们在学校里学的操作系统、数据结构等专业课程到底在开发中是怎样应用的……</p>
 </blockquote>
-<p><img loading="lazy" src="./resources/1104579-20170325135010252-41469939.png" alt=""  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/03/25/oop-practice-csharp-note-1/resources/1104579-20170325135010252-41469939.png" alt=""  />
 </p>
 <p>以下是本课程第一单元的笔记：</p>
 <h1 id="工具">工具</h1>
@@ -21,7 +21,7 @@
 <ol>
 <li>
 <p>直接在 <a href="https://referencesource.microsoft.com/">.NET Reference Source</a> 网站中在线浏览。</p>
-<p><img loading="lazy" src="./resources/1104579-20170325134935721-22581124.png" alt=""  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/03/25/oop-practice-csharp-note-1/resources/1104579-20170325134935721-22581124.png" alt=""  />
 </p>
 </li>
 <li>
@@ -38,15 +38,15 @@
 <p>IL 反汇编程序是 IL 汇编程序 (Ilasm.exe) 的配套工具。Ildasm.exe 可利用包含中间语言 (IL) 代码的可移植可执行 (PE) 文件，并创建适合输入到 Ilasm.exe 的文本文件。此工具自动随 Visual Studio 一起安装。</p>
 <p>命令行方式使用文档说明：<a href="https://msdn.microsoft.com/zh-cn/library/f7dy01k1(v=vs.110).aspx">Ildasm.exe（IL 反汇编程序）</a></p>
 <p>如果已经安装了 Visual Studio 的话，可以在这个目录（<code>C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6.1 Tools</code>）下找到这个程序。实际情况取决于 Visual Studio 的版本，所以路径中的版本数字也可能会有所不同。</p>
-<p><img loading="lazy" src="./resources/1104579-20170325135053330-1063388121.png" alt=""  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/03/25/oop-practice-csharp-note-1/resources/1104579-20170325135053330-1063388121.png" alt=""  />
 </p>
 <h2 id="ilspy">ilspy</h2>
 <p>ILSpy is the open-source .NET assembly browser and decompiler.</p>
 <p>这个工具可以帮助我们将 .NET 可执行程序反汇编出 C# 源代码。官网地址：http://ilspy.net/</p>
 <h1 id="关于-net">关于 .NET</h1>
-<p><img loading="lazy" src="./resources/1104579-20170325135111252-670076091.png" alt=""  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/03/25/oop-practice-csharp-note-1/resources/1104579-20170325135111252-670076091.png" alt=""  />
 </p>
-<p><img loading="lazy" src="./resources/1104579-20170325135141455-829966262.png" alt=""  />
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2017/03/25/oop-practice-csharp-note-1/resources/1104579-20170325135141455-829966262.png" alt=""  />
 </p>
 <p>未完待续&hellip;</p>
 ]]></content:encoded></item></channel></rss>
