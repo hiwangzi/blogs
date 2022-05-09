@@ -480,14 +480,18 @@ suspend    進入休眠模式
 <li>LBA1（GPT表头记录）：
 这个部分记录了分割表本身的位置与大小，同时记录了备份用的GPT分割放置的位置，以及校验码（CRC32）。操作系统可以根据校验码判断GPT是否正确，若有错误，则可以取得备份来恢复。</li>
 <li>LBA2-33（实际记录分割记录信息处）：
-从LBA2区块开始，每个LBA都可以记录4个分割记录，所以在默认情况下，可以记录4*32=128个记录。每一个记录除了记录所需要的标志码与相关记录意外，还<strong>分别</strong>提供了64bits来记录开始/结束的区块号码。因此对一单一的分区来说，最大容量限制在「264 × 512bytes = 263 × 1Kbytes = 233 × TB = 8 ZB 」</li>
+<ul>
+<li>从LBA2区块开始，每个LBA都可以记录4个分割记录，所以在默认情况下，可以记录4*32=128个记录。</li>
+<li>每一个记录除了记录所需要的标志码与相关记录以外，还<strong>分别</strong>提供了64bits来记录开始/结束的区块号码。因此理论上，GPT硬盘最大容量限制为「2^64 × 512bytes(逻辑区块大小) = 2^63 × 1Kbytes = 2^33 × TB = 8 ZB 」</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 <h2 id="系统启动流程bios--mbrgpt">系统启动流程（BIOS + MBR/GPT）</h2>
 <p>简单的说，整个启动流程到操作系统之前的动作应该是这样的：</p>
 <ul>
-<li>BIOS：启动主动运行的韧体，会认识第一个可启动的装置；</li>
+<li>BIOS：启动主动运行的固件，会认识第一个可启动的装置；</li>
 <li>MBR：第一个可启动装置的第一个磁区内的主要启动记录区块，内含启动管理程序；</li>
 <li>启动管理程序(boot loader)：一支可读取核心文件来运行的软件；</li>
 <li>核心文件：开始操作系统的功能&hellip;</li>
@@ -510,7 +514,7 @@ suspend    進入休眠模式
 <li>小总结：
 <ul>
 <li>每个分割槽都拥有自己的启动磁区(boot sector)</li>
-<li>图中的系统槽为第一及第二分割槽，</li>
+<li>图中的系统槽为第一及第二分割槽</li>
 <li>实际可启动的核心文件是放置到各分割槽内的！</li>
 <li>loader只会认识自己的系统槽内的可启动核心文件，以及其他loader而已；</li>
 <li>loader可直接指向或者是间接将管理权转交给另一个管理程序。</li>
@@ -546,7 +550,7 @@ suspend    進入休眠模式
 <tr>
 <td>扩展方式</td>
 <td>通过 IRQ 连接</td>
-<td>直接載入驱动程序</td>
+<td>直接载入驱动程序</td>
 </tr>
 <tr>
 <td>第三方厂商支持</td>
@@ -559,7 +563,7 @@ suspend    進入休眠模式
 <td>较好</td>
 </tr>
 <tr>
-<td>內建简化操作系统前环境</td>
+<td>内建简化操作系统前环境</td>
 <td>不支持</td>
 <td>支持</td>
 </tr>
@@ -580,7 +584,7 @@ suspend    進入休眠模式
 </p>
 </li>
 </ul>
-<p>上图中假设硬盘分为两个分区，partition 1是挂载到根目录，而partition 2则是挂载到/home这个目录。 这也就是说，当数据放置在/home内的各次目录时，数据是放置到partition 2的，如果不是放在/home底下的目录， 那么数据就会被放置到partition 1。</p>
+<p>上图中假设硬盘分为两个分区，partition 1是挂载到根目录，而partition 2则是挂载到/home这个目录。 这也就是说，当数据放置在/home内的各子目录时，数据是放置到partition 2的，如果不是放在/home底下的目录， 那么数据就会被放置到partition 1。</p>
 <p>其实判断某个文件在那个partition底下是很简单的，透过反向追踪即可。以上图来说， 当我想要知道/home/vbird/test这个文件在那个partition时，由test &ndash;&gt; vbird &ndash;&gt; home &ndash;&gt; /，看那个『进入点』先被查到那就是使用的进入点了。 所以test使用的是/home这个进入点而不是/。</p>
 ]]></content:encoded></item><item><title>《鸟哥的Linux私房菜》笔记——02. 关于Linux</title><link>https://hiwangzi.com/posts/2017/10/02/vbird-linux-02/</link><pubDate>Mon, 02 Oct 2017 12:28:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/10/02/vbird-linux-02/</guid><description>Unix 历史 1969年以前：伟大的梦想——Bell, MIT 与 GE 的「Multics」系统 1969年：Ken Thompson 的小型 file server system 1973年：Unix 正式诞生（Ritchie等人以 C 语言写出第一个正式 Unix核心） 1977年：重要的 Unix 分支——BSD 的诞生 1979年：重要的 System V 架构（支持x86）与版权宣告 1984年之一：x86 架构的 Minix 操作系统开始编写并于两年后诞生 1984年之二：GNU 计划与 FSF(Free Software Foundation) 基金会的成立 1988年：图形界面 XFree86(X Window System + Free + x86) 计划 1991年：芬兰大学生 Linux Torvalds 的一则简讯 Linux 的核心版本 2.6.18-92.el5 主版本.次版本.释出版本-修改版本 核心被分为两个分支：
 主、次版本为奇数：发展中版本(development) 如2.5.xx，这种核心版本主要用在测试与发展新功能，所以通常这种版本仅有核心开发工程师会使用。 如果有新增的核心程序代码，会加到这种版本当中，等到众多工程师测试没问题后，才加入下一版的稳定核心中； 主、次版本为偶数：稳定版本(stable) 如2.6.xx，等到核心功能发展成熟后会加到这类的版本中，主要用在一般家庭计算机以及企业版本中。 重点在于提供使用者一个相对稳定的Linux作业环境平台。 Linux 是一个操作系统最底层的核心以及其提供的核心工具。他是 GNU GPL 授权模式，所以，任何人均可取得源代码，并且可以修改。</description><content:encoded><![CDATA[<h2 id="unix-历史">Unix 历史</h2>

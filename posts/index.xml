@@ -229,11 +229,11 @@
 <p>昨天晚上开始折腾将 Hexo 替换为 Hugo 来生成博客，以下是关于我对于 Hugo 的一些配置。</p>
 <ul>
 <li>修改 <code>archetypes/default.md</code>，默认模版增加了 <code>summary</code>、<code>tags</code> 字段。</li>
-<li>建立 <a href="https://github.com/zill057/blogs/tree/15cf97bf639312217d719493915c0f05d46d0797/config"><code>config</code> 目录</a>代替原有的 <code>config.toml</code>，根据<a href="https://gohugo.io/getting-started/configuration/#configuration-directory">官方文档说明</a>，创建了默认（均先加载该配置，然后加载其他配置）以及两个环境下的配置目录（<code>development</code>、<code>production</code>）。这样就可以实现默认情况下 <code>hugo server</code> 调用 <code>development</code> 配置，<code>hugo</code> 调用 <code>production</code> 配置。</li>
+<li>建立 <a href="https://github.com/hiwangzi/blogs/tree/15cf97bf639312217d719493915c0f05d46d0797/config"><code>config</code> 目录</a>代替原有的 <code>config.toml</code>，根据<a href="https://gohugo.io/getting-started/configuration/#configuration-directory">官方文档说明</a>，创建了默认（均先加载该配置，然后加载其他配置）以及两个环境下的配置目录（<code>development</code>、<code>production</code>）。这样就可以实现默认情况下 <code>hugo server</code> 调用 <code>development</code> 配置，<code>hugo</code> 调用 <code>production</code> 配置。</li>
 <li>通过 Git 子模块的形式，引入主题 <a href="https://themes.gohugo.io/tale-hugo/">tale</a>，根据主题的文档说明，做了如下操作：
 <ul>
-<li><a href="https://github.com/zill057/blogs/tree/15cf97bf639312217d719493915c0f05d46d0797/layouts">覆盖了部分页面配置</a>，目的是自定义菜单栏、加载 Disqus 评论插件。</li>
-<li><a href="https://github.com/zill057/blogs/tree/15cf97bf639312217d719493915c0f05d46d0797/static">覆盖了 favicon 静态资源</a>，实现自定义站点 icon 图标。</li>
+<li><a href="https://github.com/hiwangzi/blogs/tree/15cf97bf639312217d719493915c0f05d46d0797/layouts">覆盖了部分页面配置</a>，目的是自定义菜单栏、加载 Disqus 评论插件。</li>
+<li><a href="https://github.com/hiwangzi/blogs/tree/15cf97bf639312217d719493915c0f05d46d0797/static">覆盖了 favicon 静态资源</a>，实现自定义站点 icon 图标。</li>
 </ul>
 </li>
 <li>通过修改配置文件，将生成结果放置到 <code>docs</code> 目录下。这样可以通过配置 GitHub 项目的 Pages 获取方式，来实现页面的渲染。
@@ -341,10 +341,10 @@
 </blockquote>
 <h2 id="问题">问题</h2>
 <p>在阅读 Java 的 <code>ArrayList</code> 源代码时，我注意到在 <code>if</code> 语句中的一些比较语句。</p>
-<p>在 Java 7 之中，<a href="http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/7-b147/java/util/ArrayList.java#ArrayList.grow%28int%29"><code>grow(int)</code></a> 方法使用了如下代码：</p>
+<p>在 Java 7 之中，<a href="https://github.com/openjdk/jdk7/blob/7772c7a0446e7036773890e72e771a3e222cb4c7/jdk/src/share/classes/java/util/ArrayList.java#L204"><code>grow(int)</code></a> 方法使用了如下代码：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>newCapacity <span style="color:#f92672">-</span> minCapacity <span style="color:#f92672">&lt;</span> 0<span style="color:#f92672">)</span>
     newCapacity <span style="color:#f92672">=</span> minCapacity<span style="color:#f92672">;</span>
-</code></pre></div><p>在 Java 6 中，没有 <code>grow</code> 方法。但方法 <a href="http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/6-b27/java/util/ArrayList.java#ArrayList.ensureCapacity%28int%29"><code>ensureCapacity(int)</code></a> 却使用如下方式比较数值：</p>
+</code></pre></div><p>在 Java 6 中，没有 <code>grow</code> 方法。但方法 <a href="https://github.com/openjdk/jdk6/blob/3e49aa876353eaa215cde71eb21acc9b7f9872a0/jdk/src/share/classes/java/util/ArrayList.java#L180"><code>ensureCapacity(int)</code></a> 却使用如下方式比较数值：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>newCapacity <span style="color:#f92672">&lt;</span> minCapacity<span style="color:#f92672">)</span>
     newCapacity <span style="color:#f92672">=</span> minCapacity<span style="color:#f92672">;</span>
 </code></pre></div><p>变更比较语句写法的原因是什么呢？为了性能还是说只是代码风格的变化？</p>
@@ -376,7 +376,7 @@
 <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>newCapacity <span style="color:#f92672">-</span> MAX_ARRAY_SIZE <span style="color:#f92672">&gt;</span> 0<span style="color:#f92672">)</span>
     newCapacity <span style="color:#f92672">=</span> hugeCapacity<span style="color:#f92672">(</span>minCapacity<span style="color:#f92672">);</span>
 </code></pre></div><p><code>oldCapacity</code> 非常接近 <code>Integer.MAX_VALUE</code>，因此 <code>newCapacity</code>（即<code>oldCapacity + 0.5 * oldCapacity</code>）有可能产生溢出，假设溢出后值为 <code>Integer.MIN_VALUE</code> (负值)。然后，减去 <code>minCapacity</code> 又<strong>下溢</strong>变为正值（译者注：假设参数<code>minCapacity</code>为正值）。</p>
-<p>因此第一个 <code>if</code> 块中的代码将不会被执行。但假设代码条件写作 <code>if (newCapacity &lt; minCapacity)</code>，结果将会是 <code>true</code>（因为 <code>newCapacity</code> 是负值），这将导致 <code>newCapacity</code> 被强行指定为 <code>minCapacity</code> 而没有考虑 <code>minCapacity</code>。</p>
+<p>因此第一个 <code>if</code> 块中的代码将不会被执行。但假设代码条件写作 <code>if (newCapacity &lt; minCapacity)</code>，结果将会是 <code>true</code>（因为 <code>newCapacity</code> 是负值），这将导致 <code>newCapacity</code> 被强行指定为 <code>minCapacity</code> 而没有考虑 <code>oldCapacity</code>。</p>
 <p>这个溢出问题将会被下一个 <code>if</code> 语句所处理。当 <code>newCapacity</code> 溢出后，此 <code>if</code> 的结果为 <code>true</code>：<code>MAX_ARRAY_SIZE</code> 为 <code>Integer.MAX_VALUE - 8</code>，所以 <code>Integer.MIN_VALUE - (Integer.MAX_VALUE - 8) &gt; 0</code> 为 <code>true</code>。因此 <code>newCapacity</code> 可以被正确的处理：<code>hugeCapacity</code> 方法将返回 <code>MAX_ARRAY_SIZE</code> 或 <code>Integer.MAX_VALUE</code>。</p>
 <p>注意：这就是对应 Java 代码中注释 <code>// overflow-conscious</code> 的含义。</p>
 ]]></content:encoded></item><item><title>安装 Arch 中遇到的 Broadcom b43(BCM43228) 网卡问题</title><link>https://hiwangzi.com/posts/2018/03/25/arch-install-with-bcm/</link><pubDate>Sun, 25 Mar 2018 00:00:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2018/03/25/arch-install-with-bcm/</guid><description>之前按照《以官方 Wiki 的方式安装 ArchLinux》，并结合官方文档，成功的在 VirtualBox 环境下安装好了 Arch。虚拟机限于内存、显卡等因素，体验不够好，因此今天准备在旧笔记本实机安装。在第一步联网过程中，就遇到了阻碍，特此记录。</description><content:encoded><![CDATA[<p>之前按照以 <a href="https://www.viseator.com/2017/05/17/arch_install/">官方 Wiki 的方式安装 ArchLinux</a>，并结合 <a href="https://wiki.archlinux.org/index.php/installation_guide">官方文档</a>，成功的在 VirtualBox 环境下安装好了 Arch。虚拟机限于内存、显卡等因素，体验不够好，因此今天准备在旧笔记本实机安装。在第一步联网过程中，就遇到了阻碍，特此记录。</p>
@@ -1036,12 +1036,12 @@ openssl rsautl -encrypt -pubin -inkey public_key.pem -in message.txt &gt; messag
 </code></pre></div></li>
 </ul>
 ]]></content:encoded></item><item><title>如此</title><link>https://hiwangzi.com/posts/2017/10/31/so/</link><pubDate>Tue, 31 Oct 2017 21:55:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/10/31/so/</guid><description>抑制偏见，拥抱世界。
-&amp;mdash; Zi WANG (@zill057) October 29, 2017 有了记录之后，仍然会觉得，时间眨眼飞逝。
+&amp;mdash; Zi WANG (@hiwangzi) October 29, 2017 有了记录之后，仍然会觉得，时间眨眼飞逝。
 去年的今天，写下了 我的十月 这篇博文，再读来，真的觉得当时的自己的生活还算称得上有趣啦。也许就如花花所说，我一直在粉饰自己过去的时光，所以才总是会觉得现在的自己真是大不如从前。
 人虽然总是在变化，可变化有时却没那么快。或许未来的自己会觉得今天的我也并非充足的努力，可此刻的我还是愿意鼓励自我的现状。或许没有去年的十月那么多值得记录的事情，但我知道，自己在踏实的前进。
 没有什么更多的事说了，如此&amp;hellip;</description><content:encoded><![CDATA[
 
-<blockquote class="twitter-tweet"><p lang="zh" dir="ltr">抑制偏见，拥抱世界。</p>&mdash; Zi WANG (@zill057) <a href="https://twitter.com/zill057/status/924451304507768834?ref_src=twsrc%5Etfw">October 29, 2017</a></blockquote> <script async src="https://hiwangzi.com/posts/2017/10/31/so/https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="zh" dir="ltr">抑制偏见，拥抱世界。</p>&mdash; Zi WANG (@hiwangzi) <a href="https://twitter.com/hiwangzi/status/924451304507768834?ref_src=twsrc%5Etfw">October 29, 2017</a></blockquote> <script async src="https://hiwangzi.com/posts/2017/10/31/so/https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <p>有了记录之后，仍然会觉得，时间眨眼飞逝。</p>
 <p>去年的今天，写下了 <a href="/posts/2016/10/31/october-2016/">我的十月</a> 这篇博文，再读来，真的觉得当时的自己的生活还算称得上有趣啦。也许就如花花所说，我一直在粉饰自己过去的时光，所以才总是会觉得现在的自己真是大不如从前。</p>
@@ -1919,14 +1919,18 @@ suspend    進入休眠模式
 <li>LBA1（GPT表头记录）：
 这个部分记录了分割表本身的位置与大小，同时记录了备份用的GPT分割放置的位置，以及校验码（CRC32）。操作系统可以根据校验码判断GPT是否正确，若有错误，则可以取得备份来恢复。</li>
 <li>LBA2-33（实际记录分割记录信息处）：
-从LBA2区块开始，每个LBA都可以记录4个分割记录，所以在默认情况下，可以记录4*32=128个记录。每一个记录除了记录所需要的标志码与相关记录意外，还<strong>分别</strong>提供了64bits来记录开始/结束的区块号码。因此对一单一的分区来说，最大容量限制在「264 × 512bytes = 263 × 1Kbytes = 233 × TB = 8 ZB 」</li>
+<ul>
+<li>从LBA2区块开始，每个LBA都可以记录4个分割记录，所以在默认情况下，可以记录4*32=128个记录。</li>
+<li>每一个记录除了记录所需要的标志码与相关记录以外，还<strong>分别</strong>提供了64bits来记录开始/结束的区块号码。因此理论上，GPT硬盘最大容量限制为「2^64 × 512bytes(逻辑区块大小) = 2^63 × 1Kbytes = 2^33 × TB = 8 ZB 」</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 <h2 id="系统启动流程bios--mbrgpt">系统启动流程（BIOS + MBR/GPT）</h2>
 <p>简单的说，整个启动流程到操作系统之前的动作应该是这样的：</p>
 <ul>
-<li>BIOS：启动主动运行的韧体，会认识第一个可启动的装置；</li>
+<li>BIOS：启动主动运行的固件，会认识第一个可启动的装置；</li>
 <li>MBR：第一个可启动装置的第一个磁区内的主要启动记录区块，内含启动管理程序；</li>
 <li>启动管理程序(boot loader)：一支可读取核心文件来运行的软件；</li>
 <li>核心文件：开始操作系统的功能&hellip;</li>
@@ -1949,7 +1953,7 @@ suspend    進入休眠模式
 <li>小总结：
 <ul>
 <li>每个分割槽都拥有自己的启动磁区(boot sector)</li>
-<li>图中的系统槽为第一及第二分割槽，</li>
+<li>图中的系统槽为第一及第二分割槽</li>
 <li>实际可启动的核心文件是放置到各分割槽内的！</li>
 <li>loader只会认识自己的系统槽内的可启动核心文件，以及其他loader而已；</li>
 <li>loader可直接指向或者是间接将管理权转交给另一个管理程序。</li>
@@ -1985,7 +1989,7 @@ suspend    進入休眠模式
 <tr>
 <td>扩展方式</td>
 <td>通过 IRQ 连接</td>
-<td>直接載入驱动程序</td>
+<td>直接载入驱动程序</td>
 </tr>
 <tr>
 <td>第三方厂商支持</td>
@@ -1998,7 +2002,7 @@ suspend    進入休眠模式
 <td>较好</td>
 </tr>
 <tr>
-<td>內建简化操作系统前环境</td>
+<td>内建简化操作系统前环境</td>
 <td>不支持</td>
 <td>支持</td>
 </tr>
@@ -2019,7 +2023,7 @@ suspend    進入休眠模式
 </p>
 </li>
 </ul>
-<p>上图中假设硬盘分为两个分区，partition 1是挂载到根目录，而partition 2则是挂载到/home这个目录。 这也就是说，当数据放置在/home内的各次目录时，数据是放置到partition 2的，如果不是放在/home底下的目录， 那么数据就会被放置到partition 1。</p>
+<p>上图中假设硬盘分为两个分区，partition 1是挂载到根目录，而partition 2则是挂载到/home这个目录。 这也就是说，当数据放置在/home内的各子目录时，数据是放置到partition 2的，如果不是放在/home底下的目录， 那么数据就会被放置到partition 1。</p>
 <p>其实判断某个文件在那个partition底下是很简单的，透过反向追踪即可。以上图来说， 当我想要知道/home/vbird/test这个文件在那个partition时，由test &ndash;&gt; vbird &ndash;&gt; home &ndash;&gt; /，看那个『进入点』先被查到那就是使用的进入点了。 所以test使用的是/home这个进入点而不是/。</p>
 ]]></content:encoded></item><item><title>【Java 核心笔记】04.03. 匿名对象与字符串缓冲池</title><link>https://hiwangzi.com/posts/2017/10/07/core-java-04-03/</link><pubDate>Sat, 07 Oct 2017 21:00:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/10/07/core-java-04-03/</guid><description>匿名对象 匿名对象：只在堆内存中开辟空间，不存在栈内存的引用。 由于匿名对象没有对应的栈内存引用所指向，所以使用一次之后，就等待被垃圾回收了。 例：一个单独的字符串就是一个 String 的匿名对象。System.out.println(&amp;quot;Hi&amp;quot;); 字符串缓冲池 public class Test { public static void main(String[] args) { String str = &amp;#34;hello&amp;#34; ; System.out.println(&amp;#34;hello&amp;#34;.equals(str)) ; // true System.out.println(&amp;#34;hello&amp;#34; == str); // true // String 池：Java为了优化字符串操作 提供了一个缓冲池； // str 指向字符串 &amp;#34;hello&amp;#34;, 第二句中字符串 &amp;#34;hello&amp;#34; ，为同一指向。 // 这是因为字符串在常量池中已经存在，第二句中字符串 &amp;#34;hello&amp;#34; 就不再开辟新空间。 // 所以不管是 equals 比较内容， == 比较内存地址都为 true。 // 但请不要使用这种方式比较字符串，不稳键。 } } 下面的代码验证了我去「XXXX」面试时真的是乱吹🙈： /* * 当时我以为 JVM 的缓冲池可以实现“变量(a)连接字符串(&amp;#34;b&amp;#34;)可以与&amp;#34;ab&amp;#34;使用同一个堆内存” * 但是事实是并不可行 */ public class StringTest{ public static void main(String [] args){ String ab=&amp;#34;ab&amp;#34;; String a=&amp;#34;a&amp;#34;; // 「变量」与「变量连接字符串（匿名对象）」比较 System.</description><content:encoded><![CDATA[<h2 id="匿名对象">匿名对象</h2>
 <ul>
@@ -3595,7 +3599,7 @@ netsh interface set interface 接口名称 disabled
 netsh interface set interface 接口名称 enabled
 </code></pre></div>]]></content:encoded></item><item><title>代码与数据</title><link>https://hiwangzi.com/posts/2017/09/03/code-and-data/</link><pubDate>Sun, 03 Sep 2017 13:20:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/09/03/code-and-data/</guid><description>半年之前，第一次接触到这种将函数作为参数传递的做法，当时实在觉得难以理解。
 PHP 的变量真的是啥都能装，不管函数还是类，这个真的是灵活到飘逸🙈。另外，“魔术方法”哈哈哈哈哈哈哈🌞好酷哦... pic.twitter.com/nxGwbBKAEl
-&amp;mdash; Zi WANG (@zill057) March 28, 2017 直到最近再次接触到 Python，查询了一些资料，才开始对其有了一些初步的认识。
+&amp;mdash; Zi WANG (@hiwangzi) March 28, 2017 直到最近再次接触到 Python，查询了一些资料，才开始对其有了一些初步的认识。
 我们暂停一下，看看计算机中比较诡异的地方，也就是代码(code)和数据(data)的统一。这是一个槛，如果不跨过这槛，很多概念就不清楚。我们常常说计算机程序分成 code 和 data 两部分。很多人会理解成，code 是会运行的，是动态的，data 是给 code 使用，是静态的，这是两种完全不同的东西。
 回调函数（callback）是什么？ - 回答作者: 黄兢成 https://zhihu.com/question/19801131/answer/17156023
 最开始我的认知也就如上面这个问题的答主描述的一般，但如果转变一下思维，将 code 与 data 统一视为视为信息，对于 PHP 中可以将函数作为参数传递的做法，也就可以理解了。
@@ -3606,7 +3610,7 @@ PHP 的变量真的是啥都能装，不管函数还是类，这个真的是灵�
 有些语言不区分，它的 function(表示code)跟 int, double 的地位是一样的。这种语言称函数是第一类值。 有些语言是不能存储函数，不能动态创建函数，不能动态销毁函数。只能存储一个指向函数的指针，这种语言称函数是第二类值。 在 Python 中，将一切都视为对象，传递的即是函数的指针。这种做法即属于上述描述中的第二类。</description><content:encoded><![CDATA[<p>半年之前，第一次接触到这种将函数作为参数传递的做法，当时实在觉得难以理解。</p>
 
 
-<blockquote class="twitter-tweet"><p lang="zh" dir="ltr">PHP 的变量真的是啥都能装，不管函数还是类，这个真的是灵活到飘逸🙈。另外，“魔术方法”哈哈哈哈哈哈哈🌞好酷哦... <a href="https://t.co/nxGwbBKAEl">pic.twitter.com/nxGwbBKAEl</a></p>&mdash; Zi WANG (@zill057) <a href="https://twitter.com/zill057/status/846697844496986112?ref_src=twsrc%5Etfw">March 28, 2017</a></blockquote> <script async src="https://hiwangzi.com/posts/2017/09/03/code-and-data/https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="zh" dir="ltr">PHP 的变量真的是啥都能装，不管函数还是类，这个真的是灵活到飘逸🙈。另外，“魔术方法”哈哈哈哈哈哈哈🌞好酷哦... <a href="https://t.co/nxGwbBKAEl">pic.twitter.com/nxGwbBKAEl</a></p>&mdash; Zi WANG (@hiwangzi) <a href="https://twitter.com/hiwangzi/status/846697844496986112?ref_src=twsrc%5Etfw">March 28, 2017</a></blockquote> <script async src="https://hiwangzi.com/posts/2017/09/03/code-and-data/https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <p>直到最近再次接触到 Python，查询了一些资料，才开始对其有了一些初步的认识。</p>
 <blockquote>

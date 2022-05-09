@@ -229,11 +229,11 @@
 <p>昨天晚上开始折腾将 Hexo 替换为 Hugo 来生成博客，以下是关于我对于 Hugo 的一些配置。</p>
 <ul>
 <li>修改 <code>archetypes/default.md</code>，默认模版增加了 <code>summary</code>、<code>tags</code> 字段。</li>
-<li>建立 <a href="https://github.com/zill057/blogs/tree/15cf97bf639312217d719493915c0f05d46d0797/config"><code>config</code> 目录</a>代替原有的 <code>config.toml</code>，根据<a href="https://gohugo.io/getting-started/configuration/#configuration-directory">官方文档说明</a>，创建了默认（均先加载该配置，然后加载其他配置）以及两个环境下的配置目录（<code>development</code>、<code>production</code>）。这样就可以实现默认情况下 <code>hugo server</code> 调用 <code>development</code> 配置，<code>hugo</code> 调用 <code>production</code> 配置。</li>
+<li>建立 <a href="https://github.com/hiwangzi/blogs/tree/15cf97bf639312217d719493915c0f05d46d0797/config"><code>config</code> 目录</a>代替原有的 <code>config.toml</code>，根据<a href="https://gohugo.io/getting-started/configuration/#configuration-directory">官方文档说明</a>，创建了默认（均先加载该配置，然后加载其他配置）以及两个环境下的配置目录（<code>development</code>、<code>production</code>）。这样就可以实现默认情况下 <code>hugo server</code> 调用 <code>development</code> 配置，<code>hugo</code> 调用 <code>production</code> 配置。</li>
 <li>通过 Git 子模块的形式，引入主题 <a href="https://themes.gohugo.io/tale-hugo/">tale</a>，根据主题的文档说明，做了如下操作：
 <ul>
-<li><a href="https://github.com/zill057/blogs/tree/15cf97bf639312217d719493915c0f05d46d0797/layouts">覆盖了部分页面配置</a>，目的是自定义菜单栏、加载 Disqus 评论插件。</li>
-<li><a href="https://github.com/zill057/blogs/tree/15cf97bf639312217d719493915c0f05d46d0797/static">覆盖了 favicon 静态资源</a>，实现自定义站点 icon 图标。</li>
+<li><a href="https://github.com/hiwangzi/blogs/tree/15cf97bf639312217d719493915c0f05d46d0797/layouts">覆盖了部分页面配置</a>，目的是自定义菜单栏、加载 Disqus 评论插件。</li>
+<li><a href="https://github.com/hiwangzi/blogs/tree/15cf97bf639312217d719493915c0f05d46d0797/static">覆盖了 favicon 静态资源</a>，实现自定义站点 icon 图标。</li>
 </ul>
 </li>
 <li>通过修改配置文件，将生成结果放置到 <code>docs</code> 目录下。这样可以通过配置 GitHub 项目的 Pages 获取方式，来实现页面的渲染。
@@ -247,12 +247,12 @@
 <li>项目中可以摆脱复杂的 npm 依赖，也可以减少一个系统级的 npm 包。</li>
 </ul>
 ]]></content:encoded></item><item><title>如此</title><link>https://hiwangzi.com/posts/2017/10/31/so/</link><pubDate>Tue, 31 Oct 2017 21:55:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2017/10/31/so/</guid><description>抑制偏见，拥抱世界。
-&amp;mdash; Zi WANG (@zill057) October 29, 2017 有了记录之后，仍然会觉得，时间眨眼飞逝。
+&amp;mdash; Zi WANG (@hiwangzi) October 29, 2017 有了记录之后，仍然会觉得，时间眨眼飞逝。
 去年的今天，写下了 我的十月 这篇博文，再读来，真的觉得当时的自己的生活还算称得上有趣啦。也许就如花花所说，我一直在粉饰自己过去的时光，所以才总是会觉得现在的自己真是大不如从前。
 人虽然总是在变化，可变化有时却没那么快。或许未来的自己会觉得今天的我也并非充足的努力，可此刻的我还是愿意鼓励自我的现状。或许没有去年的十月那么多值得记录的事情，但我知道，自己在踏实的前进。
 没有什么更多的事说了，如此&amp;hellip;</description><content:encoded><![CDATA[
 
-<blockquote class="twitter-tweet"><p lang="zh" dir="ltr">抑制偏见，拥抱世界。</p>&mdash; Zi WANG (@zill057) <a href="https://twitter.com/zill057/status/924451304507768834?ref_src=twsrc%5Etfw">October 29, 2017</a></blockquote> <script async src="https://hiwangzi.com/posts/2017/10/31/so/https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="zh" dir="ltr">抑制偏见，拥抱世界。</p>&mdash; Zi WANG (@hiwangzi) <a href="https://twitter.com/hiwangzi/status/924451304507768834?ref_src=twsrc%5Etfw">October 29, 2017</a></blockquote> <script async src="https://hiwangzi.com/posts/2017/10/31/so/https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <p>有了记录之后，仍然会觉得，时间眨眼飞逝。</p>
 <p>去年的今天，写下了 <a href="/posts/2016/10/31/october-2016/">我的十月</a> 这篇博文，再读来，真的觉得当时的自己的生活还算称得上有趣啦。也许就如花花所说，我一直在粉饰自己过去的时光，所以才总是会觉得现在的自己真是大不如从前。</p>
