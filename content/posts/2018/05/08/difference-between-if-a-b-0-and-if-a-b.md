@@ -17,14 +17,14 @@ tags: ["Java"]
 
 在阅读 Java 的 `ArrayList` 源代码时，我注意到在 `if` 语句中的一些比较语句。
 
-在 Java 7 之中，[`grow(int)`](http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/7-b147/java/util/ArrayList.java#ArrayList.grow%28int%29) 方法使用了如下代码：
+在 Java 7 之中，[`grow(int)`](https://github.com/openjdk/jdk7/blob/7772c7a0446e7036773890e72e771a3e222cb4c7/jdk/src/share/classes/java/util/ArrayList.java#L204) 方法使用了如下代码：
 
 ```java
 if (newCapacity - minCapacity < 0)
     newCapacity = minCapacity;
 ```
 
-在 Java 6 中，没有 `grow` 方法。但方法 [`ensureCapacity(int)`](http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/6-b27/java/util/ArrayList.java#ArrayList.ensureCapacity%28int%29) 却使用如下方式比较数值：
+在 Java 6 中，没有 `grow` 方法。但方法 [`ensureCapacity(int)`](https://github.com/openjdk/jdk6/blob/3e49aa876353eaa215cde71eb21acc9b7f9872a0/jdk/src/share/classes/java/util/ArrayList.java#L180) 却使用如下方式比较数值：
 
 ```java
 if (newCapacity < minCapacity)
@@ -74,7 +74,7 @@ if (newCapacity - MAX_ARRAY_SIZE > 0)
 
 `oldCapacity` 非常接近 `Integer.MAX_VALUE`，因此 `newCapacity`（即`oldCapacity + 0.5 * oldCapacity`）有可能产生溢出，假设溢出后值为 `Integer.MIN_VALUE` (负值)。然后，减去 `minCapacity` 又**下溢**变为正值（译者注：假设参数`minCapacity`为正值）。
 
-因此第一个 `if` 块中的代码将不会被执行。但假设代码条件写作 `if (newCapacity < minCapacity)`，结果将会是 `true`（因为 `newCapacity` 是负值），这将导致 `newCapacity` 被强行指定为 `minCapacity` 而没有考虑 `minCapacity`。
+因此第一个 `if` 块中的代码将不会被执行。但假设代码条件写作 `if (newCapacity < minCapacity)`，结果将会是 `true`（因为 `newCapacity` 是负值），这将导致 `newCapacity` 被强行指定为 `minCapacity` 而没有考虑 `oldCapacity`。
 
 这个溢出问题将会被下一个 `if` 语句所处理。当 `newCapacity` 溢出后，此 `if` 的结果为 `true`：`MAX_ARRAY_SIZE` 为 `Integer.MAX_VALUE - 8`，所以 `Integer.MIN_VALUE - (Integer.MAX_VALUE - 8) > 0` 为 `true`。因此 `newCapacity` 可以被正确的处理：`hugeCapacity` 方法将返回 `MAX_ARRAY_SIZE` 或 `Integer.MAX_VALUE`。
 
