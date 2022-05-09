@@ -52,8 +52,8 @@ ILSpy is the open-source .NET assembly browser and decompiler.
 
 # 关于 .NET
 
-![](./resources/1104579-20170325135111252-670076091.png)
+![](./resources/1104579-20170325135111252-670076091.jpg)
 
-![](./resources/1104579-20170325135141455-829966262.png)
+![](./resources/1104579-20170325135141455-829966262.jpg)
 
 未完待续...
