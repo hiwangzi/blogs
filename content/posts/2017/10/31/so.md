@@ -7,7 +7,7 @@ tags: ["Life"]
 ---
 
 {{< rawhtml >}}
-<blockquote class="twitter-tweet"><p lang="zh" dir="ltr">抑制偏见，拥抱世界。</p>&mdash; Zi WANG (@zill057) <a href="https://twitter.com/zill057/status/924451304507768834?ref_src=twsrc%5Etfw">October 29, 2017</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="zh" dir="ltr">抑制偏见，拥抱世界。</p>&mdash; Zi WANG (@hiwangzi) <a href="https://twitter.com/hiwangzi/status/924451304507768834?ref_src=twsrc%5Etfw">October 29, 2017</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 {{< /rawhtml >}}
 
 有了记录之后，仍然会觉得，时间眨眼飞逝。

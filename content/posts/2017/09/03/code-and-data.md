@@ -9,7 +9,7 @@ tags: [""]
 半年之前，第一次接触到这种将函数作为参数传递的做法，当时实在觉得难以理解。
 
 {{< rawhtml >}}
-<blockquote class="twitter-tweet"><p lang="zh" dir="ltr">PHP 的变量真的是啥都能装，不管函数还是类，这个真的是灵活到飘逸🙈。另外，“魔术方法”哈哈哈哈哈哈哈🌞好酷哦... <a href="https://t.co/nxGwbBKAEl">pic.twitter.com/nxGwbBKAEl</a></p>&mdash; Zi WANG (@zill057) <a href="https://twitter.com/zill057/status/846697844496986112?ref_src=twsrc%5Etfw">March 28, 2017</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="zh" dir="ltr">PHP 的变量真的是啥都能装，不管函数还是类，这个真的是灵活到飘逸🙈。另外，“魔术方法”哈哈哈哈哈哈哈🌞好酷哦... <a href="https://t.co/nxGwbBKAEl">pic.twitter.com/nxGwbBKAEl</a></p>&mdash; Zi WANG (@hiwangzi) <a href="https://twitter.com/hiwangzi/status/846697844496986112?ref_src=twsrc%5Etfw">March 28, 2017</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 {{< /rawhtml >}}
 
 直到最近再次接触到 Python，查询了一些资料，才开始对其有了一些初步的认识。
