@@ -30,6 +30,10 @@ params:
   socialIcons:
     - name: github
       url: "https://github.com/hiwangzi"
+    - name: stackoverflow
+      url: "https://stackoverflow.com/users/10739288/zi-wang"
+    - name: strava
+      url: "https://www.strava.com/athletes/hiwangzi"
     - name: goodreads
       url: "https://www.goodreads.com/hiwangzi"
     - name: twitter
