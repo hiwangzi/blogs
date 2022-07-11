@@ -1,4 +1,49 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Java on WANG!</title><link>https://hiwangzi.com/tags/java/</link><description>Recent content in Java on WANG!</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Sun, 08 Jul 2018 11:29:16 +0800</lastBuildDate><atom:link href="https://hiwangzi.com/tags/java/index.xml" rel="self" type="application/rss+xml"/><item><title>java.util.List 的 remove(int) 与 remove(Object)</title><link>https://hiwangzi.com/posts/2018/07/08/java-util-list-remove-int-remove-object/</link><pubDate>Sun, 08 Jul 2018 11:29:16 +0800</pubDate><guid>https://hiwangzi.com/posts/2018/07/08/java-util-list-remove-int-remove-object/</guid><description>最近看到 V2EX 上一个帖子《关于 Java foreach 循环删除多个元素的有趣问题（不是抛异常哦）》，我根据代码预测的执行结果与实际楼主贴出的并不相同。看了评论，才发现自己忽略了一点，觉得有点意思，因此记录一下。</description><content:encoded><![CDATA[<p>最近看到 V2EX 上一个帖子<a href="https://www.v2ex.com/t/465153">《关于 Java foreach 循环删除多个元素的有趣问题（不是抛异常哦）》</a>，我根据代码预测的执行结果与实际楼主贴出的并不相同。看了评论，才发现自己忽略了一点，觉得有点意思，因此记录一下。</p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Java on WANG!</title><link>https://hiwangzi.com/tags/java/</link><description>Recent content in Java on WANG!</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Mon, 11 Jul 2022 12:19:38 +0800</lastBuildDate><atom:link href="https://hiwangzi.com/tags/java/index.xml" rel="self" type="application/rss+xml"/><item><title>How to Read Java Class Version</title><link>https://hiwangzi.com/posts/2022/07/11/how-to-read-java-class-version/</link><pubDate>Mon, 11 Jul 2022 12:19:38 +0800</pubDate><guid>https://hiwangzi.com/posts/2022/07/11/how-to-read-java-class-version/</guid><description>It is easy enough to read the class file signature and get these values without a 3rd party API. All you need to do is read the first 8 bytes.
+ClassFile { u4 magic; u2 minor_version; u2 major_version; e.g.: Read a file which is version 61.0 (Java 17)
+hexdump -C Identification.class 00000000 ca fe ba be 00 00 00 3d 00 20 0a 00 02 00 03 07 |.......=. ......| 00000010 00 04 0c 00 05 00 06 01 00 10 6a 61 76 61 2f 6c |.</description><content:encoded><![CDATA[<p>It is easy enough to read the <a href="http://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html#jvms-4.1">class file signature</a> and get these values without a 3rd party API. All you need to do is read the first 8 bytes.</p>
+<pre><code>ClassFile {
+    u4 magic;
+    u2 minor_version;
+    u2 major_version;
+</code></pre><p>e.g.: Read a file which is version 61.0 (Java 17)</p>
+<pre><code>hexdump -C Identification.class 
+00000000  ca fe ba be 00 00 00 3d  00 20 0a 00 02 00 03 07  |.......=. ......|
+00000010  00 04 0c 00 05 00 06 01  00 10 6a 61 76 61 2f 6c  |..........java/l|
+00000020  61 6e 67 2f 4f 62 6a 65  63 74 01 00 06 3c 69 6e  |ang/Object...&lt;in|
+00000030  69 74 3e 01 00 03 28 29  56 09 00 08 00 09 07 00  |it&gt;...()V.......|
+...
+</code></pre><p>the opening bytes are:</p>
+<pre><code>ca fe ba be 00 00 00 3d
+</code></pre><p>&hellip;where <code>ca fe ba be</code> are the magic bytes, <code>00 00</code> is the minor version and <code>00 3d</code> is the major version.</p>
+<h2 id="major-version-number-of-the-class-file-format-being-used">major version number of the class file format being used</h2>
+<ul>
+<li>Java SE 18 = 62 (0x3E hex)</li>
+<li>Java SE 17 = 61 (0x3D hex)</li>
+<li>Java SE 16 = 60 (0x3C hex)</li>
+<li>Java SE 15 = 59 (0x3B hex)</li>
+<li>Java SE 14 = 58 (0x3A hex)</li>
+<li>Java SE 13 = 57 (0x39 hex)</li>
+<li>Java SE 12 = 56 (0x38 hex)</li>
+<li>Java SE 11 = 55 (0x37 hex)</li>
+<li>Java SE 10 = 54 (0x36 hex)</li>
+<li>Java SE 9 = 53 (0x35 hex)</li>
+<li>Java SE 8 = 52 (0x34 hex)</li>
+<li>Java SE 7 = 51 (0x33 hex)</li>
+<li>Java SE 6.0 = 50 (0x32 hex)</li>
+<li>Java SE 5.0 = 49 (0x31 hex)</li>
+<li>JDK 1.4 = 48 (0x30 hex)</li>
+<li>JDK 1.3 = 47 (0x2F hex)</li>
+<li>JDK 1.2 = 46 (0x2E hex)</li>
+<li>JDK 1.1 = 45 (0x2D hex)</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://stackoverflow.com/a/27123">https://stackoverflow.com/a/27123</a></li>
+<li><a href="https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html#jvms-4.1">https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html#jvms-4.1</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Java_class_file#General_layout">https://en.wikipedia.org/wiki/Java_class_file#General_layout</a></li>
+<li><a href="https://unix.stackexchange.com/questions/10826/shell-how-to-read-the-bytes-of-a-binary-file-and-print-as-hexadecimal">https://unix.stackexchange.com/questions/10826/shell-how-to-read-the-bytes-of-a-binary-file-and-print-as-hexadecimal</a></li>
+</ul>
+]]></content:encoded></item><item><title>java.util.List 的 remove(int) 与 remove(Object)</title><link>https://hiwangzi.com/posts/2018/07/08/java-util-list-remove-int-remove-object/</link><pubDate>Sun, 08 Jul 2018 11:29:16 +0800</pubDate><guid>https://hiwangzi.com/posts/2018/07/08/java-util-list-remove-int-remove-object/</guid><description>最近看到 V2EX 上一个帖子《关于 Java foreach 循环删除多个元素的有趣问题（不是抛异常哦）》，我根据代码预测的执行结果与实际楼主贴出的并不相同。看了评论，才发现自己忽略了一点，觉得有点意思，因此记录一下。</description><content:encoded><![CDATA[<p>最近看到 V2EX 上一个帖子<a href="https://www.v2ex.com/t/465153">《关于 Java foreach 循环删除多个元素的有趣问题（不是抛异常哦）》</a>，我根据代码预测的执行结果与实际楼主贴出的并不相同。看了评论，才发现自己忽略了一点，觉得有点意思，因此记录一下。</p>
 <p>帖子正文中贴出的代码为：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.util.ArrayList<span style="color:#f92672">;</span>
 <span style="color:#f92672">import</span> java.util.List<span style="color:#f92672">;</span>
