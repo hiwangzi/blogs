@@ -3,7 +3,7 @@ title: "Unicode 笔记"
 date: 2018-03-11T10:23:00+08:00
 draft: false
 summary: "自己关于 Unicode 的笔记整理，主要总结自「肖国栋的i自留地」系列博客"
-tags: ["笔记"]
+tags: ["Notes"]
 ---
 
 ## 「字符集」与「字符集编码」
