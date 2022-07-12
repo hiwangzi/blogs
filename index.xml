@@ -245,6 +245,63 @@ hexdump -C Identification.class 00000000 ca fe ba be 00 00 00 3d 00 20 0a 00 02 
 <li><input disabled="" type="checkbox"> 跑量达到365✖️2 = 730KM</li>
 </ul>
 <p>不管如何，最重要的是认真生活。愿我的朋友们、家人们，愿每个人，都有自己喜欢的生活！</p>
+]]></content:encoded></item><item><title>碳水化合物</title><link>https://hiwangzi.com/posts/2021/05/24/carbohydrate/</link><pubDate>Mon, 24 May 2021 00:00:00 +0800</pubDate><guid>https://hiwangzi.com/posts/2021/05/24/carbohydrate/</guid><description>最早发现糖中的碳、氢、氧比例都如下，所以把糖也称为碳水化合物（后来发现一些糖也并非这个比例）
+$$ \ce{ Cn(H2O)m } $$
+单糖 $$ \ce { C6(H2O)6 } $$
+可以被人体直接吸收 常见：葡萄糖、果糖、半乳糖 葡萄糖 + 氧气 → 水 + 二氧化碳 + 能量 葡萄糖 → 乳酸 + 能量 （酸奶） 葡萄糖 → 酒精 + 能量 （酿酒） 二糖 $$ \ce { C12(H2O)11 } $$
+常见：麦芽糖、蔗糖（最常见）、乳糖 （脱去1分子水）葡萄糖 + 葡萄糖 = 麦芽糖 + 水 （脱去1分子水）葡萄糖 + 果糖 = 蔗糖 + 水 （脱去1分子水）葡萄糖 + 半乳糖 = 乳糖 + 水 二糖可以水解，然后被人体吸收 代糖 不一定是糖，只要一点点就很甜 多糖 碳原子超过100个 常见： 水解：淀粉（大米、白面）→ 半糖 糖原 ←(合成/分解)→ 单糖 -(合成)→ 脂肪 纤维素：木头、棉花、蔬菜、粗粮 几丁质：甲壳动物的壳 参考 “元气森林”真的没有糖吗？人类为什么喜欢吃糖？ - YouTube</description><content:encoded><![CDATA[<p>最早发现糖中的碳、氢、氧比例都如下，所以把糖也称为碳水化合物（后来发现一些糖也并非这个比例）</p>
+<p>$$
+\ce{ Cn(H2O)m }
+$$</p>
+<h2 id="单糖">单糖</h2>
+<p>$$
+\ce { C6(H2O)6 }
+$$</p>
+<ul>
+<li>可以被人体直接吸收</li>
+<li>常见：葡萄糖、果糖、半乳糖</li>
+<li>葡萄糖 + 氧气 → 水 + 二氧化碳 + 能量</li>
+<li>葡萄糖 → 乳酸 + 能量 （酸奶）</li>
+<li>葡萄糖 → 酒精 + 能量 （酿酒）</li>
+</ul>
+<h2 id="二糖">二糖</h2>
+<p>$$
+\ce { C12(H2O)11 }
+$$</p>
+<ul>
+<li>常见：麦芽糖、蔗糖（最常见）、乳糖
+<ul>
+<li>（脱去1分子水）葡萄糖 + 葡萄糖 = 麦芽糖 + 水</li>
+<li>（脱去1分子水）葡萄糖 + 果糖 = 蔗糖 + 水</li>
+<li>（脱去1分子水）葡萄糖 + 半乳糖 = 乳糖 + 水</li>
+</ul>
+</li>
+<li>二糖可以水解，然后被人体吸收</li>
+</ul>
+<h2 id="代糖">代糖</h2>
+<ul>
+<li>不一定是糖，只要一点点就很甜</li>
+</ul>
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2021/05/24/carbohydrate/resources/sugar-substitute.jpg" alt="代糖"  />
+</p>
+<h2 id="多糖">多糖</h2>
+<ul>
+<li>碳原子超过100个</li>
+<li>常见：
+<ul>
+<li>水解：淀粉（大米、白面）→ 半糖</li>
+<li>糖原     ←(合成/分解)→    单糖     -(合成)→    脂肪</li>
+<li>纤维素：木头、棉花、蔬菜、粗粮</li>
+<li>几丁质：甲壳动物的壳</li>
+</ul>
+</li>
+</ul>
+<p><img loading="lazy" src="https://hiwangzi.com/posts/2021/05/24/carbohydrate/resources/polysaccharide.jpg" alt="多糖"  />
+</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=sNQ8uAAIHnc">“元气森林”真的没有糖吗？人类为什么喜欢吃糖？ - YouTube</a></li>
+</ul>
 ]]></content:encoded></item><item><title>截图 | 识别二维码</title><link>https://hiwangzi.com/posts/2020/05/21/mac-scan-qr-code-from-pasteboard-after-screen-capture/</link><pubDate>Thu, 21 May 2020 12:05:27 +0800</pubDate><guid>https://hiwangzi.com/posts/2020/05/21/mac-scan-qr-code-from-pasteboard-after-screen-capture/</guid><description>macOS中截图后识别二维码</description><content:encoded><![CDATA[<h3 id="目的">目的</h3>
 <ul>
 <li>不想掏出手机扫描二维码</li>
